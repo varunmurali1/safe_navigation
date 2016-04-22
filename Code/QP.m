@@ -5,14 +5,14 @@ clc;
 
 %% Generate starting points
 x=zeros(1,3);
-x_coord=7;
+x_coord=-7;
 y_coord=12;
 heading=0.7;
 
 %% Initialize the values
 x(1)=sqrt(x_coord^2+y_coord^2);
 x(2)=atan2(y_coord,x_coord);
-x(3)=heading - x(2);
+x(3)=heading;
 
 %% Plot the start and the end state
 figure
@@ -47,11 +47,6 @@ cvx_begin quiet
         variable u(4);
         minimize( u.' * u );
         subject to
-            x(2) <= 3.14159;
-            x(2) >=-3.14159;
-            x(3) <= 3.14159;
-            x(3) >=-3.14159;
-
             % Lyapunov function used:
             % V    = 0.5 * (r^2 + theta^2)
             % Derivative of V
@@ -74,8 +69,8 @@ cvx_begin quiet
             
             h    = x(1);
             hdot = (1/h) * -1 * u(1) * cos(x(3)) *x(1); 
-            B    = 1 / (x(1) - 0.9);
-            Bdot = - hdot / (h - 0.9)^2;
+            B    = 1 / (x(1) - 1.0);
+            Bdot = - hdot / (h - 1.0)^2;
             
             Bdot <= 1/B;
 cvx_end
