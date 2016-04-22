@@ -73,7 +73,7 @@ cvx_begin quiet
             % Bdot   = - zdot / (z - 0.5)^2
             
             h    = x(1);
-            hdot = (1/h) * u(1) * cos(x(3)) * x(1); 
+            hdot = (1/h) * -1 * u(1) * cos(x(3)) *x(1); 
             B    = 1 / (x(1) - 0.9);
             Bdot = - hdot / (h - 0.9)^2;
             
