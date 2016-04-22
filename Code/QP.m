@@ -15,8 +15,14 @@ x(2)=atan2(y_coord,x_coord);
 x(3)=heading;
 
 %% Plot the start and the end state
+r=0.5;
+ang=0:0.01:2*pi; 
+xp=r*cos(ang);
+yp=r*sin(ang);
 figure
-plot(x_coord,y_coord,'*r', 0,0,'*b')
+plot(x_coord+xp,y_coord+yp,'r',[x_coord x_coord+r*cos(x(2))],[y_coord y_coord+r*sin(x(2))],'r','Linewidth',1.5)
+hold on
+plot(xp,yp,'b',[0 r],[0 0],'b','Linewidth',1.5)
 axis([-10 14 -10 14])
 hold on
 
