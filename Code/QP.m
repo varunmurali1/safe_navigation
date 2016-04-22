@@ -63,7 +63,21 @@ cvx_begin quiet
                 -0.5 * 2.0 * (x(1)^2 + x(2)^2) + u(3);
             z = x(3) - atan(-x(2));
             ((1 + 1/ (1 + x(2)^2) ) * u(1) / x(1) * sin(z + atan(-x(2))) + u(2)) == ...
-                -0.5 * u(1)/ x(1) * z + u(4);        
+                -0.5 * u(1)/ x(1) * z + u(4);
+            
+            % Barrier function candidate:
+            % Measurement z = sqrt(r^2 + ro^2 - 2 * r * ro * cos(t - to) )
+            % zdot = (1/z) * rdot * (r - cos(t-to)*ro) + (1/z) * tdot * (r * ro * sin(t - to))
+            % Barrier
+            % B(x,z) = 1 / (z - 0.5)
+            % Bdot   = - zdot / (z - 0.5)^2
+            
+            h    = x(1);
+            hdot = (1/h) * u(1) * cos(x(3)) * x(1); 
+            B    = 1 / (x(1) - 0.9);
+            Bdot = - hdot / (h - 0.9)^2;
+            
+            Bdot <= 1/B;
 cvx_end
 toc();
 
@@ -72,17 +86,18 @@ toc();
 % u(2)=-u(1)/x(1)*(k2*(x(3)-atan(-k1*x(2)))+1+k1/(1+(k1*x(2))^2)*sin(x(3)));
 
 
-% Smoothen the control
+%% Smoothen the control
 if size(U1,1) > 1
     u(1) = 0.85 * U1(end) + 0.15 * u(1);
     u(2) = 0.85 * U2(end) + 0.15 * u(2);
 end
 
+%% Propogate with dynamics
 x(1) = x(1) - dT * u(1) * cos(x(3));
 x(2) = x(2) + dT * u(1)/x(1) * sin(x(3));
 x(3) = x(3) + dT * u(1)/x(1) * sin(x(3)) + u(2);
 
-% Watch it for the plots
+%% Store the variables
 R=[R;x(1)];
 Theta=[Theta;x(2)];
 delta=[delta;x(3)];
@@ -94,6 +109,7 @@ Slk = [Slk;u(3)];
 Slk2= [Slk2;u(4)];
 end
 
+%% Generate plots
 hold on;
 figure(1); plot(X,Y); title('Trajectory')
 figure(2); plot(R); title('Distance to go')
