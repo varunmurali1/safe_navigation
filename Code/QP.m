@@ -26,8 +26,16 @@ x(2)=atan2(starty,startx) -phi + pi;
 x(3)=phi;
 
 %% Plot the start and the end state
-figure
-plot(startx,starty,'*r', 0,0,'*b')
+r=0.5;
+ang=0:0.01:2*pi; 
+xp=r*cos(ang);
+yp=r*sin(ang);
+figure(1);
+
+plot(startx+xp,starty+yp,'r',[startx startx+r*cos(x(2))],[starty starty+r*sin(x(2))],'r','Linewidth',1.5)
+hold on
+plot(xp,yp,'b',[0 r],[0 0],'b','Linewidth',1.5)
+
 axis([-10 14 -10 14])
 hold on
 
