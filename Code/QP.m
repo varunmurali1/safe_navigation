@@ -22,7 +22,7 @@ ny   = starty;
 nt   = phi;
 
 x(1)=sqrt(startx^2+starty^2);
-x(2)=atan2(starty,startx) -phi + pi;
+x(2)=atan2(starty,startx);
 x(3)=phi;
 
 %% Plot the start and the end state
@@ -32,7 +32,7 @@ xp=r*cos(ang);
 yp=r*sin(ang);
 figure(1);
 
-plot(startx+xp,starty+yp,'r',[startx startx+r*cos(x(2))],[starty starty+r*sin(x(2))],'r','Linewidth',1.5)
+plot(startx+xp,starty+yp,'r',[startx startx+r*cos(phi)],[starty starty+r*sin(phi)],'r','Linewidth',1.5)
 hold on
 plot(xp,yp,'b',[0 r],[0 0],'b','Linewidth',1.5)
 
@@ -40,21 +40,21 @@ axis([-10 14 -10 14])
 hold on
 
 %% Initialize the values and storage variables
-dT = 0.01;
-R=[];
-X=[startx];
-Y=[starty];
-Theta=[];
-k1=1;
-k2=1;
-Q = diag([1, 0.1]);
-delta = [];
-U1 = [];
-U2 = [];
-Slk= [];
-Slk2= [];
-k1 = 1;
-k2 = 1;
+dT      = 0.01;
+R       = [];
+X       = [startx];
+Y       = [starty];
+Theta   = [];
+k1      = 1;
+k2      = 1;
+Q       = diag([1, 0.1]);
+delta   = [];
+U1      = [];
+U2      = [];
+Slk     = [];
+Slk2    = [];
+k1      = 1;
+k2      = 1;
 
 %% Iterate over to find the optimal control
 for i = 1:300
