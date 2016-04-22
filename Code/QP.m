@@ -5,26 +5,37 @@ clc;
 
 %% Generate starting points
 x=zeros(1,3);
-x_coord=-7;
-y_coord=12;
-heading=0.7;
+startx  =-7;
+starty  =12;
+phi     =0.0;
 
 %% Initialize the values
-x(1)=sqrt(x_coord^2+y_coord^2);
-x(2)=atan2(y_coord,x_coord);
-x(3)=heading;
+% Transform from cartesian to polar co-ordinates
+% r         = sqrt(x^2 + y^2);
+% theta     = atan2(y,x) - phi + pi
+% delta     = gamma + phi
+%x(1) = sqrt(startx^2 + starty^2);
+%x(2) = atan2(starty, startx) - phi + pi;
+%x(3) = x(2) + phi;
+nx   = startx;
+ny   = starty;
+nt   = phi;
+
+x(1)=sqrt(startx^2+starty^2);
+x(2)=atan2(starty,startx) -phi + pi;
+x(3)=phi;
 
 %% Plot the start and the end state
 figure
-plot(x_coord,y_coord,'*r', 0,0,'*b')
+plot(startx,starty,'*r', 0,0,'*b')
 axis([-10 14 -10 14])
 hold on
 
 %% Initialize the values and storage variables
 dT = 0.01;
 R=[];
-X=[x_coord];
-Y=[y_coord];
+X=[startx];
+Y=[starty];
 Theta=[];
 k1=1;
 k2=1;
@@ -42,7 +53,6 @@ for i = 1:300
 x0=x(1)*sin(x(2));
 y0=x(1)*cos(x(2));
 
-tic();
 cvx_begin quiet
         variable u(4);
         minimize( u.' * u );
@@ -69,12 +79,11 @@ cvx_begin quiet
             
             h    = x(1);
             hdot = (1/h) * -1 * u(1) * cos(x(3)) *x(1); 
-            B    = 1 / (x(1) - 1.0);
-            Bdot = - hdot / (h - 1.0)^2;
+            B    = 1 / (x(1) - 2.0);
+            Bdot = - hdot / (h - 2.0)^2;
             
             Bdot <= 1/B;
 cvx_end
-toc();
 
 % Fixed control works
 % u(1)=x(1);
@@ -91,6 +100,10 @@ end
 x(1) = x(1) - dT * u(1) * cos(x(3));
 x(2) = x(2) + dT * u(1)/x(1) * sin(x(3));
 x(3) = x(3) + dT * u(1)/x(1) * sin(x(3)) + u(2);
+
+nx   = nx + dT * u(1) * cos(nt);
+ny   = ny + dT * u(1) * sin(nt);
+nt   = nt + dT * u(2);
 
 %% Store the variables
 R=[R;x(1)];
