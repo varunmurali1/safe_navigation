@@ -1,23 +1,10 @@
+%% Clean up
 clc
 clear all
 
-image = imread('/Users/niharikaarora/Downloads/Maps/simulations_floorplan_maze01.pgm');
-% a = size(image);
-% imageBW = image;
-% for i = 1:a(1)
-%     for j = 1:a(2)
-%         if image(i,j) >100
-%             imageBW(i,j) = 1;
-%         end
-%     end
-% end
-%imshow(image)
-%imshow(imageBW);
-%imageBW = abs(imageBW - 1);
-%imshow(imageBW);
+%% Load the map
+image = imread('../Maps/simulations_floorplan_maze01.pgm');
 imageBW = image < 100;
-
-
 map = robotics.BinaryOccupancyGrid(imageBW,2)
 
 % Display the map
@@ -29,6 +16,7 @@ inflate(mapInflated,robotRadius);
 % Display inflated map
 show(mapInflated)
 
+%% Generate probabilistic roadmap to find waypoints
 % Construct PRM and set parameters
 prm = robotics.PRM
 
@@ -54,7 +42,5 @@ while isempty(path)
     path = findpath(prm, startLocation, endLocation);
 end
 % Display path
-path
-
 show(prm)
 
