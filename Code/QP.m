@@ -6,15 +6,15 @@ warning off;
 
 %% Generate starting points
 x=zeros(1,3);
-startX  = 3.0;
-startY  = -6.0;
-phi     = 0.0;
+startX  = -8.0;
+startY  = 9.0;
+phi     = -1.8;
 goalX   = -3;
 goalY   = -1;
 
 % Make this egocentric
-startX  = startX - goalX;
-startY  = startY - goalY;
+startX  = startX;% - goalX;
+startY  = startY;% - goalY;
 
 %% Initialize the values
 % Transform from cartesian to polar co-ordinates
@@ -27,8 +27,8 @@ ny   = startY;
 nt   = phi;
 
 x(1)=sqrt(startX^2+startY^2);
-x(2)=atan2(startY,startX) - phi;
-x(3)=phi + x(2);
+x(3)=wrapToPi(pi-atan2(startY,startX) - phi);
+x(2)=wrapToPi(phi+ x(3));
 
 %% Plot the start and the end state
 r=0.5;
@@ -59,12 +59,10 @@ U2      = [];
 Slk     = [];
 Slk2    = [];
 k1      = 1;
-k2      = 0.3;
+k2      = 1;
 
 %% Iterate over to find the optimal control
-for i = 1:500
-x0=x(1)*sin(x(2));
-y0=x(1)*cos(x(2));
+for i = 1:50
 
 cvx_begin quiet
         variable u(4);
@@ -81,7 +79,7 @@ cvx_begin quiet
                 -0.5 * 2.0 * ((x(1))^2 + (x(2))^2) + u(3);
             z = x(3) - atan(-x(2));
             ((1 + 1/ (1 + x(2)^2) ) * u(1) / x(1) * sin(z + atan(-x(2))) + u(2)) == ...
-                -0.5 * u(1)/ x(1) * z + u(4);
+                -0.5 * u(1)/ x(1) * z  + u(4);
             
             % Barrier function candidate:
             % Measurement z = sqrt(r^2 + ro^2 - 2 * r * ro * cos(t - to) )
@@ -90,17 +88,17 @@ cvx_begin quiet
             % B(x,z) = 1 / (z - 0.5)
             % Bdot   = - zdot / (z - 0.5)^2
             
-            h    = x(1);
-            hdot = (1/h) * -1 * u(1) * cos(x(3)) *x(1); 
-            B    = 1 / (x(1) - 2.0);
-            Bdot = - hdot / (h - 2.0)^2;
-            
-            Bdot <= 1/B;
+%             h    = x(1);
+%             hdot = (1/h) * -1 * u(1) * cos(x(3)) *x(1); 
+%             B    = 1 / (x(1) - 2.0);
+%             Bdot = - hdot / (h - 2.0)^2;
+%             
+%             Bdot <= 1/B;
 cvx_end
 
 % Fixed control works
-% u(1)=x(1);
-% u(2)=-u(1)/x(1)*(k2*(x(3)-atan(-k1*x(2)))+1+k1/(1+(k1*x(2))^2)*sin(x(3)));
+% u(1)= x(1);
+% u(2)= -u(1)/x(1) *( ( k2*(x(3)-atan(-k1*x(2))) )  +  ( 1 + k1 / (1+( k1 * x(2) )^2) *sin(x(3)) ) );
 
 
 %% Smoothen the control
@@ -110,9 +108,11 @@ if size(U1,1) > 1
 end
 
 %% Propogate with dynamics
-x(1) = x(1) - dT * u(1) * cos(x(3) + 0.5 * dT * u(1)/x(1) * sin(x(3)) + u(2));
-x(2) = x(2) + dT * u(1)/x(1) * sin(x(3) + 0.5 * dT * u(1)/x(1) * sin(x(3)) + u(2));
+x(1) = x(1) - dT * u(1) * cos(x(3));
+x(2) = x(2) + dT * u(1)/x(1) * sin(x(3));
 x(3) = x(3) + dT * u(1)/x(1) * sin(x(3)) + u(2);
+x(3) = wrapToPi(x(3));
+x(2) = wrapToPi(x(2));
 
 nx   = nx + dT * u(1) * cos(nt + u(2)*dT/2);
 ny   = ny + dT * u(1) * sin(nt + u(2)*dT/2);
@@ -122,7 +122,7 @@ nt   = nt + dT * u(2);
 R=[R;x(1)];
 Theta=[Theta;x(2)];
 delta=[delta;x(3)];
-X=[X; x(1)*cos(x(2))];
+X=[X; -x(1)*cos(x(2))];
 Y=[Y; x(1)*sin(x(2))];
 U1=[U1;u(1)];
 U2=[U2;u(2)];
