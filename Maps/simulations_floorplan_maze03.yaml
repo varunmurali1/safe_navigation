@@ -1,0 +1,6 @@
+image: simulations_floorplan_maze02.pgm
+resolution: 0.060000
+origin: [-16.540000, -35.00000, -45.000000]
+negate: 0
+occupied_thresh: 0.95
+free_thresh: 0.196
