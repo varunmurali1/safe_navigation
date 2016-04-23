@@ -2,28 +2,33 @@
 close all
 clear;
 clc;
+warning off;
 
 %% Generate starting points
 x=zeros(1,3);
-startx  =-7;
-starty  =12;
-phi     =0.0;
+startX  = 3.0;
+startY  = -6.0;
+phi     = 0.0;
+goalX   = -3;
+goalY   = -1;
+
+% Make this egocentric
+startX  = startX - goalX;
+startY  = startY - goalY;
 
 %% Initialize the values
 % Transform from cartesian to polar co-ordinates
 % r         = sqrt(x^2 + y^2);
 % theta     = atan2(y,x) - phi + pi
 % delta     = gamma + phi
-%x(1) = sqrt(startx^2 + starty^2);
-%x(2) = atan2(starty, startx) - phi + pi;
-%x(3) = x(2) + phi;
-nx   = startx;
-ny   = starty;
+
+nx   = startX;
+ny   = startY;
 nt   = phi;
 
-x(1)=sqrt(startx^2+starty^2);
-x(2)=atan2(starty,startx);
-x(3)=phi;
+x(1)=sqrt(startX^2+startY^2);
+x(2)=atan2(startY,startX) - phi;
+x(3)=phi + x(2);
 
 %% Plot the start and the end state
 r=0.5;
@@ -32,7 +37,7 @@ xp=r*cos(ang);
 yp=r*sin(ang);
 figure(1);
 
-plot(startx+xp,starty+yp,'r',[startx startx+r*cos(phi)],[starty starty+r*sin(phi)],'r','Linewidth',1.5)
+plot(startX+xp,startY+yp,'r',[startX startX+r*cos(phi)],[startY startY+r*sin(phi)],'r','Linewidth',1.5)
 hold on
 plot(xp,yp,'b',[0 r],[0 0],'b','Linewidth',1.5)
 
@@ -41,9 +46,9 @@ hold on
 
 %% Initialize the values and storage variables
 dT      = 0.01;
-R       = [];
-X       = [startx];
-Y       = [starty];
+R       = [x(1)];
+X       = [startX];
+Y       = [startY];
 Theta   = [];
 k1      = 1;
 k2      = 1;
@@ -54,10 +59,10 @@ U2      = [];
 Slk     = [];
 Slk2    = [];
 k1      = 1;
-k2      = 1;
+k2      = 0.3;
 
 %% Iterate over to find the optimal control
-for i = 1:300
+for i = 1:500
 x0=x(1)*sin(x(2));
 y0=x(1)*cos(x(2));
 
@@ -72,8 +77,8 @@ cvx_begin quiet
             %      = -r*v*cos(arctan(-k1*theta)) + (v/r) * theta *
             %      sin(arctan(-k1 * theta)
 
-            -x(1) * u(1) * cos(atan(-k1*x(2))) + u(1)/x(1) *x(2)* sin(atan(-k1*x(2))) <= ...
-                -0.5 * 2.0 * (x(1)^2 + x(2)^2) + u(3);
+            -(x(1)) * u(1) * cos(atan(-k1*x(2))) + (x(2)) * u(1)/x(1) * sin(atan(-k1*x(2))) <= ...
+                -0.5 * 2.0 * ((x(1))^2 + (x(2))^2) + u(3);
             z = x(3) - atan(-x(2));
             ((1 + 1/ (1 + x(2)^2) ) * u(1) / x(1) * sin(z + atan(-x(2))) + u(2)) == ...
                 -0.5 * u(1)/ x(1) * z + u(4);
@@ -105,32 +110,34 @@ if size(U1,1) > 1
 end
 
 %% Propogate with dynamics
-x(1) = x(1) - dT * u(1) * cos(x(3));
-x(2) = x(2) + dT * u(1)/x(1) * sin(x(3));
+x(1) = x(1) - dT * u(1) * cos(x(3) + 0.5 * dT * u(1)/x(1) * sin(x(3)) + u(2));
+x(2) = x(2) + dT * u(1)/x(1) * sin(x(3) + 0.5 * dT * u(1)/x(1) * sin(x(3)) + u(2));
 x(3) = x(3) + dT * u(1)/x(1) * sin(x(3)) + u(2);
 
-nx   = nx + dT * u(1) * cos(nt);
-ny   = ny + dT * u(1) * sin(nt);
+nx   = nx + dT * u(1) * cos(nt + u(2)*dT/2);
+ny   = ny + dT * u(1) * sin(nt + u(2)*dT/2);
 nt   = nt + dT * u(2);
 
 %% Store the variables
 R=[R;x(1)];
 Theta=[Theta;x(2)];
 delta=[delta;x(3)];
-X=[X;x(1)*cos(x(2))];
-Y=[Y;x(1)*sin(x(2))];
+X=[X; x(1)*cos(x(2))];
+Y=[Y; x(1)*sin(x(2))];
 U1=[U1;u(1)];
 U2=[U2;u(2)];
-Slk = [Slk;u(3)];
-Slk2= [Slk2;u(4)];
+%Slk = [Slk;u(3)];
+%Slk2= [Slk2;u(4)];
 end
 
 %% Generate plots
 hold on;
 figure(1); plot(X,Y); title('Trajectory')
-figure(2); plot(R); title('Distance to go')
-figure(3); plot(Theta); title('Theta')
-figure(4); plot(delta); title('Delta')
+% figure(2); plot(R); title('Distance to go')
+% figure(3); plot(Theta); title('Theta')
+% figure(4); plot(delta); title('Delta')
 figure(5); plot(U1); title('U1')
 figure(6); plot(U2); title('U2')
-figure(7); plot(Slk); title('Slk')
+% figure(7); plot(Slk); title('Slk')
+
+warning on;
