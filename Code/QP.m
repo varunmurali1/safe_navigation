@@ -5,10 +5,15 @@ clc;
 warning off;
 
 %% Generate starting points
+
+xmin = -10;
+xmax = 10;
+for iter = 1:10
+
 x=zeros(1,3);
-startX  = -8.0;
-startY  = 9.0;
-phi     = -1.8;
+startX  = xmin + rand(1) * (xmax-xmin); %8.0;
+startY  = xmin + rand(1) * (xmax-xmin); %-9.0;
+phi     = 0;
 goalX   = -3;
 goalY   = -1;
 
@@ -19,16 +24,16 @@ startY  = startY;% - goalY;
 %% Initialize the values
 % Transform from cartesian to polar co-ordinates
 % r         = sqrt(x^2 + y^2);
-% theta     = atan2(y,x) - phi + pi
-% delta     = gamma + phi
+% theta     = -atan2(y,x) + phi + pi
+% delta     = gamma - phi
 
 nx   = startX;
 ny   = startY;
 nt   = phi;
 
 x(1)=sqrt(startX^2+startY^2);
-x(3)=wrapToPi(pi-atan2(startY,startX) - phi);
-x(2)=wrapToPi(phi+ x(3));
+x(3)=wrapToPi(pi-atan2(startY,startX)) + phi;
+x(2)=wrapToPi(-phi+ x(3));
 
 %% Plot the start and the end state
 r=0.5;
@@ -36,7 +41,7 @@ ang=0:0.01:2*pi;
 xp=r*cos(ang);
 yp=r*sin(ang);
 figure(1);
-
+hold on;
 plot(startX+xp,startY+yp,'r',[startX startX+r*cos(phi)],[startY startY+r*sin(phi)],'r','Linewidth',1.5)
 hold on
 plot(xp,yp,'b',[0 r],[0 0],'b','Linewidth',1.5)
@@ -58,11 +63,14 @@ U1      = [];
 U2      = [];
 Slk     = [];
 Slk2    = [];
+NX      = [nx];
+NY      = [ny];
 k1      = 1;
-k2      = 1;
+k2      = 5;
+
 
 %% Iterate over to find the optimal control
-for i = 1:50
+for i = 1:400
 
 cvx_begin quiet
         variable u(4);
@@ -80,6 +88,9 @@ cvx_begin quiet
             z = x(3) - atan(-x(2));
             ((1 + 1/ (1 + x(2)^2) ) * u(1) / x(1) * sin(z + atan(-x(2))) + u(2)) == ...
                 -0.5 * u(1)/ x(1) * z  + u(4);
+            
+            u(2) <= 0.2;
+            u(2) >= -0.2;
             
             % Barrier function candidate:
             % Measurement z = sqrt(r^2 + ro^2 - 2 * r * ro * cos(t - to) )
@@ -126,18 +137,22 @@ X=[X; -x(1)*cos(x(2))];
 Y=[Y; x(1)*sin(x(2))];
 U1=[U1;u(1)];
 U2=[U2;u(2)];
-%Slk = [Slk;u(3)];
-%Slk2= [Slk2;u(4)];
+Slk = [Slk;u(3)];
+Slk2= [Slk2;u(4)];
+NX  = [NX; nx];
+NY  = [NY; ny];
 end
 
 %% Generate plots
 hold on;
 figure(1); plot(X,Y); title('Trajectory')
+figure(2); plot(NX, NY);
 % figure(2); plot(R); title('Distance to go')
 % figure(3); plot(Theta); title('Theta')
 % figure(4); plot(delta); title('Delta')
 figure(5); plot(U1); title('U1')
 figure(6); plot(U2); title('U2')
 % figure(7); plot(Slk); title('Slk')
+end
 
 warning on;
