@@ -8,11 +8,11 @@ warning off;
 
 xmin = -10;
 xmax = 10;
-for iter = 1:10
+%for iter = 1:10
 
 x=zeros(1,3);
-startX  = xmin + rand(1) * (xmax-xmin); %8.0;
-startY  = xmin + rand(1) * (xmax-xmin); %-9.0;
+startX  = 3.0; %xmin + rand(1) * (xmax-xmin); %8.0;
+startY  = -4.0; %xmin + rand(1) * (xmax-xmin); %-9.0;
 phi     = 0;
 goalX   = -3;
 goalY   = -1;
@@ -55,8 +55,6 @@ R       = [x(1)];
 X       = [startX];
 Y       = [startY];
 Theta   = [];
-k1      = 1;
-k2      = 1;
 Q       = diag([1, 0.1]);
 delta   = [];
 U1      = [];
@@ -66,12 +64,14 @@ Slk2    = [];
 NX      = [nx];
 NY      = [ny];
 k1      = 1;
-k2      = 5;
+k2      = 10;
 
 
 %% Iterate over to find the optimal control
-for i = 1:400
-
+for i = 1:800
+if x(1) < 1e-1
+    break;
+end
 cvx_begin quiet
         variable u(4);
         minimize( u.' * u );
@@ -84,13 +84,16 @@ cvx_begin quiet
             %      sin(arctan(-k1 * theta)
 
             -(x(1)) * u(1) * cos(atan(-k1*x(2))) + (x(2)) * u(1)/x(1) * sin(atan(-k1*x(2))) <= ...
-                -0.5 * 2.0 * ((x(1))^2 + (x(2))^2) + u(3);
-            z = x(3) - atan(-x(2));
-            ((1 + 1/ (1 + x(2)^2) ) * u(1) / x(1) * sin(z + atan(-x(2))) + u(2)) == ...
-                -0.5 * u(1)/ x(1) * z  + u(4);
+                -0.5 * 3.0 * ((x(1))^2 + (x(2))^2) + u(3);
+
             
-            u(2) <= 0.2;
-            u(2) >= -0.2;
+            u(2) <= 0.8;
+            u(2) >= -0.8;
+             
+
+           
+%             ((1 + 1/ (1 + x(2)^2) ) * u(1) / x(1) * sin(z + atan(-x(2))) + u(2)) == ...
+%                 -k2 * u(1)/ x(1) * z  + u(4);
             
             % Barrier function candidate:
             % Measurement z = sqrt(r^2 + ro^2 - 2 * r * ro * cos(t - to) )
@@ -98,6 +101,45 @@ cvx_begin quiet
             % Barrier
             % B(x,z) = 1 / (z - 0.5)
             % Bdot   = - zdot / (z - 0.5)^2
+            
+            % Define the obstacle in egocentric view:
+            % Let obstacle be x = 1, y = -2
+            % hdot = 1/h * ((sin(x(2)) * x(1) - b_y) + cos(x(2)) * (cos(x(2)*x + b_x)) ) 
+            
+            b_x     = -0.5;
+            b_y     = -2.97;
+            obstacle_delta =  wrapToPi( atan2(-(x(1)*sin(x(2)) - b_y), -(-x(1) * cos(x(2)) - b_x)) );
+            h       = sqrt( (-x(1)*cos(x(2)) - b_x) ^2 + (x(1) * sin(x(2)) - b_y) ^2); % + sqrt((x(3) - obstacle_delta)^2);
+             %if (h < 0.5)
+             if (h < 0.8)
+                hdot    = 1/h * (x(1) - b_y * sin(x(2)) + b_x * cos(x(2))) * -u(1) * cos(x(3)) + ...
+                    -1/h * x(1) * (b_x * sin(x(2)) + b_y * cos(x(2)) ) * u(1)/x(1) * sin(x(3)) ;
+                     %+ (x(3) - obstacle_delta) / abs((x(3) - obstacle_delta)) * (u(1)/x(1) * sin(x(3))  + u(2));
+                
+                hdot  <= -2.0 * h; 
+                %B       = 1 / (h - 0.7);
+                %Bdot    = - hdot / (h - 0.7)^2;
+                %Bdot    <= 1.0/B;
+                z        = x(3) - atan( k1 * atan2((x(1)*sin(x(2)) - b_y), (-x(1) * cos(x(2)) - b_x)) );
+                zdot     = u(1)/ x(1) * sin(x(3)) + u(2);                
+                z * zdot <= -0.5 * 0.2 * z^2 + u(4);
+             else
+                 z        = x(3) - atan(-x(2));
+                 zdot     = ((1 + 1/ (1 + x(2)^2) ) * u(1) / x(1) * sin(z + atan(-x(2))) + u(2));
+                 
+                 z * zdot <= -0.5 * k2 * z^2 + u(4);
+             end
+             
+%              h2 = sqrt ( (x(2) - obstacle_delta) ^2 );
+%              if (h2 < 0.3)
+%                  h2dot = (x(2) - obstacle_delta) / abs((x(2) - obstacle_delta)) * (u(1)/x(1) * sin(x(3)));
+%                  h2dot <= -h2;
+%                  disp ('here');
+%              end
+             
+             
+                %display('here');
+            %end
             
 %             h    = x(1);
 %             hdot = (1/h) * -1 * u(1) * cos(x(3)) *x(1); 
@@ -119,11 +161,19 @@ if size(U1,1) > 1
 end
 
 %% Propogate with dynamics
+% if (h < 0.8)
+%     k = -.2 + rand(1) * (0.4);
+%     u(2) = u(2)+ k;
+% end
 x(1) = x(1) - dT * u(1) * cos(x(3));
 x(2) = x(2) + dT * u(1)/x(1) * sin(x(3));
 x(3) = x(3) + dT * u(1)/x(1) * sin(x(3)) + u(2);
 x(3) = wrapToPi(x(3));
 x(2) = wrapToPi(x(2));
+
+
+u
+x
 
 nx   = nx + dT * u(1) * cos(nt + u(2)*dT/2);
 ny   = ny + dT * u(1) * sin(nt + u(2)*dT/2);
@@ -145,14 +195,15 @@ end
 
 %% Generate plots
 hold on;
-figure(1); plot(X,Y); title('Trajectory')
+figure(1); plot(X,Y); title('Trajectory'); plot(b_x,b_y, 'o')
 figure(2); plot(NX, NY);
 % figure(2); plot(R); title('Distance to go')
 % figure(3); plot(Theta); title('Theta')
 % figure(4); plot(delta); title('Delta')
 figure(5); plot(U1); title('U1')
 figure(6); plot(U2); title('U2')
-% figure(7); plot(Slk); title('Slk')
-end
+figure(7); plot(Slk); title('Slk')
+figure(8); plot(Slk2); title('Slk2');
+%end
 
 warning on;
