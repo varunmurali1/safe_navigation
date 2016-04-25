@@ -74,7 +74,7 @@ $$
 =
 \left(
 \begin{matrix}
-- v \text{ cos}(\theta)\\
+v \text{ cos}(\theta)\\
 v \text{ sin}(\theta)\\
 \omega
 \end{matrix}
@@ -172,7 +172,16 @@ By choosing the angular velocity input $w$ to drive the heading $\delta=\text{ a
 for some constant $\gamma >0$, so choosing the correct inputs $u$ will achieve the desired exponential stabilization. According to \cite{amesACC}, by picking a soft constraint relaxation variable $\lambda$, the condition for exponential stabilization shown in \eqref{eq:esclf} is relaxed and can be enforced simultaneously along a single hard constraint. Because control of the robotic system requires either $\dot{z_1}=-k_2\frac{v}{r}z_1$ or $\dot{z_2}=-k_2\frac{v}{r}z_2$ and $\dot{V}<0$, two soft constrained expressions must be satisfied at a time to achieve exponential stabilization of the state to zero.
 
 \subsection{Hard Constraints as Barrier Functions}
+As in \cite{amesACC} \cite{ames2014esclf}, control barrier functions are a logical way of enforcing safety constraints in navigation from a nonlinear control perspective. A zeroing barrier function is used to drive the robot away from obstacles if it gets within an unsafe threshold distance of the obstacle. As presented in \cite{ames2015robust}, barrier function is a zeroing barrier function $h(x)$ if $\dot{h}(x)\leq \gamma h(x).$
 
+For the purpose of avoiding obstacles, the a zeroing barrier function was chosen with the following form:
+\begin{equation}
+h(x)=\sqrt{(-v\text{ cos}(\theta)-b_x)^2+(v\text{ sin}(\theta)-b_y)^3}.
+\end{equation}
+The derivative of $h(x)$ is given by the following expression:
+\begin{equation}
+\dot{h}(x)=\frac{1}{h(x)}\left[
+\end{equation}
 
 %TODO check constraints
 \subsection{QP Based Controller}
