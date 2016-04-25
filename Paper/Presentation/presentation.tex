@@ -6,7 +6,7 @@
 \usepackage{pgfplots}
 \usepgfplotslibrary{dateplot}
 
-\usepackage{xspace}
+\usepackage{xspace, amsfonts}
 \newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
 
 \title{Experimental Evaluation of Control Policies for \\Segway Robot in Dynamic Environments }
@@ -143,21 +143,17 @@ $$ \dot{z_2}=-k_2\frac{v}{r}z_2 $$
 $$\dot{V}=-r v \text{ cos}(\text{arctan}(k_1\beta)) + \theta v \text{ sin}(\text{arctan}(-k_1\beta))$$\pause
 $$\dot{V}\nleq 0$$\begin{center}
 \textit{$\implies$ The second steering control drives the state \alert{away} from zero}\end{center}
-
 \end{frame}
-%V&=\frac{1}{2}(r^2+\theta^2)\\
-%\dot{V}&=r \dot{r}+\theta \dot{\theta}\\
-%&=-r v \text{ cos}(\delta) + \theta v \text{ sin}(\delta)\\ 
-%\end{align*}\\
-%\delta = \text{arctan}(-k_1\theta)
-%\end{gather*}
-%
-%$$\delta = \text{arctan}(-k_1\theta).$$
-%
-%$$\dot{V}=-r v \text{ cos}(\text{arctan}(-k_1\theta)) + \theta v \text{ sin}(\text{arctan}(-k_1\theta))$$
-
 
 \begin{frame}{Hard Constraint as ZBF}
+$$\dot{h}(x)<=\gamma h(x)$$\pause
+\begin{align*}
+C &= {x \in \mathbb{R}^3 | z_b\geq z_{safe}}\\
+\partial C &= {x \in \mathbb{R}^3 | z_b=z_{safe}}\\
+\text{Int}(C) &= {x \in \mathbb{R}^3 | z_b > z_{safe}}
+\end{align*}\pause
+$$h(x)=\sqrt{(-v\text{ cos}(\theta)-b_x)^2+(v\text{ sin}(\theta)-b_y)^2}$$\pause
+$$\dot{h}(x)=$$
 
 \end{frame}
 
@@ -167,11 +163,11 @@ $$\dot{V}\nleq 0$$\begin{center}
 
 \section{Results}
 \begin{frame}{Simulation Results}
-
+needs octo plots!
 \end{frame}
 
 \begin{frame}{Experimental Results}
-
+needs robots!
 \end{frame}
 
 \section{Conclusions}
