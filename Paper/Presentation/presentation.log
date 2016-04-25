@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.8.20)  25 APR 2016 17:52
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.8.20)  25 APR 2016 18:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1119,49 +1119,49 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [2
 
 ]
+LaTeX Font Info:    Try loading font information for OMS+cmss on input line 30.
+
+LaTeX Font Info:    No file OMScmss.fd. on input line 30.
+
+
+LaTeX Font Warning: Font shape `OMS/cmss/m/n' undefined
+(Font)              using `OMS/cmsy/m/n' instead
+(Font)              for symbol `textbullet' on input line 30.
+
 
 LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <4> not available
-(Font)              size <5> substituted on input line 24.
+(Font)              size <5> substituted on input line 30.
 
 [3
 
 ] [4
 
-] <jeeves2_0.jpg, id=56, 2457.18pt x 3276.24pt>
+] [5
+
+] [6
+
+] [7
+
+] [8
+
+] <jeeves2_0.jpg, id=79, 2457.18pt x 3276.24pt>
 File: jeeves2_0.jpg Graphic file (type jpg)
- <use jeeves2_0.jpg>
-Package pdftex.def Info: jeeves2_0.jpg used on input line 34.
+
+<use jeeves2_0.jpg>
+Package pdftex.def Info: jeeves2_0.jpg used on input line 40.
 (pdftex.def)             Requested size: 491.42729pt x 655.2364pt.
+ [9
 
-[5
-
- <./jeeves2_0.jpg>] <obs.pdf, id=63, 343.50348pt x 317.2655pt>
+ <./jeeves2_0.jpg>]
+<obs.pdf, id=86, 343.50348pt x 317.2655pt>
 File: obs.pdf Graphic file (type pdf)
  <use obs.pdf>
-Package pdftex.def Info: obs.pdf used on input line 65.
+Package pdftex.def Info: obs.pdf used on input line 71.
 (pdftex.def)             Requested size: 154.57512pt x 142.76814pt.
+ [10
 
-[6
-
- <./obs.pdf>] [7
-
-]
-LaTeX Font Info:    Try loading font information for OMS+cmss on input line 87.
-
-LaTeX Font Info:    No file OMScmss.fd. on input line 87.
-
-
-LaTeX Font Warning: Font shape `OMS/cmss/m/n' undefined
-(Font)              using `OMS/cmsy/m/n' instead
-(Font)              for symbol `textbullet' on input line 87.
-
-[8
-
-] [9
-
-] [10
-
-] [11
+ <./obs.pdf>]
+[11
 
 ] [12
 
@@ -1183,48 +1183,48 @@ LaTeX Font Warning: Font shape `OMS/cmss/m/n' undefined
 
 ] [21
 
+] [22
+
+] [23
+
+] [24
+
+] [25
+
 ]
 
 LaTeX Font Warning: Font shape `OT1/cmss/bx/it' undefined
-(Font)              using `OT1/cmss/bx/n' instead on input line 141.
+(Font)              using `OT1/cmss/bx/n' instead on input line 147.
 
 
-Overfull \vbox (21.18343pt too high) detected at line 141
- []
-
-[22
-
-]
-Overfull \vbox (21.18343pt too high) detected at line 141
- []
-
-[23
-
-]
-Overfull \vbox (21.18343pt too high) detected at line 141
- []
-
-[24
-
-]
-Overfull \vbox (21.18343pt too high) detected at line 141
- []
-
-[25
-
-]
-Overfull \vbox (21.18343pt too high) detected at line 141
+Overfull \vbox (21.18343pt too high) detected at line 147
  []
 
 [26
 
-] [27
+]
+Overfull \vbox (21.18343pt too high) detected at line 147
+ []
 
-] [28
+[27
 
-] [29
+]
+Overfull \vbox (21.18343pt too high) detected at line 147
+ []
 
-] [30
+[28
+
+]
+Overfull \vbox (21.18343pt too high) detected at line 147
+ []
+
+[29
+
+]
+Overfull \vbox (21.18343pt too high) detected at line 147
+ []
+
+[30
 
 ] [31
 
@@ -1233,6 +1233,14 @@ Overfull \vbox (21.18343pt too high) detected at line 141
 ] [33
 
 ] [34
+
+] [35
+
+] [36
+
+] [37
+
+] [38
 
 ]
 \tf@nav=\write6
@@ -1244,11 +1252,11 @@ Overfull \vbox (21.18343pt too high) detected at line 141
 \tf@snm=\write8
 \openout8 = `presentation.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 185.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 185.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 191.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 191.
  (./presentation.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 185.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 185.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 191.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 191.
 Package rerunfilecheck Info: File `presentation.out' has not changed.
 (rerunfilecheck)             Checksum: 4624BC9DA185F6744A0D44E0E6785C84;229.
 
@@ -1259,11 +1267,11 @@ LaTeX Font Warning: Size substitutions with differences
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 185.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 191.
  ) 
 Here is how much of TeX's memory you used:
- 26106 strings out of 494985
- 591506 string characters out of 6180356
+ 26114 strings out of 494985
+ 591581 string characters out of 6180356
  771271 words of memory out of 5000000
  28648 multiletter control sequences out of 15000+600000
  9398 words of font info for 35 fonts, out of 8000000 for 9000
@@ -1279,10 +1287,10 @@ ts/type1/public/amsfonts/cm/cmssi10.pfb></usr/share/texlive/texmf-dist/fonts/ty
 pe1/public/amsfonts/cm/cmssi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
 blic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
 msfonts/symbols/msbm10.pfb>
-Output written on presentation.pdf (34 pages, 2745574 bytes).
+Output written on presentation.pdf (38 pages, 2750626 bytes).
 PDF statistics:
- 289 PDF objects out of 1000 (max. 8388607)
- 228 compressed objects within 3 object streams
- 70 named destinations out of 1000 (max. 500000)
+ 314 PDF objects out of 1000 (max. 8388607)
+ 249 compressed objects within 3 object streams
+ 78 named destinations out of 1000 (max. 500000)
  93 words of extra memory for PDF output out of 10000 (max. 10000000)
 
