@@ -64,7 +64,7 @@ Slk2    = [];
 NX      = [nx];
 NY      = [ny];
 k1      = 1;
-k2      = 10;
+k2      = 0.7;
 
 
 %% Iterate over to find the optimal control
@@ -73,8 +73,8 @@ if x(1) < 1e-1
     break;
 end
 cvx_begin quiet
-        variable u(4);
-        minimize( u.' * u );
+        variable u(6);
+        minimize( u(1:4).' * u(1:4) + 50 * u(6) + 1 * u(5));
         subject to
             % Lyapunov function used:
             % V    = 0.5 * (r^2 + theta^2)
@@ -84,69 +84,37 @@ cvx_begin quiet
             %      sin(arctan(-k1 * theta)
 
             -(x(1)) * u(1) * cos(atan(-k1*x(2))) + (x(2)) * u(1)/x(1) * sin(atan(-k1*x(2))) <= ...
-                -0.5 * 3.0 * ((x(1))^2 + (x(2))^2) + u(3);
+                0.5 * u(6) * ((x(1))^2 + (x(2))^2) + u(3);
+            u(6) <= 0.0;
 
-            
-            u(2) <= 0.8;
-            u(2) >= -0.8;
-             
-
-           
-%             ((1 + 1/ (1 + x(2)^2) ) * u(1) / x(1) * sin(z + atan(-x(2))) + u(2)) == ...
-%                 -k2 * u(1)/ x(1) * z  + u(4);
-            
-            % Barrier function candidate:
-            % Measurement z = sqrt(r^2 + ro^2 - 2 * r * ro * cos(t - to) )
-            % zdot = (1/z) * rdot * (r - cos(t-to)*ro) + (1/z) * tdot * (r * ro * sin(t - to))
-            % Barrier
-            % B(x,z) = 1 / (z - 0.5)
-            % Bdot   = - zdot / (z - 0.5)^2
-            
             % Define the obstacle in egocentric view:
-            % Let obstacle be x = 1, y = -2
             % hdot = 1/h * ((sin(x(2)) * x(1) - b_y) + cos(x(2)) * (cos(x(2)*x + b_x)) ) 
             
-            b_x     = -0.5;
-            b_y     = -2.97;
-            obstacle_delta =  wrapToPi( atan2(-(x(1)*sin(x(2)) - b_y), -(-x(1) * cos(x(2)) - b_x)) );
-            h       = sqrt( (-x(1)*cos(x(2)) - b_x) ^2 + (x(1) * sin(x(2)) - b_y) ^2); % + sqrt((x(3) - obstacle_delta)^2);
-             %if (h < 0.5)
-             if (h < 0.8)
+            b_x     = -1.42;
+            b_y     = -2.16;
+            h       = sqrt( (-x(1)*cos(x(2)) - b_x) ^2 + (x(1) * sin(x(2)) - b_y) ^2);
+            if (h < 0.8)
                 hdot    = 1/h * (x(1) - b_y * sin(x(2)) + b_x * cos(x(2))) * -u(1) * cos(x(3)) + ...
                     -1/h * x(1) * (b_x * sin(x(2)) + b_y * cos(x(2)) ) * u(1)/x(1) * sin(x(3)) ;
-                     %+ (x(3) - obstacle_delta) / abs((x(3) - obstacle_delta)) * (u(1)/x(1) * sin(x(3))  + u(2));
                 
-                hdot  <= -2.0 * h; 
-                %B       = 1 / (h - 0.7);
-                %Bdot    = - hdot / (h - 0.7)^2;
-                %Bdot    <= 1.0/B;
-                z        = x(3) - atan( k1 * atan2((x(1)*sin(x(2)) - b_y), (-x(1) * cos(x(2)) - b_x)) );
-                zdot     = u(1)/ x(1) * sin(x(3)) + u(2);                
-                z * zdot <= -0.5 * 0.2 * z^2 + u(4);
-             else
-                 z        = x(3) - atan(-x(2));
-                 zdot     = ((1 + 1/ (1 + x(2)^2) ) * u(1) / x(1) * sin(z + atan(-x(2))) + u(2));
-                 
-                 z * zdot <= -0.5 * k2 * z^2 + u(4);
-             end
-             
-%              h2 = sqrt ( (x(2) - obstacle_delta) ^2 );
-%              if (h2 < 0.3)
-%                  h2dot = (x(2) - obstacle_delta) / abs((x(2) - obstacle_delta)) * (u(1)/x(1) * sin(x(3)));
-%                  h2dot <= -h2;
-%                  disp ('here');
-%              end
-             
-             
-                %display('here');
-            %end
+                hdot  <= u(5) * h + u(3);
+                u(5)  <= 0.0;
+                B       = 1 / (h - 0.3);
+                Bdot    = - hdot / (h - 0.3)^2;
+                Bdot    <= 1.0/B;
+                z        = x(3) - atan(0.8 * (atan2((x(1)*sin(x(2)) - b_y), (-x(1) * cos(x(2)) - b_x)) ));
+                zdot     = u(1)/ x(1) * sin(x(3)) + u(2);
+                z * zdot <= -0.5 * k2 * z^2 + u(4);
+            else
+                z        = x(3) - atan(-x(2));
+                zdot     = ((1 + 1/ (1 + x(2)^2) ) * u(1) / x(1) * sin(z + atan(-x(2))) + u(2));
+                
+                z * zdot <= -0.5 * k2 * z^2 + u(4);
+                u(5) == 0;
+            end
             
-%             h    = x(1);
-%             hdot = (1/h) * -1 * u(1) * cos(x(3)) *x(1); 
-%             B    = 1 / (x(1) - 2.0);
-%             Bdot = - hdot / (h - 2.0)^2;
-%             
-%             Bdot <= 1/B;
+            -0.1 <= u(2) <= 0.1;
+            0.0  <= u(1) <= 2.0;
 cvx_end
 
 % Fixed control works
@@ -161,19 +129,11 @@ if size(U1,1) > 1
 end
 
 %% Propogate with dynamics
-% if (h < 0.8)
-%     k = -.2 + rand(1) * (0.4);
-%     u(2) = u(2)+ k;
-% end
 x(1) = x(1) - dT * u(1) * cos(x(3));
 x(2) = x(2) + dT * u(1)/x(1) * sin(x(3));
 x(3) = x(3) + dT * u(1)/x(1) * sin(x(3)) + u(2);
 x(3) = wrapToPi(x(3));
 x(2) = wrapToPi(x(2));
-
-
-u
-x
 
 nx   = nx + dT * u(1) * cos(nt + u(2)*dT/2);
 ny   = ny + dT * u(1) * sin(nt + u(2)*dT/2);
