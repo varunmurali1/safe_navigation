@@ -15,45 +15,45 @@ Database file #2: bibi.bib
 Warning--empty journal in castro2012modeling
 
 Done.
-You've used 3 entries,
+You've used 7 entries,
             4024 wiz_defined-function locations,
-            1195 strings with 14842 characters,
-and the built_in function-call counts, 1852 in all, are:
-= -- 137
-> -- 36
-< -- 12
-+ -- 20
-- -- 6
-* -- 97
-:= -- 299
-add.period$ -- 7
-call.type$ -- 3
-change.case$ -- 3
-chr.to.int$ -- 30
-cite$ -- 4
-duplicate$ -- 136
-empty$ -- 158
-format.name$ -- 8
-if$ -- 402
+            1218 strings with 15702 characters,
+and the built_in function-call counts, 5390 in all, are:
+= -- 413
+> -- 100
+< -- 49
++ -- 60
+- -- 13
+* -- 255
+:= -- 779
+add.period$ -- 19
+call.type$ -- 7
+change.case$ -- 7
+chr.to.int$ -- 129
+cite$ -- 8
+duplicate$ -- 380
+empty$ -- 484
+format.name$ -- 18
+if$ -- 1251
 int.to.chr$ -- 0
-int.to.str$ -- 3
-missing$ -- 22
-newline$ -- 32
-num.names$ -- 3
-pop$ -- 57
+int.to.str$ -- 7
+missing$ -- 57
+newline$ -- 44
+num.names$ -- 7
+pop$ -- 145
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 137
+skip$ -- 415
 stack$ -- 0
-substring$ -- 73
-swap$ -- 95
-text.length$ -- 2
+substring$ -- 308
+swap$ -- 296
+text.length$ -- 6
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 3
+type$ -- 7
 warning$ -- 1
-while$ -- 7
-width$ -- 4
-write$ -- 47
+while$ -- 26
+width$ -- 8
+write$ -- 83
 (There was 1 warning)
