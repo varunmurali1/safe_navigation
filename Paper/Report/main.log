@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.8.20)  24 APR 2016 23:29
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.8.20)  25 APR 2016 04:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -725,18 +725,18 @@ LaTeX Info: Redefining \genfrac on input line 121.
 ) (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -803,39 +803,59 @@ ABD: EveryShipout initializing macros [1{/var/lib/texmf/fonts/map/pdftex/updmap
 File: jeeves2_0.jpg Graphic file (type jpg)
 
 <use jeeves2_0.jpg>
-Package pdftex.def Info: jeeves2_0.jpg used on input line 41.
+Package pdftex.def Info: jeeves2_0.jpg used on input line 37.
 (pdftex.def)             Requested size: 491.42729pt x 655.2364pt.
  <segway1.jpg, id=13, 702.625pt x 1022.82124pt>
 File: segway1.jpg Graphic file (type jpg)
 
 <use segway1.jpg>
-Package pdftex.def Info: segway1.jpg used on input line 48.
+Package pdftex.def Info: segway1.jpg used on input line 44.
 (pdftex.def)             Requested size: 140.5225pt x 204.56062pt.
-LaTeX Font Info:    Try loading font information for U+msa on input line 65.
+LaTeX Font Info:    Try loading font information for U+msa on input line 60.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 65.
+LaTeX Font Info:    Try loading font information for U+msb on input line 60.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [2 <./jeeves2_0.jpg> <./segway1.jpg>]
-Overfull \hbox (0.99303pt too wide) detected at line 149
+)
+<uni.pdf, id=14, 333.64659pt x 317.47098pt>
+File: uni.pdf Graphic file (type pdf)
+ <use uni.pdf>
+Package pdftex.def Info: uni.pdf used on input line 87.
+(pdftex.def)             Requested size: 150.13957pt x 142.86061pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[2 <./jeeves2_0.jpg> <./segway1.jpg>]
+Overfull \hbox (9.08568pt too wide) detected at line 152
 \OML/cmm/m/it/10 ! \OT1/cmr/m/n/10 = \OMS/cmsy/m/n/10 ^^@[] [] \OML/cmm/m/it/10
  ;
  []
 
-[3] (./main.bbl) [4
+[3 <./uni.pdf>] <obs.pdf, id=43, 343.50348pt x 317.2655pt>
+File: obs.pdf Graphic file (type pdf)
+ <use obs.pdf>
+Package pdftex.def Info: obs.pdf used on input line 157.
+(pdftex.def)             Requested size: 154.57512pt x 142.76814pt.
+
+Overfull \hbox (7.06485pt too wide) detected at line 164
+\OML/cmm/m/it/10 ! \OT1/cmr/m/n/10 = \OMS/cmsy/m/n/10 ^^@[] []
+ []
+
+(./main.bbl [4 <./obs.pdf>]) [5
 
 ] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 17444 strings out of 494985
- 329697 string characters out of 6180356
- 361955 words of memory out of 5000000
- 20337 multiletter control sequences out of 15000+600000
+ 17456 strings out of 494985
+ 329823 string characters out of 6180356
+ 361970 words of memory out of 5000000
+ 20347 multiletter control sequences out of 15000+600000
  39134 words of font info for 74 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 56i,9n,55p,10420b,221s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 56i,9n,55p,10420b,299s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb></usr/share/
@@ -850,10 +870,10 @@ mbols/msbm7.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb
 ></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/t
 exlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-di
 st/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (4 pages, 3192596 bytes).
+Output written on main.pdf (5 pages, 3213381 bytes).
 PDF statistics:
- 79 PDF objects out of 1000 (max. 8388607)
- 56 compressed objects within 1 object stream
+ 114 PDF objects out of 1000 (max. 8388607)
+ 80 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 23 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 33 words of extra memory for PDF output out of 10000 (max. 10000000)
 
