@@ -68,7 +68,7 @@ k2      = 1;
 
 
 %% Iterate over to find the optimal control
-for i = 1:1800
+for i = 1:800
 if x(1) < 1e-1
     break;
 end
