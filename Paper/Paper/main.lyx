@@ -1,0 +1,714 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass IEEEtran
+\begin_preamble
+
+
+%\documentclass{article}
+%\usepackage[]{natbib}
+\usepackage{tikz}
+
+
+% If IEEEtran.cls has not been installed into the LaTeX system files,
+% manually specify the path to it like:
+% \documentclass[journal]{../sty/IEEEtran}
+\end_preamble
+\options journal
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package none
+\inputencoding auto
+\fontencoding default
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 0
+\use_package cancel 0
+\use_package esint 1
+\use_package mathdots 0
+\use_package mathtools 2
+\use_package mhchem 0
+\use_package stackrel 0
+\use_package stmaryrd 0
+\use_package undertilde 0
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+% paper title
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+% can use linebreaks 
+\backslash
+
+\backslash
+ within to get better formatting as desired
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Title
+Experimental Evaluation of Control Policies for 
+\begin_inset Newline newline
+\end_inset
+
+Segway Robot in Dynamic Environments 
+\end_layout
+
+\begin_layout Author
+Varun
+\begin_inset space ~
+\end_inset
+
+Murali, Niharika
+\begin_inset space ~
+\end_inset
+
+Arora, Ian
+\begin_inset space ~
+\end_inset
+
+Buckley
+\end_layout
+
+\begin_layout Page headings
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+ECE6552, March 2016
+\end_layout
+
+\end_inset
+
+Shell 
+\begin_inset Flex Flex:Lowercase
+status collapsed
+
+\begin_layout Plain Layout
+
+\shape italic
+et al.
+\end_layout
+
+\end_inset
+
+: Final Paper
+\end_layout
+
+\begin_layout Abstract
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+if
+\end_layout
+
+\end_inset
+
+0 Describe what the overall objectives are, the specific system being considered.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+fi
+\end_layout
+
+\end_inset
+
+ With the growth of domestic robot industry, it is important to understand
+ the navigation of mobile robots in dynamic environments.
+ Use of mobile robots in the home can greatly improve the quality of life
+ and is a growing field of research.
+ An important aspect to be considered is the aspect of safety and guarantees
+ that can be made about the safety of controllers on such robots.
+ Given traditional digital control, mobile robot dynamics are often linearized
+ to a setpoint and the controller is set to follow a point some distance
+ 
+\series bold
+
+\begin_inset Formula $d$
+\end_inset
+
+
+\series default
+ from the robot.
+ The proposed study will attempt to characterize the stability of such a
+ robotic system.
+ We propose to study the applicability of barrier functions to prove the
+ stability of the system given its set of constraints and the space it's
+ allowed to operate in.
+ The formulation of this problem in this form allows us to make claims about
+ the stability of the control law, and study the conditions under which
+ we can guarantee the success of the controller.
+ The overall objective of the project is to apply barrier functions to generate
+ a nonlinear control policy for a Segway RMP based robot.
+ 
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+if
+\end_layout
+
+\end_inset
+
+0 Motivate the problem being considered in a general way.
+ Use this to setup the specific objectives of the project.
+ Give a high level overview of the system that will be considered.
+ Finally, what are the concrete analy- sis/control/safety objectives that
+ will be met.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+fi
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Navigation is a fundamental concern for mobile robots.
+ The ability to successfully avoid obstacles, both static and dynamic, while
+ moving towards a goal location largely determines the utility of a mobile
+ robotic platform.
+ It is important that robots avoid obstacles for their own safety as well
+ as the safety of the people around them.
+ Given the importance of navigation, it is not surprising that the problem
+ has long been considered and explored; furthermore, it is reasonable to
+ assert that approaches to the problem are as varied as the disciplines
+ related to robotics themselves.
+\end_layout
+
+\begin_layout Standard
+In this paper, we propose to use nonlinear control techniques (barrier functions
+) for robot navigation and collision avoidance.
+ We define constraints important for navigation like distance from obstacle,
+ minimum and maximum velocity, minimum and maximum rotational velocity,
+ and velocity as a function of distance from obstacle for safety to generate
+ a navigation law for the robot.
+\end_layout
+
+\begin_layout Standard
+Nonlinear control based navigation is also a studied problem such as by
+ Ting et al.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ting2014reactive"
+
+\end_inset
+
+.
+ Generating a policy in a reactive fashion reduces the complexity of the
+ computation needed.
+ Traditional path planners can be used to provide a high level trajectory
+ by having some previous metric knowledge of the space.
+ Lower level reactive controllers can be used for local refinement of the
+ global path and can be used to control the robot.
+ This reduces the complexity of re-planning every time a change in the environme
+nt is observed.
+ Potential field based algorithms have been used to generate such reactive
+ policies in the past with some success.
+ There are some known pitfalls for this method with regards to local minima
+ but several solutions for this have been proposed.
+\end_layout
+
+\begin_layout Standard
+Given the possibility of having a global metric representation of a domestic
+ environment, we could generate a global trajectory and local non-linear
+ controller that obeys the bounds imposed on the robot.
+ If the barrier function comprises of the above information, we can make
+ claims guarantees about the stability of the robot with respect to those
+ objectives.
+\end_layout
+
+\begin_layout Standard
+The navigation law will first be tested and verified in simulation.
+ MATLAB will be used for this purpose.
+ Once the simulations verify the algorithm, the controller will be implemented
+ in the ROS framework and evaluated in a robot simulation environment (Gazebo).
+ The final experiments will be performed on the mobile robot Jeeves, shown
+ in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:jeeves"
+
+\end_inset
+
+, which will be used as a test platform for the real world environment.
+ We plan to study the law developed in both static and dynamic environments.
+\end_layout
+
+\begin_layout Section
+System Overview
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+if
+\end_layout
+
+\end_inset
+
+0 Discuss the system that will be considered.
+ Indicate the type of dynamics and phenomena it displays.
+ Discuss how it will be analyzed and how it will be used to set the stage
+ for the overarching goals of the project.
+ Give a high level overview of the system that will be considered.
+ Finally, what are the concrete analysis/control/safety objectives that
+ will be met.
+ What are the specific objectives of the project, especially in the context
+ of the system of interest? 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+fi
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Graphics
+	filename jeeves2_0.jpg
+	lyxscale 10
+	scale 20
+
+\end_inset
+
+ 
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Jeeves - A modified Segway based robot mounted with a Primesense, Microsfot
+ Kinect, Roboteye RE05, Hokuyo LTM-30x laser and the UR5.
+ Currently modified to include the casters for static stability
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:jeeves"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Graphics
+	filename segway1.jpg
+	lyxscale 10
+	scale 20
+
+\end_inset
+
+ 
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Proposed modification to the Segway base inspired by the Segway robot at
+ the University of Michigan
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:mod_jeeves"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The robot platform shown in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:jeeves"
+
+\end_inset
+
+ consists of a Segway RMP-200 mobile base, which has been modified to hold
+ various sensors.
+ The Seqway RMP 200 has been modified to be statically stable but for the
+ purposes of this project, the casters shall be removed and 8020 adjustments
+ will be made on the side of the robot to prevent it from tipping (inspired
+ by Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:mod_jeeves"
+
+\end_inset
+
+).
+ The sensor suite on the robot consists of a Roboteye RE05 sensor capable
+ of scanning in 3D, a primesense RGB-D camera and a Kinect RGB-D.
+ The Hokuyo LTM-30x is mounted at the base and used for base obstacle avoidance.
+\end_layout
+
+\begin_layout Standard
+In the scope of this project, the Hokuyo LTM-30x is used to detect obstacles
+ from a planar scan.
+ The closest laser hit can be considered an obstacle and dynamic obstacles
+ can be modelled in this way.
+ A microstrain IMU is mounted on the robot to estimate the state of the
+ robot.
+\end_layout
+
+\begin_layout Standard
+The robot is controlled using a PS3 controller when in tele-operation mode,
+ which has a manual override and a dead-man switch to kill the robot due
+ to any type of failure.
+ The robot is also permanently connected to a computer that is monitoring
+ the robot and can be used to kill running programs on the robot.
+\end_layout
+
+\begin_layout Standard
+The dynamics (discussed in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "castro2012modeling"
+
+\end_inset
+
+) of the Segway RMP base can be modelled as a cart with an inverted pendulum
+ which can be modelled as:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\centering mLsin(\theta)\dot{\theta}^{2}+(M+m)\dot{v}-F-mLcos(\theta)\ddot{\theta}=0
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $\theta$
+\end_inset
+
+ is the angle of the pendulum with respect to its vertical position, 
+\begin_inset Formula $v$
+\end_inset
+
+ is the speed of the base, 
+\begin_inset Formula $F$
+\end_inset
+
+ is the force on the cart, 
+\begin_inset Formula $M$
+\end_inset
+
+ is the mass of the cart and 
+\begin_inset Formula $m$
+\end_inset
+
+ is the mass of the pendulum and 
+\begin_inset Formula $L$
+\end_inset
+
+ is the length of the massless rod.
+\end_layout
+
+\begin_layout Standard
+The control law will further be used to test how it affects the dynamics
+ of the system.
+ We will measure the translation and the rotational velocities and the tip
+ angle to verify that the control policy doesn't force the robot to go beyond
+ its boundary conditions and ensures its safety.
+\end_layout
+
+\begin_layout Section
+Objective
+\end_layout
+
+\begin_layout Standard
+The objective of this project is to come up with a nonlinear control policy
+ for navigation of mobile robots.
+ To do this appropriate constraints have to be determined and specified.
+ The initial constraints will be : 
+\end_layout
+
+\begin_layout Itemize
+The distance between the robotic platform and obstacles in the environment
+ 
+\end_layout
+
+\begin_layout Itemize
+Minimum and maximum translational velocities of the robot 
+\end_layout
+
+\begin_layout Itemize
+Minimum and maximum angular velocities of the robot 
+\end_layout
+
+\begin_layout Standard
+These constraints will be used to generate a navigation controller for the
+ Segway robot to ensure that the constraints are obeyed.
+ Later, more constraints may be added to ensure safety of the robot and
+ humans around the robot.
+ The stability of the system with respect to the Lyapunov-like barrier functions
+ will be analysed.
+ This allows us to study theoretical guarantees of the controller for the
+ Segway robot.
+\end_layout
+
+\begin_layout Standard
+The experimental objective is to implement this controller on a real robot
+ and study the gap between theory and practice in experimental scenarios.
+ In the context of the system of interest, the nonlinear controller is used
+ to study the robustness and stability of the generated control policy in
+ the presence of obstacles in a real world scenario.
+\end_layout
+
+\begin_layout Section
+Verification
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+if
+\end_layout
+
+\end_inset
+
+0 How will the objectives of the project be verified? Through simulation,
+ experimentally, formally, or through some combination of these? Give specifics
+ on how the individual objectives will be verified (in a concise fashion).
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+fi
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Subsection
+Simulation
+\end_layout
+
+\begin_layout Standard
+The nonlinear control policy developed will be simulated in MATLAB to ensure
+ expected behaviour of the algorithm and to evaluate it for different boundary
+ conditions of the algorithm.
+ The simulated environment will be shown as MATLAB GUI where the robot and
+ obstacles are simulated and different randomized configurations of obstacles
+ and several runs of the algorithm will be used to test the controller.
+ 
+\end_layout
+
+\begin_layout Subsection
+Robot specific simulation
+\end_layout
+
+\begin_layout Standard
+The controller shall be implemented in the ROS framework and simulated using
+ the Gazebo simulator for Jeeves.
+ The simulation scenario would involve synthetic worlds and successful navigatio
+n in these worlds with the presence of introduced noise in the sensor reading
+ and encoder measurement of the robot.
+\end_layout
+
+\begin_layout Subsection
+Robot experiments
+\end_layout
+
+\begin_layout Standard
+Finally, the controller will be implemented on the Segway robot for experimental
+ evaluation.
+ The experimental evaluation will consist of five navigation test cases
+ in which the robot will be instructed to navigate a static environment.
+ Stability of the Segway will be examined for each test case and will be
+ used to support the theoretical claims.
+ The experiments will be performed in a motion capture room consisting of
+ an 8 camera Optitrack system where the state of both obstacles and the
+ robot can be measured.
+ This will allow us to show the performance of the controller in the presence
+ of both perfect and imperfect information.
+ Further testing will include the addition of dynamic obstacles, such as
+ people, to explore the capabilities of the proposed controller.
+\end_layout
+
+\begin_layout Standard
+ 
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "IEEEabrv,bibi"
+options "IEEEtran"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
