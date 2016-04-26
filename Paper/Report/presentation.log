@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.8.20)  25 APR 2016 20:10
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.8.20)  25 APR 2016 21:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -660,42 +660,12 @@ Package: beamerinnerthemedefault 2012/05/01  (rcs-revision 67c48b3b652d)
 (/usr/share/texmf/tex/latex/beamer/base/themes/outer/beamerouterthemedefault.st
 y
 Package: beamerouterthemedefault 2012/10/02  (rcs-revision 5ed0f4010e8a)
-))) (./beamerthememetropolis.sty
-Package: beamerthememetropolis 2016/03/14 v1.1 Metropolis Beamer theme
+)))
+(/usr/share/texlive/texmf-dist/tex/latex/appendixnumberbeamer/appendixnumberbea
+mer.sty) (/usr/share/texlive/texmf-dist/tex/latex/pgfplots/pgfplots.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplots.revision.tex)
+Package: pgfplots 2013/10/03 v1.9 Data Visualization (1.9)
 
-(/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
-Package: etoolbox 2011/01/03 v2.1 e-TeX tools for LaTeX
-
-(/usr/share/texlive/texmf-dist/tex/latex/etex-pkg/etex.sty
-Package: etex 1998/03/26 v2.0 eTeX basic definition package (PEB)
-\et@xins=\count153
-)
-\etb@tempcnta=\count154
-)
-(/usr/share/texlive/texmf-dist/tex/latex/pgfopts/pgfopts.sty
-Package: pgfopts 2011/06/02 v2.1 LaTeX package options with pgfkeys
-
-(/usr/share/texmf/tex/latex/pgf/utilities/pgfkeys.sty
-(/usr/share/texmf/tex/generic/pgf/utilities/pgfkeys.code.tex))
-\pgfopts@list@add@a@toks=\toks40
-\pgfopts@list@add@b@toks=\toks41
-)
-(./beamerinnerthememetropolis.sty
-Package: beamerinnerthememetropolis 2016/03/14 Metropolis inner theme
-
-(/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
-Package: calc 2007/08/22 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count155
-\calc@Bcount=\count156
-\calc@Adimen=\dimen185
-\calc@Bdimen=\dimen186
-\calc@Askip=\skip57
-\calc@Bskip=\skip58
-LaTeX Info: Redefining \setlength on input line 76.
-LaTeX Info: Redefining \addtolength on input line 77.
-\calc@Ccount=\count157
-\calc@Cskip=\skip59
-)
 (/usr/share/texmf/tex/latex/pgf/frontendlayer/tikz.sty
 (/usr/share/texmf/tex/latex/pgf/basiclayer/pgf.sty
 Package: pgf 2008/01/15 v2.10 (rcs-revision 1.12)
@@ -709,85 +679,63 @@ File: pgfmoduleplot.code.tex 2010/10/22  (rcs-revision 1.8)
 )
 (/usr/share/texmf/tex/latex/pgf/compatibility/pgfcomp-version-0-65.sty
 Package: pgfcomp-version-0-65 2007/07/03 v2.10 (rcs-revision 1.7)
-\pgf@nodesepstart=\dimen187
-\pgf@nodesepend=\dimen188
+\pgf@nodesepstart=\dimen185
+\pgf@nodesepend=\dimen186
 )
 (/usr/share/texmf/tex/latex/pgf/compatibility/pgfcomp-version-1-18.sty
 Package: pgfcomp-version-1-18 2007/07/23 v2.10 (rcs-revision 1.1)
 ))
 (/usr/share/texmf/tex/latex/pgf/utilities/pgffor.sty
+(/usr/share/texmf/tex/latex/pgf/utilities/pgfkeys.sty
+(/usr/share/texmf/tex/generic/pgf/utilities/pgfkeys.code.tex))
 (/usr/share/texmf/tex/generic/pgf/utilities/pgffor.code.tex
 Package: pgffor 2010/03/23 v2.10 (rcs-revision 1.18)
-\pgffor@iter=\dimen189
-\pgffor@skip=\dimen190
-\pgffor@stack=\toks42
-\pgffor@toks=\toks43
+\pgffor@iter=\dimen187
+\pgffor@skip=\dimen188
+\pgffor@stack=\toks40
+\pgffor@toks=\toks41
 ))
 (/usr/share/texmf/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex
 Package: tikz 2010/10/13 v2.10 (rcs-revision 1.76)
 
 (/usr/share/texmf/tex/generic/pgf/libraries/pgflibraryplothandlers.code.tex
 File: pgflibraryplothandlers.code.tex 2010/05/31 v2.10 (rcs-revision 1.15)
-\pgf@plot@mark@count=\count158
-\pgfplotmarksize=\dimen191
+\pgf@plot@mark@count=\count153
+\pgfplotmarksize=\dimen189
 )
-\tikz@lastx=\dimen192
-\tikz@lasty=\dimen193
-\tikz@lastxsaved=\dimen194
-\tikz@lastysaved=\dimen195
-\tikzleveldistance=\dimen196
-\tikzsiblingdistance=\dimen197
+\tikz@lastx=\dimen190
+\tikz@lasty=\dimen191
+\tikz@lastxsaved=\dimen192
+\tikz@lastysaved=\dimen193
+\tikzleveldistance=\dimen194
+\tikzsiblingdistance=\dimen195
 \tikz@figbox=\box54
 \tikz@tempbox=\box55
-\tikztreelevel=\count159
-\tikznumberofchildren=\count160
-\tikznumberofcurrentchild=\count161
-\tikz@fig@count=\count162
+\tikztreelevel=\count154
+\tikznumberofchildren=\count155
+\tikznumberofcurrentchild=\count156
+\tikz@fig@count=\count157
 
 (/usr/share/texmf/tex/generic/pgf/modules/pgfmodulematrix.code.tex
 File: pgfmodulematrix.code.tex 2010/08/24  (rcs-revision 1.4)
-\pgfmatrixcurrentrow=\count163
-\pgfmatrixcurrentcolumn=\count164
-\pgf@matrix@numberofcolumns=\count165
+\pgfmatrixcurrentrow=\count158
+\pgfmatrixcurrentcolumn=\count159
+\pgf@matrix@numberofcolumns=\count160
 )
-\tikz@expandcount=\count166
+\tikz@expandcount=\count161
 
 (/usr/share/texmf/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarytopat
 hs.code.tex
 File: tikzlibrarytopaths.code.tex 2008/06/17 v2.10 (rcs-revision 1.2)
 )))
-\metropolis@progressonsectionpage=\skip60
-\metropolis@blocksep=\skip61
-\metropolis@blockadjust=\skip62
-\metropolis@parskip=\skip63
-) (./beamerouterthememetropolis.sty
-Package: beamerouterthememetropolis 2016/03/14 Metropolis outer theme
-\metropolis@frametitle@padding=\skip64
-\metropolis@progressinheadfoot=\skip65
-)
-(./beamercolorthememetropolis.sty
-Package: beamercolorthememetropolis 2016/03/14 Metropolis color theme
-) (./beamerfontthememetropolis.sty
-Package: beamerfontthememetropolis 2016/03/14 Metropolis font theme
-
-
-Package beamerthememetropolis Warning: You need to compile with XeLaTeX or LuaL
-aTeX to use the Fira fonts on input line 91.
-
-))
-(/usr/share/texlive/texmf-dist/tex/latex/appendixnumberbeamer/appendixnumberbea
-mer.sty) (/usr/share/texlive/texmf-dist/tex/latex/pgfplots/pgfplots.sty
-(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplots.revision.tex)
-Package: pgfplots 2013/10/03 v1.9 Data Visualization (1.9)
-
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplots.code.tex
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplotscore.code.tex
-\t@pgfplots@toka=\toks44
-\t@pgfplots@tokb=\toks45
-\t@pgfplots@tokc=\toks46
-\pgfplots@tmpa=\dimen198
-\c@pgfplots@coordindex=\count167
-\c@pgfplots@scanlineindex=\count168
+\t@pgfplots@toka=\toks42
+\t@pgfplots@tokb=\toks43
+\t@pgfplots@tokc=\toks44
+\pgfplots@tmpa=\dimen196
+\c@pgfplots@coordindex=\count162
+\c@pgfplots@scanlineindex=\count163
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/sys/pgfplotssysgeneric.code
 .tex))
@@ -801,22 +749,22 @@ Package pgfplots: loading complementary code for your PGF version...
 gfsupp_misc.code.tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplotsoldp
 gfsupp_pgfkeys.code.tex
-\pgfkeys@pathtoks=\toks47
-\pgfkeys@temptoks=\toks48
+\pgfkeys@pathtoks=\toks45
+\pgfkeys@temptoks=\toks46
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplotsoldp
 gfsupp_pgfkeysfiltered.code.tex
-\pgfkeys@tmptoks=\toks49
+\pgfkeys@tmptoks=\toks47
 ))
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplotsoldp
 gfsupp_pgfmathfloat.code.tex
-\c@pgfmathroundto@lastzeros=\count169
+\c@pgfmathroundto@lastzeros=\count164
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplotsoldp
 gfsupp_pgflibraryplothandlers.code.tex
 File: pgflibraryplothandlers.code.tex 2012/09/11 v2.10 (rcs-revision 1.17)
-\pgf@plot@mark@count=\count170
-\pgfplotmarksize=\dimen199
+\pgf@plot@mark@count=\count165
+\pgfplotmarksize=\dimen197
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplotsoldp
 gfsupp_pgflibraryfpu.code.tex)
@@ -826,7 +774,7 @@ File: pgfcorescopes.code.tex 2012/11/30  (rcs-revision 1.38)
 \pgfpic=\box56
 \pgf@hbox=\box57
 \pgf@layerbox@main=\box58
-\pgf@picture@serial@count=\count171
+\pgf@picture@serial@count=\count166
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplotsoldp
 gfsupp_pgfcorelayers.code.tex
@@ -839,14 +787,14 @@ tructure.code.tex)
 tructureext.code.tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsarray
 .code.tex
-\c@pgfplotsarray@tmp=\count172
+\c@pgfplotsarray@tmp=\count167
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsmatri
 x.code.tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/numtable/pgfplotstableshare
 d.code.tex
-\c@pgfplotstable@counta=\count173
-\t@pgfplotstable@a=\toks50
+\c@pgfplotstable@counta=\count168
+\t@pgfplotstable@a=\toks48
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsdeque
 .code.tex)
@@ -858,7 +806,7 @@ de.tex))
 .tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/libs/pgflibrarypgfplots.sur
 fshading.code.tex
-\c@pgfplotslibrarysurf@no=\count174
+\c@pgfplotslibrarysurf@no=\count169
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/sys/pgflibrarypgfplots.surf
 shading.pgfsys-pdftex.def)))
@@ -882,14 +830,14 @@ e.tex)
 (/usr/share/texmf/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarydecor
 ations.code.tex
 (/usr/share/texmf/tex/generic/pgf/modules/pgfmoduledecorations.code.tex
-\pgfdecoratedcompleteddistance=\dimen200
-\pgfdecoratedremainingdistance=\dimen201
-\pgfdecoratedinputsegmentcompleteddistance=\dimen202
-\pgfdecoratedinputsegmentremainingdistance=\dimen203
-\pgf@decorate@distancetomove=\dimen204
-\pgf@decorate@repeatstate=\count175
-\pgfdecorationsegmentamplitude=\dimen205
-\pgfdecorationsegmentlength=\dimen206
+\pgfdecoratedcompleteddistance=\dimen198
+\pgfdecoratedremainingdistance=\dimen199
+\pgfdecoratedinputsegmentcompleteddistance=\dimen200
+\pgfdecoratedinputsegmentremainingdistance=\dimen201
+\pgf@decorate@distancetomove=\dimen202
+\pgf@decorate@repeatstate=\count170
+\pgfdecorationsegmentamplitude=\dimen203
+\pgfdecorationsegmentlength=\dimen204
 )
 \tikz@lib@dec@box=\box59
 )
@@ -901,13 +849,13 @@ athmorphing.code.tex))
 ations.pathreplacing.code.tex
 (/usr/share/texmf/tex/generic/pgf/libraries/decorations/pgflibrarydecorations.p
 athreplacing.code.tex))
-\pgfplots@numplots=\count176
-\pgfplots@xmin@reg=\dimen207
-\pgfplots@xmax@reg=\dimen208
-\pgfplots@ymin@reg=\dimen209
-\pgfplots@ymax@reg=\dimen210
-\pgfplots@zmin@reg=\dimen211
-\pgfplots@zmax@reg=\dimen212
+\pgfplots@numplots=\count171
+\pgfplots@xmin@reg=\dimen205
+\pgfplots@xmax@reg=\dimen206
+\pgfplots@ymin@reg=\dimen207
+\pgfplots@ymax@reg=\dimen208
+\pgfplots@zmin@reg=\dimen209
+\pgfplots@zmax@reg=\dimen210
 )
 (/usr/share/texmf/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryplotm
 arks.code.tex
@@ -920,14 +868,10 @@ File: pgflibraryplotmarks.code.tex 2010/10/15 v2.10 (rcs-revision 1.12)
 teplot.code.tex (/usr/share/texmf/tex/latex/pgf/utilities/pgfcalendar.sty
 (/usr/share/texmf/tex/generic/pgf/utilities/pgfcalendar.code.tex
 File: pgfcalendar.code.tex 2007/07/23 v2.10 (rcs-revision 1.11)
-\pgfcalendarcurrentjulian=\count177
+\pgfcalendarcurrentjulian=\count172
 )))
 (/usr/share/texlive/texmf-dist/tex/latex/tools/xspace.sty
 Package: xspace 2009/10/20 v1.13 Space after command names (DPC,MH)
-)
-(./pgfplotsthemetol.sty
-Package: pgfplotsthemetol 2016/03/14 PGFplots colors based on Paul Tol's SRON t
-echnical note
 ) (./presentation.aux)
 \openout1 = `presentation.aux'.
 
@@ -945,7 +889,6 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 18.
 LaTeX Font Info:    ... okay on input line 18.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 18.
 LaTeX Font Info:    ... okay on input line 18.
-
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -982,17 +925,17 @@ LaTeX Font Info:    ... okay on input line 18.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count178
-\scratchdimen=\dimen213
+\scratchcounter=\count173
+\scratchdimen=\dimen211
 \scratchbox=\box60
-\nofMPsegments=\count179
-\nofMParguments=\count180
-\everyMPshowfont=\toks51
-\MPscratchCnt=\count181
-\MPscratchDim=\dimen214
-\MPnumerator=\count182
-\makeMPintoPDFobject=\count183
-\everyMPtoPDFconversion=\toks52
+\nofMPsegments=\count174
+\nofMParguments=\count175
+\everyMPshowfont=\toks49
+\MPscratchCnt=\count176
+\MPscratchDim=\dimen212
+\MPnumerator=\count177
+\makeMPintoPDFobject=\count178
+\everyMPtoPDFconversion=\toks50
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
 
@@ -1018,7 +961,7 @@ Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count184
+\c@section@level=\count179
 )
 LaTeX Info: Redefining \ref on input line 18.
 LaTeX Info: Redefining \pageref on input line 18.
@@ -1097,71 +1040,60 @@ Dictionary: translator-theorem-dictionary, Language: English
 )
 LaTeX Info: Redefining \includegraphics on input line 18.
 
-Package pgfplots notification 'compat/show suggested version=true': document ha
-s been generated with the most recent feature set (\pgfplotsset{compat=1.9}).
+
+Package pgfplots Warning: running in backwards compatibility mode (unsuitable t
+ick labels; missing features). Consider writing \pgfplotsset{compat=1.9} into y
+our preamble.
+ on input line 18.
 
 (./presentation.nav)
-Overfull \vbox (13.79993pt too high) detected at line 20
- []
+
+LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <4> not available
+(Font)              size <5> substituted on input line 20.
 
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Try loading font information for U+msa on input line 21.
+LaTeX Font Info:    Try loading font information for U+msa on input line 30.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 21.
+LaTeX Font Info:    Try loading font information for U+msb on input line 30.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [2
 
-]
-LaTeX Font Info:    Try loading font information for OMS+cmss on input line 30.
-
-LaTeX Font Info:    No file OMScmss.fd. on input line 30.
-
-
-LaTeX Font Warning: Font shape `OMS/cmss/m/n' undefined
-(Font)              using `OMS/cmsy/m/n' instead
-(Font)              for symbol `textbullet' on input line 30.
-
-
-LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <4> not available
-(Font)              size <5> substituted on input line 30.
-
-[3
+] [3
 
 ] [4
 
 ] [5
 
-] [6
+]
+[6
 
-] [7
-
-] [8
-
-] <jeeves2_0.jpg, id=91, 2457.18pt x 3276.24pt>
+] <jeeves2_0.jpg, id=203, 2457.18pt x 3276.24pt>
 File: jeeves2_0.jpg Graphic file (type jpg)
-
-<use jeeves2_0.jpg>
+ <use jeeves2_0.jpg>
 Package pdftex.def Info: jeeves2_0.jpg used on input line 40.
 (pdftex.def)             Requested size: 491.42729pt x 655.2364pt.
- [9
+ [7
 
- <./jeeves2_0.jpg>]
-<obs.pdf, id=98, 343.50348pt x 317.2655pt>
+ <./jeeves2_0.jpg>] <obs.pdf, id=233, 343.50348pt x 317.2655pt>
 File: obs.pdf Graphic file (type pdf)
  <use obs.pdf>
 Package pdftex.def Info: obs.pdf used on input line 71.
 (pdftex.def)             Requested size: 154.57512pt x 142.76814pt.
- [10
 
- <./obs.pdf>]
-[11
+[8
+
+ <./obs.pdf>] [9
+
+] [10
+
+] [11
 
 ] [12
 
@@ -1181,50 +1113,31 @@ Package pdftex.def Info: obs.pdf used on input line 71.
 
 ] [20
 
-] [21
+]
+[21
 
 ] [22
-
-] [23
-
-] [24
-
-] [25
 
 ]
 
 LaTeX Font Warning: Font shape `OT1/cmss/bx/it' undefined
 (Font)              using `OT1/cmss/bx/n' instead on input line 146.
 
+[23
 
-Overfull \vbox (21.18343pt too high) detected at line 146
- []
+] [24
 
-[26
+] [25
 
-]
-Overfull \vbox (21.18343pt too high) detected at line 146
- []
+] [26
 
-[27
+] [27
 
-]
-Overfull \vbox (21.18343pt too high) detected at line 146
- []
+] [28
 
-[28
+] [29
 
-]
-Overfull \vbox (21.18343pt too high) detected at line 146
- []
-
-[29
-
-]
-Overfull \vbox (21.18343pt too high) detected at line 146
- []
-
-[30
+] [30
 
 ] [31
 
@@ -1236,24 +1149,13 @@ Overfull \vbox (21.18343pt too high) detected at line 146
 
 ] [35
 
-] [36
+]
+(./presentation.bbl) [36
 
-] [37
+ </usr/share/texmf/tex/latex/beamer/base/art/beamericonarticle.pdf>] [37
+
 
 ] [38
-
-] [39
-
-] [40
-
-] (./presentation.bbl)
-[41
-
- </usr/share/texmf/tex/latex/beamer/base/art/beamericonarticle.pdf>]
-[42
-
-
-] [43
 
 ]
 \tf@nav=\write6
@@ -1283,27 +1185,29 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 188.
  ) 
 Here is how much of TeX's memory you used:
- 26185 strings out of 494985
- 593272 string characters out of 6180356
- 771271 words of memory out of 5000000
- 28700 multiletter control sequences out of 15000+600000
- 9698 words of font info for 36 fonts, out of 8000000 for 9000
+ 25398 strings out of 494985
+ 576578 string characters out of 6180356
+ 755691 words of memory out of 5000000
+ 27952 multiletter control sequences out of 15000+600000
+ 8860 words of font info for 33 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 61i,14n,83p,1734b,680s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 50i,14n,74p,737b,683s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/share/texl
-ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/share/texlive/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/share/texlive/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmssi10.pfb></usr/share/texlive/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmssi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
-msfonts/symbols/msbm10.pfb>
-Output written on presentation.pdf (43 pages, 2767011 bytes).
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmssbx10.pfb></usr/share/texlive/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmssi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmssi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
+s/symbols/msam7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
+symbols/msbm10.pfb>
+Output written on presentation.pdf (38 pages, 2815239 bytes).
 PDF statistics:
- 382 PDF objects out of 1000 (max. 8388607)
- 308 compressed objects within 4 object streams
- 94 named destinations out of 1000 (max. 500000)
+ 1131 PDF objects out of 1200 (max. 8388607)
+ 1053 compressed objects within 11 object streams
+ 90 named destinations out of 1000 (max. 500000)
  93 words of extra memory for PDF output out of 10000 (max. 10000000)
 
