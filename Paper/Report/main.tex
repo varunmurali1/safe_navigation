@@ -316,24 +316,52 @@ To test the ability of the QP navigation control protocol to prevent collision o
 \caption{Robot Trajectory in the Presense of Obstacles\label{fig:octoplot}} 
 \end{figure}
 
-To numerically validate the relaxed control Lypanuov function in the QP, the value of the Lyapunov function and its derivative were plotted as the robot navigated. For the situation in which obstacles are absent, Figure~\ref{fig:lyapunovsans} shows that the Lyapunov function correctly decays to zero while its derivative remains strictly less than zero until the robot reaches its final destination. With obstacles present, Figure~\ref{fig:lyapunov} ...
-%
-%\begin{figure}[h!]
-%\centering
-%\includegraphics[scale=0.4]{lyapunovsans.png} 
-%\caption{Lyapunov Function without Obstacles\label{fig:lyapunovsans}} 
-%\end{figure}
-%
-%\begin{figure}[h!]
-%\centering
-%\includegraphics[scale=0.4]{lyapunov.png} 
-%\caption{Lyapunov Function with Obstacles\label{fig:lyapunov}} 
-%\end{figure}
-% 
+To numerically validate the relaxed control Lypanuov function in the QP, the value of the Lyapunov function and its derivative were plotted as the robot navigated. For the situation in which obstacles are absent, Figure~\ref{fig:lyapunovsans} shows the Lyapunov function and its derivative. The derivative is strictly less than zero until the state is driven to zero. The Lyapunov function is strictly positive until the robot reaches its final destination, but it is not strictly decreasing; this is an artifact resulting from the slack variable, which allow the QP to satisfy all of the constraints. Figure~\ref{fig:lyapunov} shows that the Lyapunov function and its derivative still behave correctly in the presence of obstacles.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.63]{vsans1.png} 
+\caption{Lyapunov Function without Obstacles\label{fig:lyapunovsans}} 
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.63]{v2.png} 
+\caption{Lyapunov Function with Obstacles\label{fig:lyapunov}} 
+\end{figure}
+ 
 \subsubsection{Target Trajectory}
+To demonstrate that the QP navigation control protocol enables successful navigation and collision avoidance, the probabilistic roadmap (PRM) planner was used to generate a trajectory through and environment. A path was planned using PRM for the map as shown in Figure~\ref{fig:prm}. The result of following  this trajectory under QP control policy with the barrier functions removed is shown in Figure~\ref{fig:prm_fail}; clearly, without the barrier functions, the robot fails to arrive safely to its final location. Figure~\ref{fig:prm_works} shows the result of applying the QP controller with the barrier functions, and in contrast to the previous case, the robot avoids obstacle and navigates safely.
+
+%\begin{figure}[h!]
+%\centering
+%\includegraphics[scale=0.63]{prm.png} 
+%\caption{Trajectory Generated with PRM\label{fig:prm}} 
+%\end{figure}
+%
+%\begin{figure}[h!]
+%\centering
+%\includegraphics[scale=0.63]{prm_fail.png} 
+%\caption{Navigational Failure under QP Controller without Barrier Functions\label{fig:prm_fail}} 
+%\end{figure}
+%
+%\begin{figure}[h!]
+%\centering
+%\includegraphics[scale=0.63]{prm_works.png} 
+%\caption{Safe Navigation under QP Controller with Barrier Functions\label{fig:prm_works}}
+%\end{figure}
+
 \subsubsection{Gazebo}
+Using Gazebo, the QP navigation control policy was implemented on a unicycle robot in a cluttered environment. Figure~\ref{fig:gazebo} shows the trajectory of the robot as it navigates from its starting position to the final location. By demonstrating that the QP controller enabled successful navigation in a simulated 3D environment using the on-board sensors of the unicycle robot, the feasibility of implementing the QP navigation control protocol on a physical system was established. 
+
+%\begin{figure}[h!]
+%\centering
+%\includegraphics[scale=0.63]{gazebo.png} 
+%\caption{Gazebo Simulation Navigation\label{fig:gazebo}}
+%\end{figure}
 
 \subsection{Experimental Results}
+
 \section{Conclusion}
 
 \bibliographystyle{IEEEtran}
