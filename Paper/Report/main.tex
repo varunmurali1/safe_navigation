@@ -291,7 +291,7 @@ Figure~\ref{fig:octoplotsans} shows the output of the first simulation. The navi
 
 To further evaluate the QP controller and substantiate its success, the state is plotted. Figures~\ref{fig:state} shows that the distance to the target position, the angle $\theta$, and the egocentric heading are successfully zeroed under the QP navigation control protocol.
 
-\begin{figure*}[t]
+\begin{figure*}[t!]
 \centering
 \begin{subfigure}[t]{0.32\textwidth}
 \includegraphics[scale=0.27]{distancetogo.png} 
@@ -317,19 +317,19 @@ To test the ability of the QP navigation control protocol to prevent collision o
 \end{figure}
 
 To numerically validate the relaxed control Lypanuov function in the QP, the value of the Lyapunov function and its derivative were plotted as the robot navigated. For the situation in which obstacles are absent, Figure~\ref{fig:lyapunovsans} shows that the Lyapunov function correctly decays to zero while its derivative remains strictly less than zero until the robot reaches its final destination. With obstacles present, Figure~\ref{fig:lyapunov} ...
-
-\begin{figure}[h!]
-\centering
-\includegraphics[scale=0.4]{lyapunovsans.png} 
-\caption{Lyapunov Function without Obstacles\label{fig:lyapunovsans}} 
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\includegraphics[scale=0.4]{lyapunov.png} 
-\caption{Lyapunov Function with Obstacles\label{fig:lyapunov}} 
-\end{figure}
- 
+%
+%\begin{figure}[h!]
+%\centering
+%\includegraphics[scale=0.4]{lyapunovsans.png} 
+%\caption{Lyapunov Function without Obstacles\label{fig:lyapunovsans}} 
+%\end{figure}
+%
+%\begin{figure}[h!]
+%\centering
+%\includegraphics[scale=0.4]{lyapunov.png} 
+%\caption{Lyapunov Function with Obstacles\label{fig:lyapunov}} 
+%\end{figure}
+% 
 \subsubsection{Target Trajectory}
 \subsubsection{Gazebo}
 

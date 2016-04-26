@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.8.20)  26 APR 2016 15:52
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.8.20)  26 APR 2016 15:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -944,58 +944,18 @@ LaTeX Warning: Reference `fig:lyapunovsans' on page 6 undefined on input line 3
 
 LaTeX Warning: Reference `fig:lyapunov' on page 6 undefined on input line 319.
 
-
-LaTeX Warning: File `lyapunovsans.png' not found on input line 323.
-
-
-! Package pdftex.def Error: File `lyapunovsans.png' not found.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.323 ...ludegraphics[scale=0.4]{lyapunovsans.png}
-                                                  
-Using draft setting for this image.
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 323.
-
-(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1pcr.fd
-File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
-)
-
-LaTeX Warning: File `lyapunov.png' not found on input line 329.
-
-
-! Package pdftex.def Error: File `lyapunov.png' not found.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.329 \includegraphics[scale=0.4]{lyapunov.png}
-                                               
-Using draft setting for this image.
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
 (./main.bbl) [6 <./octoPlotProofEditSqur.png (PNG copy)>] [7 <./distancetogo.pn
 g (PNG copy)> <./theta.png (PNG copy)> <./delta.png (PNG copy)>] (./main.aux)
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
- 18651 strings out of 494985
- 351005 string characters out of 6180356
+ 18614 strings out of 494985
+ 350486 string characters out of 6180356
  383635 words of memory out of 5000000
- 21514 multiletter control sequences out of 15000+600000
- 43829 words of font info for 89 fonts, out of 8000000 for 9000
+ 21484 multiletter control sequences out of 15000+600000
+ 43314 words of font info for 87 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  56i,16n,55p,10420b,472s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
@@ -1010,15 +970,14 @@ fonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
 pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></u
 sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/
-share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive
-/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fon
-ts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/t
-imes/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pf
-b>
-Output written on main.pdf (7 pages, 3326620 bytes).
+share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/font
+s/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/tim
+es/utmri8a.pfb>
+Output written on main.pdf (7 pages, 3318521 bytes).
 PDF statistics:
- 139 PDF objects out of 1000 (max. 8388607)
- 95 compressed objects within 1 object stream
+ 135 PDF objects out of 1000 (max. 8388607)
+ 92 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  58 words of extra memory for PDF output out of 10000 (max. 10000000)
 
