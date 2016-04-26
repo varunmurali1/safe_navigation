@@ -272,13 +272,46 @@ V_2=\frac{1}{2}z_*^2.
 $z_*$ in $V_2$ represents the different steering objectives $z_1$ and $z_2$ in \eqref{z1} and \eqref{z2}. Because there are two steering objectives, two QP control laws are required: one which drives the state towards the target while avoiding obstacles, and the other that drives the state in such a way that the robot steers away from obstacles. Toggling between steering objectives is dependent on the obstacle measurement. If the measurement of the distance between the robot and the obstacle was less than the minimum safe distance, then the steering objective $z_2$ is used. Otherwise, $z_1$ is used, and $\alpha_1=0$ is additionally enforced. $h(x)$ and $B$ in the QP controller are given in equations \eqref{zbf} and \eqref{bf}. 
 
 \section{Results}
-%\subsection{Robot specific simulation}
-%The controller shall be implemented in the ROS framework and simulated using the Gazebo simulator for Jeeves. The simulation scenario would involve synthetic worlds and successful navigation in these worlds with the presence of introduced noise in the sensor reading and encoder measurement of the robot.
-%
-%\subsection{Robot experiments}
-%Finally, the controller will be implemented on the Segway robot for experimental evaluation. The experimental evaluation will consist of five navigation test cases in which the robot will be instructed to navigate a static environment. Stability of the Segway will be examined for each test case and will be used to support the theoretical claims. The experiments will be performed in a motion capture room consisting of an 8 camera Optitrack system where the state of both obstacles and the robot can be measured. This will allow us to show the performance of the controller in the presence of both perfect and imperfect information. Further testing will include the addition of dynamic obstacles, such as people, to explore the capabilities of the proposed controller.
+%TODO double check my claims
+To test the ability of the QP controller to drive the robot to a target position while simultaneously avoiding obstacles, both simulation and physical experiments were conducted.
 
 \subsection{Simulation Results}
+Two distinct MATLAB simulations were used to test the QP navigation controller. In the first simulation, the controller demonstrates successful navigation of the robot to the target position with and without the presence of obstacles. In the second simulation, a probabilistic roadmap was used to generate a target trajectory through a map and the QP navigation controller was applied to drive the robot to the target trajectory. 
+
+\subsubsection{Target Position}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.4]{octoPlotCrisisSQR.png} 
+\caption{Robot Trajectory under QP Controller in the Absense of Obstacles\label{fig:octoplotsans}} 
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.4]{distancetogo.png} 
+\caption{Distance of Robot to Target: $r$\label{fig:r}} 
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.4]{theta.png} 
+\caption{Angle between the Positive $x$-axis and $r$: $\theta$\label{fig:theta}} 
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.4]{delta.png} 
+\caption{Egocentric Heading of Robot: $\delta$\label{fig:delta}} 
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.4]{octoPlotProofEditSqur.png} 
+\caption{Robot Trajectory under QP Controller in the Presense of Obstacles\label{fig:octoplot}} 
+\end{figure}
+
+\subsubsection{Target Trajectory}
+
 \subsection{Experimental Results}
 \section{Conclusion}
 
