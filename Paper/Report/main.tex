@@ -1,7 +1,7 @@
 \documentclass[journal]{IEEEtran}
 \usepackage{graphicx}
 \usepackage{tikz}
-\usepackage{mathtools, amsfonts, breqn}
+\usepackage{mathtools, amsfonts, breqn, subcaption}
 \DeclareMathOperator*{\argmin}{arg\,min}
 \begin{document}
 
@@ -203,9 +203,9 @@ The derivative of $h(x)$ is given by the following expression:
 
 A barrier function was chosen to prevent the robot from leaving the safe set. According to Definition 2 in \cite{amesACC}, the barrier function $B$ is a control barrier function if 
 \begin{equation}
-\inf_{u\in U}\left[ \dot{B}+\frac{\gamma}{B} \right] \leq 0
+\inf_{u\in U}\left[ \dot{B}+\frac{\gamma}{B} \right] \leq 0.
 \label{eq:cbf}
-\end{equation}. Thus, by satisfying the equation $\dot{B}\leq 1/B$, the barrier function will prevent the robot from leaving the safe set. The barrier function was chosen to be
+\end{equation} Thus, by satisfying the equation $\dot{B}\leq 1/B$, the barrier function will prevent the robot from leaving the safe set. The barrier function was chosen to be
 \begin{equation}
 B=\frac{1}{h(x)-z_{safe}},
 \label{bf}
@@ -273,44 +273,65 @@ $z_*$ in $V_2$ represents the different steering objectives $z_1$ and $z_2$ in \
 
 \section{Results}
 %TODO double check my claims
-To test the ability of the QP controller to drive the robot to a target position while simultaneously avoiding obstacles, both simulation and physical experiments were conducted.
+To test the ability of the QP controller to drive the robot to a target position while simultaneously avoiding obstacles, both simulation and physical experiments were conducted. Simulation results were generated in both MATLAB and Gazebo, and physical results were generated using the robotic platform Jeeves. 
 
 \subsection{Simulation Results}
-Two distinct MATLAB simulations were used to test the QP navigation controller. In the first simulation, the controller demonstrates successful navigation of the robot to the target position with and without the presence of obstacles. In the second simulation, a probabilistic roadmap was used to generate a target trajectory through a map and the QP navigation controller was applied to drive the robot to the target trajectory. 
+Two distinct MATLAB simulations were used to validate and test the QP navigation controller. In the first simulation, the controller demonstrates successful navigation of the robot to the target position with and without the presence of obstacles; plots of the state are shown, and the Lyapunov function and its derivative are tracked numerically. In the second simulation, a probabilistic roadmap was used to generate a target trajectory through a map, and the QP navigation controller was applied to drive the robot to the target trajectory while simultaneously avoiding obstacles. 
 
+%TODO add gazebo
+Gazebo simulation of a unicycle robot navigating via the QP controller was used to demonstrate the feasibility of the controller in practice.
 \subsubsection{Target Position}
+Figure~\ref{fig:octoplotsans} shows the output of the first simulation. The navigation objective was to drive the robot from the starting position and heading to zero at the origin. The robot was initialized from eight starting locations, shown in red, with random egocentric headings. The blue lines show the trajectory of the robot, and as expected, the QP controller successfully accomplishes the navigation objective.
 
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.4]{octoPlotCrisisSQR.png} 
-\caption{Robot Trajectory under QP Controller in the Absense of Obstacles\label{fig:octoplotsans}} 
+\caption{Robot Trajectory in the Absense of Obstacles\label{fig:octoplotsans}} 
 \end{figure}
 
-\begin{figure}[h!]
+To further evaluate the QP controller and substantiate its success, the state is plotted. Figures~\ref{fig:state} shows that the distance to the target position, the angle $\theta$, and the egocentric heading are successfully zeroed under the QP navigation control protocol.
+
+\begin{figure*}[t]
 \centering
-\includegraphics[scale=0.4]{distancetogo.png} 
+\begin{subfigure}[t]{0.32\textwidth}
+\includegraphics[scale=0.27]{distancetogo.png} 
 \caption{Distance of Robot to Target: $r$\label{fig:r}} 
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\includegraphics[scale=0.4]{theta.png} 
-\caption{Angle between the Positive $x$-axis and $r$: $\theta$\label{fig:theta}} 
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\includegraphics[scale=0.4]{delta.png} 
+\end{subfigure}
+\begin{subfigure}[t]{0.32\textwidth}
+\includegraphics[scale=0.27]{theta.png} 
+\caption{Angle between Positive $x$-axis and $r$: $\theta$\label{fig:theta}} 
+\end{subfigure}
+\begin{subfigure}[t]{0.32\textwidth}
+\includegraphics[scale=0.27]{delta.png} 
 \caption{Egocentric Heading of Robot: $\delta$\label{fig:delta}} 
-\end{figure}
+\end{subfigure}
+\caption{Robot State under QP Navigation Protocol\label{fig:state}}
+\end{figure*}
+
+To test the ability of the QP navigation control protocol to prevent collision of the robot with obstacles, robots were again initialized from eight starting positions with random headings, but an obstacle was placed in each robot's path. As Figure~\ref{fig:octoplot} demonstrates, the QP navigation controller simultaneously prevented collision while driving the robot to the desired state.
 
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.4]{octoPlotProofEditSqur.png} 
-\caption{Robot Trajectory under QP Controller in the Presense of Obstacles\label{fig:octoplot}} 
+\caption{Robot Trajectory in the Presense of Obstacles\label{fig:octoplot}} 
 \end{figure}
 
+To numerically validate the relaxed control Lypanuov function in the QP, the value of the Lyapunov function and its derivative were plotted as the robot navigated. For the situation in which obstacles are absent, Figure~\ref{fig:lyapunovsans} shows that the Lyapunov function correctly decays to zero while its derivative remains strictly less than zero until the robot reaches its final destination. With obstacles present, Figure~\ref{fig:lyapunov} ...
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.4]{lyapunovsans.png} 
+\caption{Lyapunov Function without Obstacles\label{fig:lyapunovsans}} 
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.4]{lyapunov.png} 
+\caption{Lyapunov Function with Obstacles\label{fig:lyapunov}} 
+\end{figure}
+ 
 \subsubsection{Target Trajectory}
+\subsubsection{Gazebo}
 
 \subsection{Experimental Results}
 \section{Conclusion}

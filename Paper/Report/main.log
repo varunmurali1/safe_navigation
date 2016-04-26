@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.8.20)  26 APR 2016 02:56
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.8.20)  26 APR 2016 15:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -722,6 +722,44 @@ LaTeX Info: Redefining \genfrac on input line 121.
 \cur@row=\count165
 \cur@col=\count166
 \conditionsep=\skip64
+)
+(/usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2013/02/03 v1.1-62 Sub-captions (AR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2013/05/02 v3.3-89 Customizing captions (AR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2013/05/02 v1.6-88 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 57.
+\captionmargin=\dimen289
+\captionmargin@=\dimen290
+\captionwidth=\dimen291
+\caption@tempdima=\dimen292
+\caption@indent=\dimen293
+\caption@parindent=\dimen294
+\caption@hangindent=\dimen295
+Package caption Info: Unknown document class (or package),
+(caption)             standard defaults will be used.
+)
+
+Package caption Warning: Unsupported document class (or package) detected,
+(caption)                usage of the caption package is not recommended.
+See the caption package documentation for explanation.
+
+Package caption Info: \@makecaption = \long macro:#1#2->\ifx \@captype \@IEEEta
+blestring \footnotesize {\centering \normalfont \footnotesize #1.\qquad \scshap
+e #2\par }\@IEEEtablecaptionsepspace \else \@IEEEfigurecaptionsepspace \setbox 
+\@tempboxa \hbox {\normalfont \footnotesize {#1.}~~ #2}\ifdim \wd \@tempboxa >\
+hsize \setbox \@tempboxa \hbox {\normalfont \footnotesize {#1.}~~ }\parbox [t]{
+\hsize }{\normalfont \footnotesize \noindent \unhbox \@tempboxa #2}\else \ifCLA
+SSOPTIONconference \hbox to\hsize {\normalfont \footnotesize \box \@tempboxa \h
+fil }\else \hbox to\hsize {\normalfont \footnotesize \box \@tempboxa \hfil }\fi
+ \fi \fi .
+\c@ContinuedFloat=\count167
+)
+\c@subfigure=\count168
+\c@subtable=\count169
 ) (./main.aux)
 \openout1 = `main.aux'.
 
@@ -737,19 +775,18 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 6.
 LaTeX Font Info:    ... okay on input line 6.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 6.
 LaTeX Font Info:    ... okay on input line 6.
-
-(/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
+ (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count167
-\scratchdimen=\dimen289
+\scratchcounter=\count170
+\scratchdimen=\dimen296
 \scratchbox=\box59
-\nofMPsegments=\count168
-\nofMParguments=\count169
+\nofMPsegments=\count171
+\nofMParguments=\count172
 \everyMPshowfont=\toks33
-\MPscratchCnt=\count170
-\MPscratchDim=\dimen290
-\MPnumerator=\count171
-\makeMPintoPDFobject=\count172
+\MPscratchCnt=\count173
+\MPscratchDim=\dimen297
+\MPnumerator=\count174
+\makeMPintoPDFobject=\count175
 \everyMPtoPDFconversion=\toks34
 ) (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
@@ -795,8 +832,10 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-ABD: EveryShipout initializing macros [1{/var/lib/texmf/fonts/map/pdftex/updmap
-/pdftex.map}
+ABD: EveryShipout initializing macros
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
+ [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
 ] <jeeves2_0.jpg, id=12, 2457.18pt x 3276.24pt>
@@ -835,16 +874,12 @@ Overfull \hbox (9.08568pt too wide) detected at line 159
  ;
  []
 
-<obs.pdf, id=25, 343.50348pt x 317.2655pt>
+[3 <./uni.pdf>] <obs.pdf, id=43, 343.50348pt x 317.2655pt>
 File: obs.pdf Graphic file (type pdf)
  <use obs.pdf>
 Package pdftex.def Info: obs.pdf used on input line 163.
 (pdftex.def)             Requested size: 154.57512pt x 142.76814pt.
 
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[3 <./uni.pdf>]
 Overfull \hbox (7.06485pt too wide) detected at line 170
 \OML/cmm/m/it/10 ! \OT1/cmr/m/n/10 = \OMS/cmsy/m/n/10 ^^@[] []
  []
@@ -853,97 +888,137 @@ Overfull \hbox (7.06485pt too wide) detected at line 170
 File: octoPlotCrisisSQR.png Graphic file (type png)
 
 <use octoPlotCrisisSQR.png>
-Package pdftex.def Info: octoPlotCrisisSQR.png used on input line 285.
+Package pdftex.def Info: octoPlotCrisisSQR.png used on input line 288.
 (pdftex.def)             Requested size: 411.32947pt x 194.5233pt.
 
-Overfull \hbox (158.2796pt too wide) in paragraph at lines 285--286
+Overfull \hbox (158.2796pt too wide) in paragraph at lines 288--289
  [][] 
  []
 
-<distancetogo.png, id=65, 1028.34187pt x 486.31688pt>
+[5 <./octoPlotCrisisSQR.png (PNG copy)>]
+<distancetogo.png, id=71, 1028.34187pt x 486.31688pt>
 File: distancetogo.png Graphic file (type png)
  <use distancetogo.png>
-Package pdftex.def Info: distancetogo.png used on input line 291.
-(pdftex.def)             Requested size: 411.32947pt x 194.5233pt.
+Package pdftex.def Info: distancetogo.png used on input line 297.
+(pdftex.def)             Requested size: 277.65602pt x 131.30731pt.
 
-Overfull \hbox (158.2796pt too wide) in paragraph at lines 291--292
- [][] 
+Overfull \hbox (109.94028pt too wide) in paragraph at lines 297--298
+[][] 
  []
 
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<theta.png, id=66, 1028.34187pt x 486.31688pt>
+<theta.png, id=72, 1028.34187pt x 486.31688pt>
 File: theta.png Graphic file (type png)
  <use theta.png>
-Package pdftex.def Info: theta.png used on input line 297.
-(pdftex.def)             Requested size: 411.32947pt x 194.5233pt.
+Package pdftex.def Info: theta.png used on input line 301.
+(pdftex.def)             Requested size: 277.65602pt x 131.30731pt.
 
-Overfull \hbox (158.2796pt too wide) in paragraph at lines 297--298
- [][] 
+Overfull \hbox (109.94028pt too wide) in paragraph at lines 301--302
+[][] 
  []
 
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<delta.png, id=67, 1028.34187pt x 486.31688pt>
+<delta.png, id=73, 1028.34187pt x 486.31688pt>
 File: delta.png Graphic file (type png)
  <use delta.png>
-Package pdftex.def Info: delta.png used on input line 303.
-(pdftex.def)             Requested size: 411.32947pt x 194.5233pt.
+Package pdftex.def Info: delta.png used on input line 305.
+(pdftex.def)             Requested size: 277.65602pt x 131.30731pt.
 
-Overfull \hbox (158.2796pt too wide) in paragraph at lines 303--304
- [][] 
+Overfull \hbox (109.94028pt too wide) in paragraph at lines 305--306
+[][] 
  []
 
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<octoPlotProofEditSqur.png, id=68, 1028.34187pt x 486.31688pt>
+<octoPlotProofEditSqur.png, id=74, 1028.34187pt x 486.31688pt>
 File: octoPlotProofEditSqur.png Graphic file (type png)
 
 <use octoPlotProofEditSqur.png>
-Package pdftex.def Info: octoPlotProofEditSqur.png used on input line 309.
+Package pdftex.def Info: octoPlotProofEditSqur.png used on input line 315.
 (pdftex.def)             Requested size: 411.32947pt x 194.5233pt.
 
-Overfull \hbox (158.2796pt too wide) in paragraph at lines 309--310
+Overfull \hbox (158.2796pt too wide) in paragraph at lines 315--316
  [][] 
  []
 
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
+LaTeX Warning: Reference `fig:lyapunovsans' on page 6 undefined on input line 3
+19.
 
-(./main.bbl [5 <./octoPlotCrisisSQR.png (PNG copy)>]) [6 <./distancetogo.png (P
-NG copy)> <./theta.png (PNG copy)> <./delta.png (PNG copy)> <./octoPlotProofEdi
-tSqur.png (PNG copy)>] (./main.aux) ) 
+
+LaTeX Warning: Reference `fig:lyapunov' on page 6 undefined on input line 319.
+
+
+LaTeX Warning: File `lyapunovsans.png' not found on input line 323.
+
+
+! Package pdftex.def Error: File `lyapunovsans.png' not found.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.323 ...ludegraphics[scale=0.4]{lyapunovsans.png}
+                                                  
+Using draft setting for this image.
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 323.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1pcr.fd
+File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
+)
+
+LaTeX Warning: File `lyapunov.png' not found on input line 329.
+
+
+! Package pdftex.def Error: File `lyapunov.png' not found.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.329 \includegraphics[scale=0.4]{lyapunov.png}
+                                               
+Using draft setting for this image.
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+(./main.bbl) [6 <./octoPlotProofEditSqur.png (PNG copy)>] [7 <./distancetogo.pn
+g (PNG copy)> <./theta.png (PNG copy)> <./delta.png (PNG copy)>] (./main.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
- 17511 strings out of 494985
- 330605 string characters out of 6180356
- 365068 words of memory out of 5000000
- 20391 multiletter control sequences out of 15000+600000
- 42234 words of font info for 86 fonts, out of 8000000 for 9000
+ 18651 strings out of 494985
+ 351005 string characters out of 6180356
+ 383635 words of memory out of 5000000
+ 21514 multiletter control sequences out of 15000+600000
+ 43829 words of font info for 89 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 56i,16n,55p,10420b,297s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texlive/texmf-dist/fonts/enc/d
-vips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/c
-mex7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.p
-fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share
-/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
-ic/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
-c/amsfonts/symbols/msbm7.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/tim
-es/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb>
-</usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/tex
-live/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (6 pages, 3315914 bytes).
+ 56i,16n,55p,10420b,472s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb></usr/share/texlive/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.
+pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></u
+sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/
+share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive
+/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/t
+imes/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pf
+b>
+Output written on main.pdf (7 pages, 3326620 bytes).
 PDF statistics:
- 130 PDF objects out of 1000 (max. 8388607)
- 88 compressed objects within 1 object stream
+ 139 PDF objects out of 1000 (max. 8388607)
+ 95 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  58 words of extra memory for PDF output out of 10000 (max. 10000000)
 
