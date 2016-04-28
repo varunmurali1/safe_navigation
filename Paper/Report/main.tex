@@ -2,6 +2,7 @@
 \usepackage{graphicx}
 \usepackage{tikz}
 \usepackage{mathtools, amsfonts, breqn, subcaption}
+\usepackage{tabu}
 \DeclareMathOperator*{\argmin}{arg\,min}
 \begin{document}
 
@@ -67,7 +68,7 @@ v \text{ sin}(\theta)\\
 where $(x,y)$ is the 2D position of the robot, and $\theta \in (-\pi ,\pi]$ is the angle formed between the heading of the robot and the positive $x$-axis; $v$ and $w$ are the translational and angular velocities respectively. Park et al \cite{park2011} showed the possibility of using polar co-ordinates to generate a smooth controller. They also propose that designing a controller in polar co-orodinates leads to more ``human like'' motion. 
 In polar co-ordinates the dynamics can be written in the form of $r$, $\theta$, and $\delta$. Figure \ref{fig:uni} describes these states. The $r$ is the radial distance from the goal, the $\theta$ is the orientation of the target reference frame in the robot frame, $\delta$ is the angle between the heading of the robot and the vector joining the center of the robot and the target location. To simplify the problems, a change of co-ordinates is used to position the target location at the origin. The final form of the dynamics is given by:  
 
-\begin{figure}[h!]
+\begin{figure}[t!]
 \begin{center}
 \includegraphics[scale=0.45]{uni.pdf} 
 \caption{The polar co-ordinates used to design the controller are shown in the figure above. The $r$ is the radial distance of the robot from the origin, the angle $\phi$ is the heading of the robot in it's own reference frame, $\theta$ is the orientation of the target frame in the robot frame, and $\delta$ is the angle between the heading and the vector joining the robot center and the origin. \label{fig:uni}} 
@@ -97,7 +98,7 @@ The dynamics of the robot can be represented in affine form ($\dot{x}=f(x)+g(x)u
 v\\\omega \end{matrix}\right),\end{equation} and it is obvious that the drift term is zero. 
 
 \subsection{Control Objectives}
-The objective of this project is to develop a nonlinear control policy for navigation of mobile robots. To do this appropriate control objectives must be identified and constraints on the inputs must be determined; these constraints will be used to generate a navigation controller for the Segway robot to ensure that the constraints are obeyed. The stability of the system with respect to the Lyapunov-like barrier functions can then be analysed, which provides theoretical guarantees of the controller performance in achieving the high level objectives for the robot. The experimental objective is to implement the controller on a real robot to study the gap between theory and practice.
+The objective of this project is to develop a nonlinear control policy for navigation of mobile robots. To do this, appropriate control objectives must be identified and constraints on the inputs must be determined; these constraints will be used to generate a navigation controller for the Segway robot to ensure that the safety constraints are obeyed. The stability of the system with respect to the Lyapunov-like barrier functions can then be analysed, which provides theoretical guarantees of the controller performance in achieving the high level objectives for the robot. The experimental objective is to implement the controller on a real robot to study the gap between theory and practice.
 
 Control of unicycle robots has been explored. The objective in \cite{park2011} was to drive a wheelchair robot to a desired point and heading in a manner similar to the way that humans intuitively drive. To do this, positive linear velocities ($v>0$) are enforced, which prevents the wheelchair robot from going backwards in a direction that its passenger cannot see; this approach is useful in a broader context, most relevant is its application to robots with rigidly mounted, forward facing sensors such as the robot considered by this paper.
 
@@ -107,12 +108,12 @@ z_b>z_{safe}.
 \end{equation}
 
 \textbf{Soft Constraints:} The objective of the controller is to drive the state of the robot to zero i.e:
-\begin{equation} \dot{x}=(\dot{r},\dot{\theta},\dot{\delta})^T \to (0, 0, 0) \end{equation}. 
+\begin{equation} \dot{x}=(\dot{r},\dot{\theta},\dot{\delta})^T \to (0, 0, 0)^T \end{equation}.
 In the context of the real system, this will mean asymptotically driving the distance from the target position to zero while aligning the heading with zero radians in the global coordinate frame. Furthermore, driving the system to zero exponentially is preferred.A soft constraint on the obstacle avoidance is also added to ensure that the robot can exit a dangerous situation if it enters a region where it is not yet considered unsafe but is approaching the possibility of a dangerous situation.
 
 \textbf{Actuator Constraints:} Constraints on the maximum linear and angular velocity inputs can be applied to restrict the controller to physically achievable actuator effort i.e:
-\begin{equation} c_a <= v <= c_b \end{equation}
-\begin{equation} c_c <= w <= c_d \end{equation}
+\begin{equation} c_a \leq v  \leq c_b \end{equation}
+\begin{equation} c_c \leq w \leq c_d \end{equation}
 where $v$ is the translational velocity, $w$ is the angular velocity, $c_a$ and $c_b$ are the minmum and maximum translational velocity that can be actuated and $c_c$ and $c_d$ are the minimum and maximum angular velocity that are physically feasible.
 
 \section{Control Framework}
@@ -149,7 +150,7 @@ A specific example of a control law that can achieve this objective is shown thr
 \begin{figure}[h!]
 \begin{center}
 \includegraphics[scale=0.45]{obs.pdf} 
-\caption{The figure above shows the egocentric co-ordinate system of the robot. In addition, the obstacle is visulaized. The angle $\beta$ is the angle the vector joining the center of the robot to the obstacle makes with respect to the robot heading. \label{fig:obs}} 
+\caption{The figure above shows the egocentric co-ordinate system of the robot. In addition, the obstacle is visulaized. The angle $\beta$ is the angle the vector joining the center of the robot to the obstacle makes with respect to the $x$-axis of the global reference frame. \label{fig:obs}} 
 \end{center}
 \end{figure}
 
@@ -164,7 +165,7 @@ By choosing the angular velocity input $w$ to drive the heading $\delta=\text{ a
 \end{equation}
 for some constant $\gamma >0$, so choosing the correct inputs $u$ will achieve the desired exponential stabilization. According to \cite{amesACC}, by picking a soft constraint relaxation variable $\lambda$, the condition for exponential stabilization shown in \eqref{eq:esclf} is relaxed and can be enforced simultaneously along with a single hard constraint. Because control of the robotic system requires either $\dot{z_1}=-k_2\frac{v}{r}z_1$ or $\dot{z_2}=-k_2\frac{v}{r}z_2$ and $\dot{V}<0$, two soft constrained expressions must be satisfied at a time to achieve exponential stabilization of the state to zero.
 
-\subsection{Hard Constraints as Barrier Functions}
+\subsection{Barrier Functions}
 %TODO invariance of C, proof that u satisfy BF
 As in \cite{amesACC} and \cite{ames2014esclf}, control barrier functions are a logical way of enforcing safety constraints in navigation from a nonlinear control perspective. 
 
@@ -224,9 +225,9 @@ v\\
 \dot{V_1} -\alpha_1 V_1 & \leq\lambda_1\\
 \dot{V_2} -\alpha_2 V_2 & \leq\lambda_2\\
 \dot{h(x)}-\alpha h(x) & \leq \lambda_1\\
-\dot{B} & \leq 1/B\\
-0 \leq v & \leq 2.0\\
--0.1\leq \omega & \leq 0.1\\
+\dot{B} & \leq \gamma/B\\
+c_a \leq v & \leq c_b\\
+c_c\leq \omega & \leq c_d\\
 \alpha_1,\alpha_2 & \leq 0
 \end{align}
 
@@ -247,7 +248,48 @@ and the vector $F^T\in \mathbb{R}^{1\times 6}$ has the form
 F^T=\left[ \begin{matrix}
 0 & 0 &0&0& 10 & 1\\
 \end{matrix}\right].
-\end{equation} The last two elements in the diagonal of $H$ were chosen to be zero to ensure that the negative quadratic cost of the slack variables $\alpha_1$ and $\alpha_2$ is as large as possible. Conversely, the last two elements of $F^T$ were chosen to ensure that $\alpha_1$ and $\alpha_2$ were negative to minimize the cost.
+\end{equation} 
+\if0
+\begin{tabu} to 0.5\textwidth { | X[c] |  X[c] | }
+ \hline
+  Parameters & Value \\
+\hline
+  $c_a$ & 0.0 \\
+\hline
+  $c_b$ & 2.0 \\
+\hline
+  $c_c$ & -0.1 \\
+\hline
+  $c_d$ & 0.1 \\
+\hline
+  $\gamma$ & 1\\
+\hline
+\caption{Table to test captions and labels}
+\end{tabu}
+\fi
+
+\begin{table}
+\centering
+\begin{tabular}{ | c | c | } 
+\hline
+  Parameters & Value \\
+\hline
+  $c_a$ & 0.0 \\
+\hline
+  $c_b$ & 2.0 \\
+\hline
+  $c_c$ & -0.1 \\
+\hline
+  $c_d$ & 0.1 \\
+\hline
+  $\gamma$ & 1\\
+\hline
+\end{tabular}
+\caption{Table to test captions and labels}
+\label{table:1}
+\end{table}
+
+The last two elements in the diagonal of $H$ were chosen to be zero to ensure that the negative quadratic cost of the slack variables $\alpha_1$ and $\alpha_2$ is as large as possible. Conversely, the last two elements of $F^T$ were chosen to ensure that $\alpha_1$ and $\alpha_2$ were negative to minimize the cost.
 
 The control Lyapunov functions $V_1$ and $V_2$ are the Lyapunov functions correspond to the objectives of driving the state to zero and enforcing the steering control respectively; the equations are given by 
 \begin{equation}
@@ -263,7 +305,7 @@ $z_*$ in $V_2$ represents the different steering objectives $z_1$ and $z_2$ in \
 To test the ability of the QP controller to drive the robot to a target position while simultaneously avoiding obstacles, both simulation and physical experiments were conducted. Simulation results were generated in both MATLAB and Gazebo, and physical results were generated using the robotic platform Jeeves. 
 
 \subsection{Simulation Results}
-Two distinct MATLAB simulations were used to validate and test the QP navigation controller. In the first simulation, the controller demonstrates successful navigation of the robot to the target position with and without the presence of obstacles; plots of the state are shown, and the Lyapunov function and its derivative are tracked numerically. In the second simulation, a probabilistic roadmap was used to generate a target trajectory through a map, and the QP navigation controller was applied to drive the robot to the target trajectory while simultaneously avoiding obstacles. 
+Two distinct MATLAB simulations were used to validate and test the QP navigation controller. In the first simulation, the controller demonstrates successful navigation of the robot to the target position with and without the presence of obstacles; plots of the state are shown. In the second simulation, a probabilistic roadmap was used to generate a target trajectory through a map, and the QP navigation controller was applied to drive the robot to the target trajectory while simultaneously avoiding obstacles. 
 
 %TODO add gazebo
 Gazebo simulation of a unicycle robot navigating via the QP controller was used to demonstrate the feasibility of the controller in practice.
@@ -297,13 +339,12 @@ To further evaluate the QP controller and substantiate its success, the state is
 
 To test the ability of the QP navigation control protocol to prevent collision of the robot with obstacles, robots were again initialized from eight starting positions with random headings, but an obstacle was placed in each robot's path. As Figure~\ref{fig:octoplot} demonstrates, the QP navigation controller simultaneously prevented collision while driving the robot to the desired state.
 
+\if0
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.4]{octoPlotProofEditSqur.png} 
 \caption{Robot Trajectory in the Presense of Obstacles\label{fig:octoplot}} 
 \end{figure}
-
-To numerically validate the relaxed control Lypanuov function in the QP, the value of the Lyapunov function and its derivative were plotted as the robot navigated. For the situation in which obstacles are absent, Figure~\ref{fig:lyapunovsans} shows the Lyapunov function and its derivative. The derivative is strictly less than zero until the state is driven to zero. The Lyapunov function is strictly positive until the robot reaches its final destination, but it is not strictly decreasing; this is an artifact resulting from the slack variable, which allow the QP to satisfy all of the constraints. Figure~\ref{fig:lyapunov} shows that the Lyapunov function and its derivative still behave correctly in the presence of obstacles.
 
 \begin{figure}[h!]
 \centering
@@ -316,7 +357,8 @@ To numerically validate the relaxed control Lypanuov function in the QP, the val
 \includegraphics[scale=0.63]{v2.png} 
 \caption{Lyapunov Function with Obstacles\label{fig:lyapunov}} 
 \end{figure}
- 
+ \fi
+
 \subsubsection{Target Trajectory}
 To demonstrate that the QP navigation control protocol enables successful navigation and collision avoidance, the probabilistic roadmap (PRM) planner was used to generate a trajectory through and environment. A path was planned using PRM for the map as shown in Figure~\ref{fig:prm}. The result of following  this trajectory under QP control policy with the barrier functions removed is shown in Figure~\ref{fig:prm_fail}; clearly, without the barrier functions, the robot fails to arrive safely to its final location. Figure~\ref{fig:prm_works} shows the result of applying the QP controller with the barrier functions, and in contrast to the previous case, the robot avoids obstacle and navigates safely.
 
@@ -339,15 +381,20 @@ To demonstrate that the QP navigation control protocol enables successful naviga
 %\end{figure}
 
 \subsubsection{Gazebo}
-Using Gazebo, the QP navigation control policy was implemented on a unicycle robot in a cluttered environment. Figure~\ref{fig:gazebo} shows the trajectory of the robot as it navigates from its starting position to the final location. By demonstrating that the QP controller enabled successful navigation in a simulated 3D environment using the on-board sensors of the unicycle robot, the feasibility of implementing the QP navigation control protocol on a physical system was established. 
+Using Gazebo, the QP navigation control policy was implemented on a unicycle robot in an environment with obstacles. Figure~\ref{fig:gazebo} shows the robot as it navigates from its starting position to the final location. By demonstrating that the QP controller enabled successful navigation in a simulated 3D environment using the on-board sensors of the unicycle robot, the feasibility of implementing the QP navigation control protocol on a physical system was established. 
 
-%\begin{figure}[h!]
-%\centering
-%\includegraphics[scale=0.63]{gazebo.png} 
-%\caption{Gazebo Simulation Navigation\label{fig:gazebo}}
-%\end{figure}
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.45]{Gazebo_exp.png} 
+\caption{Gazebo Simulation Navigation\label{fig:gazebo}}
+\end{figure}
 
 \subsection{Experimental Results}
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.20]{jeeves_exp.png} 
+\caption{Gazebo Simulation Navigation\label{fig:gazebo}}
+\end{figure}
 
 \section{Conclusion}
 
