@@ -4,18 +4,8 @@
 \begin_header
 \textclass IEEEtran
 \begin_preamble
-
-
-%\documentclass{article}
-%\usepackage[]{natbib}
 \usepackage{tikz}
-
-
-% If IEEEtran.cls has not been installed into the LaTeX system files,
-% manually specify the path to it like:
-% \documentclass[journal]{../sty/IEEEtran}
-
-
+\usepackage{amsfonts}\usepackage{breqn}\usepackage{subcaption}\DeclareMathOperator*{\argmin}{arg\,min}
 
 \end_preamble
 \options journal
@@ -85,34 +75,6 @@
 
 \begin_body
 
-\begin_layout Standard
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-% paper title
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-% can use linebreaks 
-\backslash
-
-\backslash
- within to get better formatting as desired
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Title
 Experimental Evaluation of Control Policies for 
 \begin_inset Newline newline
@@ -147,7 +109,17 @@ status collapsed
 
 
 \begin_layout Standard
-ECE6552, March 2016
+ECE6552, 26 April 2016
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+%xdf
 \end_layout
 
 \end_inset
@@ -170,39 +142,7 @@ et al.
 \end_layout
 
 \begin_layout Abstract
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-\backslash
-if
-\end_layout
-
-\end_inset
-
-0 Describe what the overall objectives are, the specific system being considered. 
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-\backslash
-fi
-\end_layout
-
-\end_inset
-
- With the growth of domestic robot industry, it is important to understand the navigation of mobile robots in dynamic environments. Use of mobile robots in the home can greatly improve the quality of life and is a growing field of research. An important aspect to be considered is the aspect of safety and guarantees that can be made about the safety of controllers on such robots. Given traditional digital control, mobile robot dynamics are often linearized to a setpoint and the controller is set to follow a point some distance 
-\series bold
-
-\begin_inset Formula $d$
-\end_inset
-
-
-\series default
- from the robot. The proposed study will attempt to characterize the stability of such a robotic system. We propose to study the applicability of barrier functions to prove the stability of the system given its set of constraints and the space it's allowed to operate in. The formulation of this problem in this form allows us to make claims about the stability of the control law, and study the conditions under which we can guarantee the success of the controller. The overall objective of the project is to apply barrier functions to generate a nonlinear control policy for a Segway RMP based robot. 
+Successful navigation, which involves moving from one location to another while avoiding collisions with obstacles in the environment, is a fundamental objective for mobile robots. A combination of deliberative and reactive control allows mobile robots to achieve planned navigation while avoiding unexpected obstacles or deviations from the plan. A hybrid approach, inspired by nonlinear control and enabled by barrier functions, is proposed. Using quadratic programming to determine inputs simultaneously satisfying control constraints from control Lyapunov and barrier functions, this paper presents a nonlinear navigation control protocol. Motivation and explanation of the protocol are presented. Verification of the navigation control protocol is performed first in MATLAB simulation, which shows that the control law correctly drives the robot first to a target location and second to a trajectory generated using a probabilistic roadmap algorithm. After verification in simulation, the navigation control protocol is implemented on a real robotic system, demonstrating that the nonlinear navigation control protocol successfully traverses the gap between theory and practice. 
 \end_layout
 
 \begin_layout Section
@@ -210,42 +150,45 @@ Introduction
 \end_layout
 
 \begin_layout Standard
+Navigation is of fundamental concern for mobile robots. The ability to successfully avoid obstacles, both static and dynamic, while moving towards a goal location largely determines the utility of a mobile robotic platform. It is critical that robots avoid obstacles for their own safety as well as the safety of the people around them. Given the importance of navigation, it is not surprising that the problem has long been considered and explored; furthermore, it is reasonable to assert that approaches to the problem are as varied as the disciplines related to robotics themselves.
+\end_layout
+
+\begin_layout Standard
+Both deliberative and reactive approaches to navigation have been explored. Deliberative approaches navigation benefit from optimal path planning, but suffer when reality deviates from the map, either due to mapping inaccuracies or dynamic obstacles. Probabilistic roadmaps for path planning, first presented by Kavraki et. al. in 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "kavraki1996"
+
+\end_inset
+
+, are a deliberative approach to navigation in which a search algorithm is applied to a map in order to identify a possible path through the environment. In contrast, reactive approaches to navigation may not find optimal solutions and are susceptible to local minima but are able to respond to dynamic obstacles and the environment as it is encountered. Artificial potential fields are a reactive method of navigation that have long been considered
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "khatib1985"
+
+\end_inset
+
+. Hybrid approaches to navigation take planning and layer it with reactive controls that handle possible obstacles.
+\end_layout
+
+\begin_layout Standard
 
 \begin_inset ERT
 status collapsed
 
 \begin_layout Plain Layout
-
-\backslash
-if
+%TODO citations needed towards the end
 \end_layout
 
 \end_inset
 
-0 Motivate the problem being considered in a general way. Use this to setup the specific objectives of the project. Give a high level overview of the system that will be considered. Finally, what are the concrete analy- sis/control/safety objectives that will be met. 
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-\backslash
-fi
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Navigation is a fundamental concern for mobile robots. The ability to successfully avoid obstacles, both static and dynamic, while moving towards a goal location largely determines the utility of a mobile robotic platform. It is important that robots avoid obstacles for their own safety as well as the safety of the people around them. Given the importance of navigation, it is not surprising that the problem has long been considered and explored; furthermore, it is reasonable to assert that approaches to the problem are as varied as the disciplines related to robotics themselves.
-\end_layout
-
-\begin_layout Standard
-In this paper, we propose to use nonlinear control techniques (barrier functions) for robot navigation and collision avoidance. We define constraints important for navigation like distance from obstacle, minimum and maximum velocity, minimum and maximum rotational velocity, and velocity as a function of distance from obstacle for safety to generate a navigation law for the robot.
-\end_layout
-
-\begin_layout Standard
 Nonlinear control based navigation is also a studied problem such as by Ting et al. 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -254,54 +197,46 @@ key "ting2014reactive"
 
 \end_inset
 
-. Generating a policy in a reactive fashion reduces the complexity of the computation needed. Traditional path planners can be used to provide a high level trajectory by having some previous metric knowledge of the space. Lower level reactive controllers can be used for local refinement of the global path and can be used to control the robot. This reduces the complexity of re-planning every time a change in the environment is observed. Potential field based algorithms have been used to generate such reactive policies in the past with some success. There are some known pitfalls for this method with regards to local minima but several solutions for this have been proposed.
+. Generating a policy in a reactive fashion reduces the complexity of the computation needed. Traditional path planners can be used to provide a high level trajectory by having some previous metric knowledge of the space. Lower level reactive controllers can be used for local refinement of the global path and can be used to control the robot--this reduces the complexity of re-planning every time a change in the environment is observed. Potential field based algorithms have been used to generate such reactive policies in the past with some success. There are some known pitfalls for this method with regards to local minima but several solutions for this have been proposed.
 \end_layout
 
 \begin_layout Standard
-Given the possibility of having a global metric representation of a domestic environment, we could generate a global trajectory and local non-linear controller that obeys the bounds imposed on the robot. If the barrier function comprises of the above information, we can make claims guarantees about the stability of the robot with respect to those objectives.
+Given the possibility of having a global metric representation of a domestic environment, a global trajectory can be generated and a local non-linear controller that obeys constraints imposed by the robot and the objective could be used to achieve navigational objectives. In this paper, control Lyapunov and barrier functions are designed for robot navigation and collision avoidance. Constraints important for navigation, such as distance from obstacles, distance to target, deviation from desired heading, minimum and maximum velocity, and minimum and maximum rotational velocity will be combined to generate a navigation control protocol for the robot. Quadratic programming as presented by Ames et. al. in 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "amesACC"
+
+\end_inset
+
+ will be used to simultaneously satisfy these constraints. Furthermore, by applying nonlinear control to navigation, claims about stabilization of the robot to the navigational directive can be guaranteed theoretically, which is an improvement over other reactive navigation methods, which can make no such claims.
 \end_layout
 
 \begin_layout Standard
-The navigation law will first be tested and verified in simulation. MATLAB will be used for this purpose. Once the simulations verify the algorithm, the controller will be implemented in the ROS framework and evaluated in a robot simulation environment (Gazebo). The final experiments will be performed on the mobile robot Jeeves, shown in Figure 
+The navigation control protocol will first be motivated and derived. After explaining the protocol, MATLAB simulation will be used to verify that the navigation control protocol correctly drives the state of the robot to a target. After demonstrating that the robot can navigate to a target location, a trajectory will be generated for a map using a probabilistic roadmap, and the control law will be used to drive the robot along the trajectory. After thoroughly verifying the navigation control protocol in simulation, the controller will be implemented in the ROS framework and evaluated on the mobile robot Jeeves, shown in Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:jeeves"
 
 \end_inset
 
-, which will be used as a test platform for the real world environment. We plan to study the law developed in both static and dynamic environments.
+, which will verify the navigation control protocol in a real world scenario.
 \end_layout
 
 \begin_layout Section
-System Overview
+System Description and Dynamics
+\end_layout
+
+\begin_layout Standard
+The robotic system considered in this paper and its dynamics are presented. The dynamics of the system, and thereby the control objectives, must be twice considered. First, the control objective of the robot to remain balanced is a primary objective that is achieved by a low-level control protocol outside the scope of this project. Second is navigation directive, which is achieved through the control protocol presented in this paper. The following sections describe the system and detail the dynamics.
+\end_layout
+
+\begin_layout Subsection
+System Description
 \end_layout
 
 \begin_layout Standard
 
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-\backslash
-if
-\end_layout
-
-\end_inset
-
-0 Discuss the system that will be considered. Indicate the type of dynamics and phenomena it displays. Discuss how it will be analyzed and how it will be used to set the stage for the overarching goals of the project. Give a high level overview of the system that will be considered. Finally, what are the concrete analysis/control/safety objectives that will be met. What are the specific objectives of the project, especially in the context of the system of interest? 
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-\backslash
-fi
-\end_layout
-
-\end_inset
-
- 
 \begin_inset Float figure
 wide false
 sideways false
@@ -433,6 +368,14 @@ The robot is controlled using a PS3 controller when in tele-operation mode, whic
 \end_layout
 
 \begin_layout Standard
+The control law will further be used to test how it affects the dynamics of the system. We will measure the translation and the rotational velocities and the tip angle to verify that the control policy doesn't force the robot to go beyond its boundary conditions and ensures its safety.
+\end_layout
+
+\begin_layout Subsection
+Nonlinear Dynamics
+\end_layout
+
+\begin_layout Standard
 The dynamics (discussed in 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -441,21 +384,12 @@ key "castro2012modeling"
 
 \end_inset
 
-) of the Segway RMP base can be modelled as a cart with an inverted pendulum which can be modelled as:
-\end_layout
-
-\begin_layout Standard
-
+) of the Segway RMP base can be modelled as a cart with an inverted pendulum which can be modelled as: 
 \begin_inset Formula \begin{equation}
-\centering
- mLsin(\theta)\dot{\theta}^2 + (M+m)\dot{v} - F - mLcos(\theta)\ddot{\theta} = 0 
+ mL\text{ sin}(\theta)\dot{\theta}^2 + (M+m)\dot{v} - F - mL\text{ cos}(\theta)\ddot{\theta} = 0, 
 \end{equation}
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
 where 
 \begin_inset Formula $\theta$
 \end_inset
@@ -480,95 +414,1909 @@ where
 \begin_inset Formula $L$
 \end_inset
 
- is the length of the massless rod.
+ is the length of the massless rod. While these dynamics are important, they are handled by a low-level controller and are outside the scope of this project.
 \end_layout
 
 \begin_layout Standard
-The control law will further be used to test how it affects the dynamics of the system. We will measure the translation and the rotational velocities and the tip angle to verify that the control policy doesn't force the robot to go beyond its boundary conditions and ensures its safety.
-\end_layout
+Of greater relevance to navigation, the robot was assumed to be modelled by unicycle dynamics for the purpose of designing the navigation control protocol proposed by this paper. The unicycle dynamics model is presented in the familiar rectangular form: 
+\begin_inset Formula \begin{equation}
+\left(
+\begin{matrix}
+\dot{x}\\
+\dot{y}\\
+\dot{\theta}
+\end{matrix}
+\right)
+=
+\left(
+\begin{matrix}
+v \text{ cos}(\theta)\\
+v \text{ sin}(\theta)\\
+\omega
+\end{matrix}
+\right),
+\end{equation}
+\end_inset
 
-\begin_layout Section
-Objective
+where 
+\begin_inset Formula $(x,y)$
+\end_inset
+
+ are the global coordinates of the robot, and 
+\begin_inset Formula $\theta \in (-\pi ,\pi]$
+\end_inset
+
+ is the angle formed between the heading of the robot and the positive 
+\begin_inset Formula $x$
+\end_inset
+
+-axis--
+\begin_inset Formula $v$
+\end_inset
+
+ and 
+\begin_inset Formula $w$
+\end_inset
+
+ are the linear and translational velocities respectively. While control of the unicycle robot is possible using rectangular dynamics, a transformation of the dynamics into polar form simplifies the dynamics for formulating the control law, where 
+\begin_inset Formula $r=\sqrt(x^2+y^2)$
+\end_inset
+
+ is the distance between the goal and the robot, and 
+\begin_inset Formula $\theta$
+\end_inset
+
+ is unchanged. The polar coordinates are transformed yet again into an egocentric coordinate system centered on the robot to represent the heading of the robot 
+\begin_inset Formula $\delta$
+\end_inset
+
+; this transformation was inspired by 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "park2011"
+
+\end_inset
+
+. The final form of the dynamics is given by:
 \end_layout
 
 \begin_layout Standard
-The objective of this project is to come up with a nonlinear control policy for navigation of mobile robots. To do this appropriate constraints have to be determined and specified. The initial constraints will be : 
-\end_layout
 
-\begin_layout Itemize
-The distance between the robotic platform and obstacles in the environment 
-\end_layout
+\begin_inset Float figure
+placement h!
+wide false
+sideways false
+status open
 
-\begin_layout Itemize
-Minimum and maximum translational velocities of the robot 
-\end_layout
-
-\begin_layout Itemize
-Minimum and maximum angular velocities of the robot 
-\end_layout
 
 \begin_layout Standard
-These constraints will be used to generate a navigation controller for the Segway robot to ensure that the constraints are obeyed. Later, more constraints may be added to ensure safety of the robot and humans around the robot. The stability of the system with respect to the Lyapunov-like barrier functions will be analysed. This allows us to study theoretical guarantees of the controller for the Segway robot.
-\end_layout
+\align center
+
+\begin_inset Graphics 
+	filename uni.pdf
+	scale 45
+
+\end_inset
+
+ 
+\begin_inset Caption Standard
 
 \begin_layout Standard
-The experimental objective is to implement this controller on a real robot and study the gap between theory and practice in experimental scenarios. In the context of the system of interest, the nonlinear controller is used to study the robustness and stability of the generated control policy in the presence of obstacles in a real world scenario.
-\end_layout
+Egocentric Polar Unicycle Dynamics
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:uni"
 
-\begin_layout Section
-Verification
-\end_layout
+\end_inset
 
-\begin_layout Standard
 
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-\backslash
-if
 \end_layout
 
 \end_inset
 
-0 How will the objectives of the project be verified? Through simulation, experimentally, formally, or through some combination of these? Give specifics on how the individual objectives will be verified (in a concise fashion). 
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset Formula \begin{equation}
+\left(
+\begin{matrix}
+\dot{r}\\
+\dot{\theta}\\
+\end{matrix}
+\right)
+=
+\left(
+\begin{matrix}
+- v \text{ cos}(\delta)\\
+\frac{v}{r} \text{ sin}(\delta)\\
+\end{matrix}
+\right).
+\end{equation}
+\end_inset
+
+
+\begin_inset Formula \begin{equation}
+\dot{\delta}=\frac{v}{r} \text{ sin}(\delta)+\omega
+\end{equation}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figure
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:uni"
+
+\end_inset
+
+ describes relationships between the coordinate system used by the dynamics above. The angle 
+\begin_inset Formula $\phi$
+\end_inset
+
+ is the heading of the robot in the global coordinate frame, 
+\begin_inset Formula $\delta$
+\end_inset
+
+ is the egocentric heading, 
+\begin_inset Formula $\theta$
+\end_inset
+
+ is the angle that the robot frame makes with the positive 
+\begin_inset Formula $x$
+\end_inset
+
+-axis in global coordinates, and 
+\begin_inset Formula $r$
+\end_inset
+
+ is the distance to the target, which is the origin without loss of generality.
+\end_layout
+
+\begin_layout Standard
+The dynamics of the robot can be represented in affine form (
+\begin_inset Formula $\dot{x}=f(x)+g(x)u$
+\end_inset
+
+), where 
+\begin_inset Formula \begin{equation}u=\left(\begin{matrix}
+v\\\omega \end{matrix}\right),\end{equation}
+\end_inset
+
+and it is obvious that the drift term is zero.
+\end_layout
+
+\begin_layout Subsection
+Control Objectives
+\end_layout
+
+\begin_layout Standard
+The objective of this project is to develop a nonlinear control policy for navigation of mobile robots. To do this appropriate control objectives must be identified and constraints on the inputs must be determined; these constraints will be used to generate a navigation controller for the Segway robot to ensure that the constraints are obeyed. The stability of the system with respect to the Lyapunov-like barrier functions can then be analysed, which provides theoretical guarantees of the controller performance in achieving the high level objectives for the robot. The experimental objective is to implement the controller on a real robot to study the gap between theory and practice.
+\end_layout
+
+\begin_layout Standard
+Control of unicycle robots has been explored. The objective in 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "park2011"
+
+\end_inset
+
+ was to drive a wheelchair robot to a desired point and heading in a manner similar to the way that humans intuitively drive. To do this, positive linear velocities (
+\begin_inset Formula $v>0$
+\end_inset
+
+) are enforced, which prevents the wheelchair robot from going backwards in a direction that its passenger cannot see; this approach is useful in a broader context, most relevant is its application to robots with rigidly mounted, forward facing sensors such as the robot considered by this paper.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Hard Constraints:
+\series default
+ The most important constraint on the system is that the robot not collide with obstacles. To achieve this objective, the distance to the obstacle must not be smaller than a minimum safe distance, which can be represented in the following expression: 
+\begin_inset Formula \begin{equation}
+z_b>z_{safe}.
+\end{equation}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Soft Constraints:
+\series default
+ The objective of the controller is to drive the state of the robot to zero (
+\begin_inset Formula $\dot{x}=(\dot{r},\dot{\theta},\dot{\delta})^T \to 0$
+\end_inset
+
+). In the context of the real system, this will mean asymptotically driving the distance from the target position to zero while aligning the heading with zero radians in the global coordinate frame. Furthermore, driving the system to zero exponentially is preferred.
+\end_layout
+
+\begin_layout Standard
+Further constraints on the maximum linear and angular velocity inputs can be applied to ensure that the system operates safely in indoor environments. 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+%TODO constraints!
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Control Framework
+\end_layout
+
+\begin_layout Standard
+This section details the development of the safe navigation control protocol. In particular, the soft and hard constraints previously presented motivate the use of control Lyapunov functions and barrier functions for achieving safe navigation.
+\end_layout
+
+\begin_layout Subsection
+Soft Constraints as Control Lyapunov Functions
+\end_layout
+
+\begin_layout Standard
+To design the control law, the quintessential quadratic Lyapunov function candidate is first considered: 
+\begin_inset Formula \begin{align}
+V&=\frac{1}{2}(r^2+\theta^2)\\
+\dot{V}&=r \dot{r}+\theta \dot{\theta}\\
+&=-r v \text{ cos}(\delta) + \theta v \text{ sin}(\delta)
+\end{align}
+\end_inset
+
+Fixing 
+\begin_inset Formula $\delta$
+\end_inset
+
+ to enforce a virtual steering control as in 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "park2011"
+
+\end_inset
+
+, 
+\begin_inset Formula \begin{equation} 
+\delta = \text{arctan}(-k_1\theta). \end{equation}
+\end_inset
+
+The Lyapunov candidate becomes: 
+\begin_inset Formula \begin{equation}
+\dot{V}=-r v \text{ cos}(\text{arctan}(-k_1\theta)) + \theta v \text{ sin}(\text{arctan}(-k_1\theta)).
+\end{equation}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Because 
+\begin_inset Formula $\theta\in (-\pi,\pi]$
+\end_inset
+
+, 
+\begin_inset Formula $v>0$
+\end_inset
+
+, and 
+\begin_inset Formula $r\geq 0$
+\end_inset
+
+ , 
+\begin_inset Formula $\dot{V}<0$
+\end_inset
+
+ 
+\begin_inset Formula $\forall \theta,r\neq0$
+\end_inset
+
+; thus, the steering control asymptotically drives 
+\begin_inset Formula $r,\theta\to 0$
+\end_inset
+
+. By choosing 
+\begin_inset Formula $v=k_3 r$
+\end_inset
+
+ in some neighborhood of 
+\begin_inset Formula $r=0$
+\end_inset
+
+ for positive constant 
+\begin_inset Formula $k_3,$
+\end_inset
+
+ the singularity at 
+\begin_inset Formula $r=0$
+\end_inset
+
+ is removed and the system is globally asymptotically stable. Furthermore, by the definition of the steering control, 
+\begin_inset Formula $\delta\to 0$
+\end_inset
+
+ as 
+\begin_inset Formula $\theta \to 0$
+\end_inset
+
+, so the virtual steering control not only drives the robot to the final position, but aligns the heading of the robot with the positive 
+\begin_inset Formula $x$
+\end_inset
+
+-axis of the global coordinate frame by the time it arrives at the final position.
+\end_layout
+
+\begin_layout Standard
+To drive the state to zero through the steering control, the heading must be driven such that 
+\begin_inset Formula $\delta = \text{arctan}(-k_1\theta).$
+\end_inset
+
+ An objective 
+\begin_inset Formula $z_1$
+\end_inset
+
+ is defined: 
+\begin_inset Formula \begin{equation}
+z_1 = \delta - \text{arctan}(-k_1\theta).
+\label{z1}
+\end{equation}
+\end_inset
+
+The derivative is calculated to yield: 
+\begin_inset Formula \begin{equation}
+\dot{z_1}=\left( 1+\frac{k_1}{1+(k_1\theta)^2}\right) \frac{v}{r}\text{ sin}(z_1+\text{ arctan}(-k_1\theta))+\omega.
+\end{equation}
+\end_inset
+
+Through feedback linearization of this objective by choosing the angular velocity 
+\begin_inset Formula \begin{equation}\omega = -\frac{v}{r}\left[ k_2 z_1+\left( 1 + \frac{k_1}{1+(k_1\theta)^2} \right) \text{sin}(z_1+\text{ arctan}(-k_1\theta))\right] ,\end{equation}
+\end_inset
+
+the objective dynamics are globally exponentially stable with the following form: 
+\begin_inset Formula \begin{equation} \dot{z_1}=-k_2\frac{v}{r}z_1,\end{equation}
+\end_inset
+
+where 
+\begin_inset Formula $k_1$
+\end_inset
+
+ and 
+\begin_inset Formula $k_2$
+\end_inset
+
+ can be chosen to increase of decrease how aggressive the steering control is.
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset Float figure
+placement h!
+wide false
+sideways false
+status open
+
+
+\begin_layout Standard
+\align center
+
+\begin_inset Graphics 
+	filename obs.pdf
+	scale 45
+
+\end_inset
+
+ 
+\begin_inset Caption Standard
+
+\begin_layout Standard
+Egocentric Polar Unicycle Dynamics with Obstacle
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:obs"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A second steering controller is designed to drive the state away from the origin and is defined by the following objective: 
+\begin_inset Formula \begin{equation}z_2=\delta-\text{ atan}(k_1\beta),\label{z2}\end{equation}
+\end_inset
+
+where 
+\begin_inset Formula $\beta$
+\end_inset
+
+ is the angle formed between the global positive 
+\begin_inset Formula $x$
+\end_inset
+
+-axis and the vector 
+\begin_inset Formula $z_b$
+\end_inset
+
+ pointing from the robot to the obstacle. Figure
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:obs"
+
+\end_inset
+
+ shows the egocentric coordinate system with the addition of the obstacle, where 
+\begin_inset Formula $b_x,b_y$
+\end_inset
+
+ is the global coordinate of the obstacle and 
+\begin_inset Formula $r_b$
+\end_inset
+
+ is the minimum safe distance.
+\end_layout
+
+\begin_layout Standard
+The derivative of 
+\begin_inset Formula $z_2$
+\end_inset
+
+ is similarly computed as with 
+\begin_inset Formula $z_1$
+\end_inset
+
+, and is given by 
+\begin_inset Formula \begin{equation}\dot{z_2}=\left( 1+\frac{k_1}{1+(k_1\beta)^2}\right) \frac{v}{r}\text{ sin}(z_2+\text{ arctan}(k_1\beta))+\omega.\end{equation}
+\end_inset
+
+Through feedback linearization of the objective, choosing 
+\begin_inset Formula \begin{equation}\omega = -\frac{v}{r}\left[ k_2 z_2+\left( 1 + \frac{k_1}{1+(k_1\beta)^2} \right) \text{sin}(z_2+\text{ arctan}(-k_1\beta))\right]\end{equation}
+\end_inset
+
+globally exponentially stabilizes the objective with 
+\begin_inset Formula \begin{equation}\dot{z_2}=-k_2\frac{v}{r}z_2.\end{equation}
+\end_inset
+
+It is noteworthy that in contrast to the steering objective achieved by 
+\begin_inset Formula $z_1$
+\end_inset
+
+, the objective of 
+\begin_inset Formula $z_2$
+\end_inset
+
+ is to make the system unstable with respect to driving the state of the robot to zero; this is done intentionally to allow the robot to navigate around obstacles.
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+%TODO check the clf stuff
+\end_layout
+
+\end_inset
+
+By choosing the angular velocity input 
+\begin_inset Formula $w$
+\end_inset
+
+ to drive the heading 
+\begin_inset Formula $\delta=\text{ arctan}(-k_1\theta)$
+\end_inset
+
+, steering control, which drives the state to zero, is achieved. Similarly, choosing the angular velocity input 
+\begin_inset Formula $w$
+\end_inset
+
+ to drive the heading 
+\begin_inset Formula $\delta=\text{ arctan}(k_1\beta)$
+\end_inset
+
+ causes the robot to drive away from zero. Thus, there exists a control input that satisfies the control Lyapunov function 
+\begin_inset Formula $\dot{V}<0$
+\end_inset
+
+; furthermore, following Definition 3 in 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "ames2014esclf"
+
+\end_inset
+
+, the control Lyapunov function is exponentially stabilizing if it satisfies 
+\begin_inset Formula \begin{equation}
+\inf_{u\in U}\left[ \dot{V}+\gamma V \right] \leq 0
+\label{eq:esclf}
+\end{equation}
+\end_inset
+
+for some constant 
+\begin_inset Formula $\gamma >0$
+\end_inset
+
+, so choosing the correct inputs 
+\begin_inset Formula $u$
+\end_inset
+
+ will achieve the desired exponential stabilization. According to 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "amesACC"
+
+\end_inset
+
+, by picking a soft constraint relaxation variable 
+\begin_inset Formula $\lambda$
+\end_inset
+
+, the condition for exponential stabilization shown in 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:esclf"
+
+\end_inset
+
+ is relaxed and can be enforced simultaneously along with a single hard constraint. Because control of the robotic system requires either 
+\begin_inset Formula $\dot{z_1}=-k_2\frac{v}{r}z_1$
+\end_inset
+
+ or 
+\begin_inset Formula $\dot{z_2}=-k_2\frac{v}{r}z_2$
+\end_inset
+
+ and 
+\begin_inset Formula $\dot{V}<0$
+\end_inset
+
+, two soft constrained expressions must be satisfied at a time to achieve exponential stabilization of the state to zero.
+\end_layout
+
+\begin_layout Subsection
+Hard Constraints as Barrier Functions
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+%TODO invariance of C, proof that u satisfy BF
+\end_layout
+
+\end_inset
+
+As in 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "amesACC"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "ames2014esclf"
+
+\end_inset
+
+, control barrier functions are a logical way of enforcing safety constraints in navigation from a nonlinear control perspective.
+\end_layout
+
+\begin_layout Standard
+A zeroing barrier function is used to drive the robot away from obstacles if it leaves the safe set (e.g. the robot gets within an unsafe threshold distance of the obstacle). The safe set 
+\begin_inset Formula $C$
+\end_inset
+
+ is described by the following expressions: 
+\begin_inset Formula \begin{align}
+C &= {x \in \mathbb{R}^3 | z_b\geq z_{safe}}\\
+\partial C &= {x \in \mathbb{R}^3 | z_b=z_{safe}}\\
+\text{Int}(C) &= {x \in \mathbb{R}^3 | z_b > z_{safe}}
+\end{align}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As presented in 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "ames2015robust"
+
+\end_inset
+
+, a barrier function is a zeroing barrier function 
+\begin_inset Formula $h(x)$
+\end_inset
+
+ if 
+\begin_inset Formula $\dot{h}(x)\leq \gamma h(x).$
+\end_inset
+
+ For the purpose of avoiding obstacles in the event that the robot leaves the safe set, a zeroing barrier function was chosen with the following form: 
+\begin_inset Formula \begin{equation}
+h(x)=\sqrt{(-v\text{ cos}(\theta)-b_x)^2+(v\text{ sin}(\theta)-b_y)^2}.
+\end{equation}
+\end_inset
+
+The derivative of 
+\begin_inset Formula $h(x)$
+\end_inset
+
+ is given by the following expression: 
+\begin_inset Formula \begin{equation}
+\begin{split}
+\dot{h}(x)=\frac{1}{h(x)}[(-v\text{ cos}(\delta)(r-b_y\text{ sin}(\theta)+b_x\text{ cos}(\theta)) \\
+-v\text{ sin}(\delta)(b_x\text{ sin}(\theta)+b_y\text{ cos}(\theta))]
+\end{split}
+\label{zbf}
+\end{equation}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A barrier function was chosen to prevent the robot from leaving the safe set. According to Definition 2 in 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "amesACC"
+
+\end_inset
+
+, the barrier function 
+\begin_inset Formula $B$
+\end_inset
+
+ is a control barrier function if 
+\begin_inset Formula \begin{equation}
+\inf_{u\in U}\left[ \dot{B}+\frac{\gamma}{B} \right] \leq 0.
+\label{eq:cbf}
+\end{equation}
+\end_inset
+
+Thus, by satisfying the equation 
+\begin_inset Formula $\dot{B}\leq 1/B$
+\end_inset
+
+, the barrier function will prevent the robot from leaving the safe set. The barrier function was chosen to be 
+\begin_inset Formula \begin{equation}
+B=\frac{1}{h(x)-z_{safe}},
+\label{bf}
+\end{equation}
+\end_inset
+
+and its derivative is given by 
+\begin_inset Formula \begin{equation}
+\dot{B}=\frac{-\dot{h}(x)}{(h(x)-z_{safe})^2}.
+\end{equation}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+%TODO check constraints
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+QP Based Controller
+\end_layout
+
+\begin_layout Standard
+Quadratic programming is used to find control inputs that simultaneously satisfy both the soft and hard constraints of the system. To minimize control inputs, the cost function 
+\begin_inset Formula $\textbf{u}^TH\textbf{u}+F^T\textbf{u}$
+\end_inset
+
+ is chosen. The QP is given by the following expression: 
+\begin_inset Formula \begin{equation}
+u^*(x,z) = \argmin_{\textbf{u}=
+\left[\begin{matrix}
+v\\
+\omega\\
+\lambda_1\\
+\lambda_2\\
+\alpha_1\\
+\alpha_2
+\end{matrix}\right]
+\in \mathbb{R}^6}
+\frac{1}{2}\textbf{u}^TH\textbf{u}+F^T\textbf{u} 
+\label{QP}
+\end{equation}
+\end_inset
+
+
+\begin_inset Formula \begin{align}
+\text{ s.t.\hspace{1cm}}
+\dot{V_1} -\alpha_1 V_1 & \leq\lambda_1\\
+\dot{V_2} -\alpha_2 V_2 & \leq\lambda_2\\
+\dot{h(x)}-\alpha h(x) & \leq \lambda_1\\
+\dot{B} & \leq 1/B\\
+0 \leq v & \leq 2.0\\
+-0.1\leq \omega & \leq 0.1\\
+\alpha_1,\alpha_2 & \leq 0
+\end{align}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "QP"
+
+\end_inset
+
+, the matrix 
+\begin_inset Formula $H\in \mathbb{R}^{6\times 6}$
+\end_inset
+
+ has the form
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset Formula \begin{equation}
+H=\left[ \begin{matrix}
+1 & 0 &0&0& 0 & 0\\
+0 &1& 0 &0& 0& 0\\
+0& 0 &1& 0& 0& 0\\
+0& 0& 0& 1& 0& 0\\
+0& 0& 0& 0& 0& 0\\
+0& 0& 0& 0& 0& 0\\
+\end{matrix}\right],
+\end{equation}
+\end_inset
+
+and the vector 
+\begin_inset Formula $F^T\in \mathbb{R}^{1\times 6}$
+\end_inset
+
+ has the form 
+\begin_inset Formula \begin{equation}
+F^T=\left[ \begin{matrix}
+0 & 0 &0&0& 10 & 1\\
+\end{matrix}\right].
+\end{equation}
+\end_inset
+
+The last two elements in the diagonal of 
+\begin_inset Formula $H$
+\end_inset
+
+ were chosen to be zero to ensure that the negative quadratic cost of the slack variables 
+\begin_inset Formula $\alpha_1$
+\end_inset
+
+ and 
+\begin_inset Formula $\alpha_2$
+\end_inset
+
+ is as large as possible. Conversely, the last two elements of 
+\begin_inset Formula $F^T$
+\end_inset
+
+ were chosen to ensure that 
+\begin_inset Formula $\alpha_1$
+\end_inset
+
+ and 
+\begin_inset Formula $\alpha_2$
+\end_inset
+
+ were negative to minimize the cost.
+\end_layout
+
+\begin_layout Standard
+The control Lyapunov functions 
+\begin_inset Formula $V_1$
+\end_inset
+
+ and 
+\begin_inset Formula $V_2$
+\end_inset
+
+ are the Lyapunov functions correspond to the objectives of driving the state to zero and enforcing the steering control respectively; the equations are given by 
+\begin_inset Formula \begin{equation}
+V_1=\frac{1}{2}(r^2+\theta^2)
+\end{equation}
+\end_inset
+
+and 
+\begin_inset Formula \begin{equation}
+V_2=\frac{1}{2}z_*^2.
+\end{equation}
+\end_inset
+
+
+\begin_inset Formula $z_*$
+\end_inset
+
+ in 
+\begin_inset Formula $V_2$
+\end_inset
+
+ represents the different steering objectives 
+\begin_inset Formula $z_1$
+\end_inset
+
+ and 
+\begin_inset Formula $z_2$
+\end_inset
+
+ in 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "z1"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "z2"
+
+\end_inset
+
+. Because there are two steering objectives, two QP control laws are required: one which drives the state towards the target while avoiding obstacles, and the other that drives the state in such a way that the robot steers away from obstacles. Toggling between steering objectives is dependent on the obstacle measurement. If the measurement of the distance between the robot and the obstacle was less than the minimum safe distance, then the steering objective 
+\begin_inset Formula $z_2$
+\end_inset
+
+ is used. Otherwise, 
+\begin_inset Formula $z_1$
+\end_inset
+
+ is used, and 
+\begin_inset Formula $\alpha_1=0$
+\end_inset
+
+ is additionally enforced. 
+\begin_inset Formula $h(x)$
+\end_inset
+
+ and 
+\begin_inset Formula $B$
+\end_inset
+
+ in the QP controller are given in equations 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "zbf"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "bf"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Results
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+%TODO double check my claims
+\end_layout
+
+\end_inset
+
+To test the ability of the QP controller to drive the robot to a target position while simultaneously avoiding obstacles, both simulation and physical experiments were conducted. Simulation results were generated in both MATLAB and Gazebo, and physical results were generated using the robotic platform Jeeves.
+\end_layout
+
+\begin_layout Subsection
+Simulation Results
+\end_layout
+
+\begin_layout Standard
+Two distinct MATLAB simulations were used to validate and test the QP navigation controller. In the first simulation, the controller demonstrates successful navigation of the robot to the target position with and without the presence of obstacles; plots of the state are shown, and the Lyapunov function and its derivative are tracked numerically. In the second simulation, a probabilistic roadmap was used to generate a target trajectory through a map, and the QP navigation controller was applied to drive the robot to the target trajectory while simultaneously avoiding obstacles.
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+%TODO add gazebo
+\end_layout
+
+\end_inset
+
+Gazebo simulation of a unicycle robot navigating via the QP controller was used to demonstrate the feasibility of the controller in practice. 
+\end_layout
+
+\begin_layout Subsubsection
+Target Position
+\end_layout
+
+\begin_layout Standard
+Figure
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:octoplotsans"
+
+\end_inset
+
+ shows the output of the first simulation. The navigation objective was to drive the robot from the starting position and heading to zero at the origin. The robot was initialized from eight starting locations, shown in red, with random egocentric headings. The blue lines show the trajectory of the robot, and as expected, the QP controller successfully accomplishes the navigation objective.
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset Float figure
+placement h!
+wide false
+sideways false
+status open
+
+
+\begin_layout Standard
+
 \begin_inset ERT
 status collapsed
 
 \begin_layout Plain Layout
 
 \backslash
-fi
+centering
 \end_layout
 
 \end_inset
 
  
+\begin_inset Graphics 
+	filename octoPlotCrisisSQR.png
+	scale 40
+
+\end_inset
+
+ 
+\begin_inset Caption Standard
+
+\begin_layout Standard
+Robot Trajectory in the Absense of Obstacles
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:octoplotsans"
+
+\end_inset
+
+
 \end_layout
 
-\begin_layout Subsection
-Simulation
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-The nonlinear control policy developed will be simulated in MATLAB to ensure expected behaviour of the algorithm and to evaluate it for different boundary conditions of the algorithm. The simulated environment will be shown as MATLAB GUI where the robot and obstacles are simulated and different randomized configurations of obstacles and several runs of the algorithm will be used to test the controller. 
-\end_layout
+To further evaluate the QP controller and substantiate its success, the state is plotted. Figures
+\begin_inset space ~
 
-\begin_layout Subsection
-Robot specific simulation
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:state"
+
+\end_inset
+
+ shows that the distance to the target position, the angle 
+\begin_inset Formula $\theta$
+\end_inset
+
+, and the egocentric heading are successfully zeroed under the QP navigation control protocol.
 \end_layout
 
 \begin_layout Standard
-The controller shall be implemented in the ROS framework and simulated using the Gazebo simulator for Jeeves. The simulation scenario would involve synthetic worlds and successful navigation in these worlds with the presence of introduced noise in the sensor reading and encoder measurement of the robot.
+
+\begin_inset Float figure
+placement t!
+wide true
+sideways false
+status open
+
+
+\begin_layout Standard
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+centering
 \end_layout
 
-\begin_layout Subsection
-Robot experiments
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+begin{subfigure}
+\end_layout
+
+\end_inset
+
+[t]
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\end_inset
+
+0.32
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+textwidth
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Graphics 
+	filename distancetogo.png
+	scale 27
+
+\end_inset
+
+ 
+\begin_inset Caption Standard
+
+\begin_layout Standard
+Distance of Robot to Target: 
+\begin_inset Formula $r$
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:r"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+end{subfigure}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+begin{subfigure}
+\end_layout
+
+\end_inset
+
+[t]
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\end_inset
+
+0.32
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+textwidth
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Graphics 
+	filename theta.png
+	scale 27
+
+\end_inset
+
+ 
+\begin_inset Caption Standard
+
+\begin_layout Standard
+Angle between Positive 
+\begin_inset Formula $x$
+\end_inset
+
+-axis and 
+\begin_inset Formula $r$
+\end_inset
+
+: 
+\begin_inset Formula $\theta$
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:theta"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+end{subfigure}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+begin{subfigure}
+\end_layout
+
+\end_inset
+
+[t]
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\end_inset
+
+0.32
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+textwidth
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Graphics 
+	filename delta.png
+	scale 27
+
+\end_inset
+
+ 
+\begin_inset Caption Standard
+
+\begin_layout Standard
+Egocentric Heading of Robot: 
+\begin_inset Formula $\delta$
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:delta"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+end{subfigure}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Caption Standard
+
+\begin_layout Standard
+Robot State under QP Navigation Protocol
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:state"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-Finally, the controller will be implemented on the Segway robot for experimental evaluation. The experimental evaluation will consist of five navigation test cases in which the robot will be instructed to navigate a static environment. Stability of the Segway will be examined for each test case and will be used to support the theoretical claims. The experiments will be performed in a motion capture room consisting of an 8 camera Optitrack system where the state of both obstacles and the robot can be measured. This will allow us to show the performance of the controller in the presence of both perfect and imperfect information. Further testing will include the addition of dynamic obstacles, such as people, to explore the capabilities of the proposed controller.
+To test the ability of the QP navigation control protocol to prevent collision of the robot with obstacles, robots were again initialized from eight starting positions with random headings, but an obstacle was placed in each robot's path. As Figure
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:octoplot"
+
+\end_inset
+
+ demonstrates, the QP navigation controller simultaneously prevented collision while driving the robot to the desired state.
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset Float figure
+placement h!
+wide false
+sideways false
+status open
+
+
+\begin_layout Standard
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+centering
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Graphics 
+	filename octoPlotProofEditSqur.png
+	scale 40
+
+\end_inset
+
+ 
+\begin_inset Caption Standard
+
+\begin_layout Standard
+Robot Trajectory in the Presense of Obstacles
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:octoplot"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To numerically validate the relaxed control Lypanuov function in the QP, the value of the Lyapunov function and its derivative were plotted as the robot navigated. For the situation in which obstacles are absent, Figure
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:lyapunovsans"
+
+\end_inset
+
+ shows the Lyapunov function and its derivative. The derivative is strictly less than zero until the state is driven to zero. The Lyapunov function is strictly positive until the robot reaches its final destination, but it is not strictly decreasing; this is an artifact resulting from the slack variable, which allow the QP to satisfy all of the constraints. Figure
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:lyapunov"
+
+\end_inset
+
+ shows that the Lyapunov function and its derivative still behave correctly in the presence of obstacles.
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset Float figure
+placement h!
+wide false
+sideways false
+status open
+
+
+\begin_layout Standard
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+centering
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Graphics 
+	filename vsans1.png
+	scale 63
+
+\end_inset
+
+ 
+\begin_inset Caption Standard
+
+\begin_layout Standard
+Lyapunov Function without Obstacles
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:lyapunovsans"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset Float figure
+placement h!
+wide false
+sideways false
+status open
+
+
+\begin_layout Standard
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+centering
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Graphics 
+	filename v2.png
+	scale 63
+
+\end_inset
+
+ 
+\begin_inset Caption Standard
+
+\begin_layout Standard
+Lyapunov Function with Obstacles
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:lyapunov"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Target Trajectory
+\end_layout
+
+\begin_layout Standard
+To demonstrate that the QP navigation control protocol enables successful navigation and collision avoidance, the probabilistic roadmap (PRM) planner was used to generate a trajectory through and environment. A path was planned using PRM for the map as shown in Figure
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:prm"
+
+\end_inset
+
+. The result of following this trajectory under QP control policy with the barrier functions removed is shown in Figure
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:prm_fail"
+
+\end_inset
+
+; clearly, without the barrier functions, the robot fails to arrive safely to its final location. Figure
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:prm_works"
+
+\end_inset
+
+ shows the result of applying the QP controller with the barrier functions, and in contrast to the previous case, the robot avoids obstacle and navigates safely.
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+%
+\backslash
+begin{figure}[h!]
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+%
+\backslash
+centering
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+%
+\backslash
+includegraphics[scale=0.63]{prm.png} 
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+%
+\backslash
+caption{Trajectory Generated with PRM
+\backslash
+label{fig:prm}} 
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+%
+\backslash
+end{figure}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+%
+\backslash
+begin{figure}[h!]
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+%
+\backslash
+centering
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+%
+\backslash
+includegraphics[scale=0.63]{prm_fail.png} 
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+%
+\backslash
+caption{Navigational Failure under QP Controller without Barrier Functions
+\backslash
+label{fig:prm_fail}} 
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+%
+\backslash
+end{figure}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+%
+\backslash
+begin{figure}[h!]
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+%
+\backslash
+centering
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+%
+\backslash
+includegraphics[scale=0.63]{prm_works.png} 
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+%
+\backslash
+caption{Safe Navigation under QP Controller with Barrier Functions
+\backslash
+label{fig:prm_works}}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+%
+\backslash
+end{figure}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Gazebo
+\end_layout
+
+\begin_layout Standard
+Using Gazebo, the QP navigation control policy was implemented on a unicycle robot in a cluttered environment. Figure
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:gazebo"
+
+\end_inset
+
+ shows the trajectory of the robot as it navigates from its starting position to the final location. By demonstrating that the QP controller enabled successful navigation in a simulated 3D environment using the on-board sensors of the unicycle robot, the feasibility of implementing the QP navigation control protocol on a physical system was established.
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+%
+\backslash
+begin{figure}[h!]
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+%
+\backslash
+centering
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+%
+\backslash
+includegraphics[scale=0.63]{gazebo.png} 
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+%
+\backslash
+caption{Gazebo Simulation Navigation
+\backslash
+label{fig:gazebo}}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+%
+\backslash
+end{figure}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Experimental Results
+\end_layout
+
+\begin_layout Section
+Conclusion
 \end_layout
 
 \begin_layout Standard
