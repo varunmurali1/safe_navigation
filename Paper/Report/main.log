@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  28 APR 2016 14:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  28 APR 2016 15:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -937,103 +937,133 @@ Overfull \hbox (158.2796pt too wide) in paragraph at lines 317--318
  [][] 
  []
 
-<distancetogo.png, id=67, 1028.34187pt x 486.31688pt>
-File: distancetogo.png Graphic file (type png)
- <use distancetogo.png>
-Package pdftex.def Info: distancetogo.png used on input line 326.
-(pdftex.def)             Requested size: 277.65602pt x 131.30731pt.
+<possible_trajectory.png, id=67, 1124.2pt x 843.15pt>
+File: possible_trajectory.png Graphic file (type png)
 
-Overfull \hbox (109.94028pt too wide) in paragraph at lines 326--327
+<use possible_trajectory.png>
+Package pdftex.def Info: possible_trajectory.png used on input line 345.
+(pdftex.def)             Requested size: 168.62273pt x 126.46704pt.
+
+Overfull \hbox (0.90698pt too wide) in paragraph at lines 345--346
 [][] 
  []
 
-<theta.png, id=68, 1028.34187pt x 486.31688pt>
-File: theta.png Graphic file (type png)
- <use theta.png>
-Package pdftex.def Info: theta.png used on input line 330.
-(pdftex.def)             Requested size: 277.65602pt x 131.30731pt.
+<U1.png, id=68, 1124.2pt x 843.15pt>
+File: U1.png Graphic file (type png)
+ <use U1.png>
+Package pdftex.def Info: U1.png used on input line 349.
+(pdftex.def)             Requested size: 168.62273pt x 126.46704pt.
 
-Overfull \hbox (109.94028pt too wide) in paragraph at lines 330--331
+Overfull \hbox (0.90698pt too wide) in paragraph at lines 349--350
 [][] 
  []
 
-<delta.png, id=69, 1028.34187pt x 486.31688pt>
-File: delta.png Graphic file (type png)
- <use delta.png>
-Package pdftex.def Info: delta.png used on input line 334.
-(pdftex.def)             Requested size: 277.65602pt x 131.30731pt.
+<U2.png, id=69, 1124.2pt x 843.15pt>
+File: U2.png Graphic file (type png)
+ <use U2.png>
+Package pdftex.def Info: U2.png used on input line 353.
+(pdftex.def)             Requested size: 168.62273pt x 126.46704pt.
 
-Overfull \hbox (109.94028pt too wide) in paragraph at lines 334--335
+Overfull \hbox (0.90698pt too wide) in paragraph at lines 353--354
 [][] 
  []
 
+<octoPlotProofEditSqur.png, id=70, 1028.34187pt x 486.31688pt>
+File: octoPlotProofEditSqur.png Graphic file (type png)
 
-LaTeX Warning: Reference `fig:prm' on page 5 undefined on input line 363.
+<use octoPlotProofEditSqur.png>
+Package pdftex.def Info: octoPlotProofEditSqur.png used on input line 364.
+(pdftex.def)             Requested size: 411.32947pt x 194.5233pt.
+
+Overfull \hbox (158.2796pt too wide) in paragraph at lines 364--365
+ [][] 
+ []
 
 
-LaTeX Warning: Reference `fig:prm_fail' on page 5 undefined on input line 363.
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<final_prm.png, id=71, 1124.2pt x 843.15pt>
+File: final_prm.png Graphic file (type png)
+ <use final_prm.png>
+Package pdftex.def Info: final_prm.png used on input line 387.
+(pdftex.def)             Requested size: 258.56056pt x 193.92041pt.
+
+Overfull \hbox (5.5107pt too wide) in paragraph at lines 387--388
+ [][] 
+ []
 
 
-LaTeX Warning: Reference `fig:prm_works' on page 5 undefined on input line 363.
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<thick_plot.png, id=72, 1124.2pt x 843.15pt>
+File: thick_plot.png Graphic file (type png)
+ <use thick_plot.png>
+Package pdftex.def Info: thick_plot.png used on input line 399.
+(pdftex.def)             Requested size: 258.56056pt x 193.92041pt.
+
+Overfull \hbox (5.5107pt too wide) in paragraph at lines 399--400
+ [][] 
+ []
 
 
-<Gazebo_exp.png, id=70, 509.905pt x 400.49625pt>
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[5 <./octoPlotCrisisSQR.png (PNG copy)>]
+<Gazebo_exp.png, id=77, 509.905pt x 400.49625pt>
 File: Gazebo_exp.png Graphic file (type png)
  <use Gazebo_exp.png>
-Package pdftex.def Info: Gazebo_exp.png used on input line 388.
+Package pdftex.def Info: Gazebo_exp.png used on input line 408.
 (pdftex.def)             Requested size: 229.45512pt x 180.22165pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<jeeves_exp.png, id=72, 997.7275pt x 1003.75pt>
+<jeeves_exp.png, id=79, 997.7275pt x 1003.75pt>
 File: jeeves_exp.png Graphic file (type png)
  <use jeeves_exp.png>
-Package pdftex.def Info: jeeves_exp.png used on input line 395.
+Package pdftex.def Info: jeeves_exp.png used on input line 415.
 (pdftex.def)             Requested size: 199.54196pt x 200.74644pt.
- [5 <./octoPlotCrisisSQR.png (PNG copy)>]
+
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-(./main.bbl) [6 <./distancetogo.png (PNG copy)> <./theta.png (PNG copy)> <./del
-ta.png (PNG copy)> <./Gazebo_exp.png> <./jeeves_exp.png>] (./main.aux)
-
-LaTeX Warning: There were undefined references.
-
+(./main.bbl) [6 <./possible_trajectory.png (PNG copy)> <./U1.png (PNG copy)> <.
+/U2.png (PNG copy)> <./octoPlotProofEditSqur.png (PNG copy)> <./final_prm.png (
+PNG copy)>] [7 <./thick_plot.png (PNG copy)> <./Gazebo_exp.png> <./jeeves_exp.p
+ng>] (./main.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 20784 strings out of 493117
- 403262 string characters out of 6135433
+ 20779 strings out of 493117
+ 403361 string characters out of 6135433
  441593 words of memory out of 5000000
- 23939 multiletter control sequences out of 15000+600000
- 43314 words of font info for 87 fonts, out of 8000000 for 9000
+ 23936 multiletter control sequences out of 15000+600000
+ 40212 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,16n,54p,10372b,472s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 55i,16n,54p,10372b,466s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/te
 xlive/2014/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb></usr/local
 /texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/
 texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/te
 xlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texl
-ive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texliv
-e/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/
-2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/201
-4/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2014/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2014/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2014/texm
-f-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2014/
-texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/local/texlive/20
-14/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2014/texmf-d
-ist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2014/texmf-dist/fonts
-/type1/urw/times/utmr8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/urw
-/times/utmri8a.pfb>
-Output written on main.pdf (6 pages, 4559989 bytes).
+ive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texliv
+e/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2
+014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2014
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2014/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2014/te
+xmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/201
+4/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/local/texlive/
+2014/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2014/texmf
+-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2014/texmf-dist/fon
+ts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/u
+rw/times/utmri8a.pfb>
+Output written on main.pdf (7 pages, 4920087 bytes).
 PDF statistics:
- 136 PDF objects out of 1000 (max. 8388607)
- 92 compressed objects within 1 object stream
+ 140 PDF objects out of 1000 (max. 8388607)
+ 93 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 58 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 73 words of extra memory for PDF output out of 10000 (max. 10000000)
 

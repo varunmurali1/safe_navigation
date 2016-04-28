@@ -25,7 +25,7 @@ Both deliberative and reactive approaches to navigation have been explored. Deli
 %TODO citations needed towards the end
 Nonlinear control based navigation is also a studied problem such as by Ting et al. \cite{ting2014reactive}. Generating a policy in a reactive fashion reduces the complexity of the computation needed. Traditional path planners can be used to provide a high level trajectory by having some previous metric knowledge of the space. Lower level reactive controllers can be used for local refinement of the global path and can be used to control the robot--this reduces the complexity of re-planning every time a change in the environment is observed. Potential field based algorithms have been used to generate such reactive policies in the past with some success. There are some known pitfalls for this method with regards to local minima but several solutions for this have been proposed.
 
-Given the possibility of having a global metric representation of a domestic environment, a global trajectory can be generated and a local non-linear controller that obeys constraints imposed by the robot and the objective could be used to achieve navigational objectives. In this paper, control Lyapunov and barrier functions are designed for robot navigation and collision avoidance. Constraints important for navigation, such as distance from obstacles, distance to target, deviation from desired heading, minimum and maximum velocity, and minimum and maximum rotational velocity will be combined to generate a navigation control protocol for the robot. Quadratic programming as presented by Ames et. al. in \cite{amesACC} will be used to simultaneously satisfy these constraints. Furthermore, by applying nonlinear control to navigation, claims about stabilization of the robot to the navigational directive can be guaranteed theoretically, which is an improvement over other reactive navigation methods, which can make no such claims.
+Given the possibility of having a global metric representation of a domestic environment, a global trajectory can be generated and a local non-linear controller that obeys constraints imposed by the robot and the objective could be used to achieve navigational objectives. In this paper, control Lyapunov and barrier functions are designed for robot navigation and collision avoidance. Constraints important for navigation, such as distance from obstacles, distance to target, deviation from desired heading, minimum and maximum velocity, and minimum and maximum rotational velocity will be combined to generate a navigation control protocol for the robot. Quadratic programming for Control Barrier Functions as presented by Ames et. al. in \cite{amesACC} will be used to simultaneously satisfy these constraints. Furthermore, by applying nonlinear control to navigation, claims about stabilization of the robot to the navigational directive can be guaranteed theoretically, which is an improvement over other reactive navigation methods, which can make no such claims.
 
 The navigation control protocol will first be motivated and derived. After explaining the protocol, MATLAB simulation will be used to verify that the navigation control protocol correctly drives the state of the robot to a target. After demonstrating that the robot can navigate to a target location, a trajectory will be generated for a map using a probabilistic roadmap, and the control law will be used to drive the robot along the trajectory. After thoroughly verifying the navigation control protocol in simulation, the controller will be implemented in the ROS framework and evaluated on the mobile robot Jeeves, shown in Figure \ref{fig:jeeves}, which will verify the navigation control protocol in a real world scenario.
 
@@ -285,7 +285,7 @@ F^T=\left[ \begin{matrix}
   $\gamma$ & 1\\
 \hline
 \end{tabular}
-\caption{Table to test captions and labels}
+\caption{The table above shows the values that we used for matlab, gazebo and real experiments}
 \label{table:1}
 \end{table}
 
@@ -315,11 +315,12 @@ Figure~\ref{fig:octoplotsans} shows the output of the first simulation. The navi
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.4]{octoPlotCrisisSQR.png} 
-\caption{Robot Trajectory in the Absense of Obstacles\label{fig:octoplotsans}} 
+\caption{The figure above shows initializations at eight different random starting locations and the trajectories followed by the robot to the origin to show that the robot can generate a trajectory from an arbitrary initial condition to the origin \label{fig:octoplotsans}} 
 \end{figure}
 
 To further evaluate the QP controller and substantiate its success, the state is plotted. Figures~\ref{fig:state} shows that the distance to the target position, the angle $\theta$, and the egocentric heading are successfully zeroed under the QP navigation control protocol.
 
+\if0
 \begin{figure*}[t!]
 \centering
 \begin{subfigure}[t]{0.32\textwidth}
@@ -336,16 +337,35 @@ To further evaluate the QP controller and substantiate its success, the state is
 \end{subfigure}
 \caption{Robot State under QP Navigation Protocol\label{fig:state}}
 \end{figure*}
+\fi
+
+\begin{figure*}[t!]
+\centering
+\begin{subfigure}[t]{0.32\textwidth}
+\includegraphics[scale=0.15]{possible_trajectory.png} 
+\caption{Trajectory of the robot  \label{fig:r}} 
+\end{subfigure}
+\begin{subfigure}[t]{0.32\textwidth}
+\includegraphics[scale=0.15]{U1.png} 
+\caption{The linear velocity of the robot \label{fig:theta}} 
+\end{subfigure}
+\begin{subfigure}[t]{0.32\textwidth}
+\includegraphics[scale=0.15]{U2.png} 
+\caption{The angular velocity of the robot \label{fig:delta}} 
+\end{subfigure}
+\caption{The above figures show the trajectory, linear velocity and angular velocity of the robot while avoiding the obstacle.\label{fig:state}}
+\end{figure*}
 
 To test the ability of the QP navigation control protocol to prevent collision of the robot with obstacles, robots were again initialized from eight starting positions with random headings, but an obstacle was placed in each robot's path. As Figure~\ref{fig:octoplot} demonstrates, the QP navigation controller simultaneously prevented collision while driving the robot to the desired state.
 
-\if0
+
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.4]{octoPlotProofEditSqur.png} 
-\caption{Robot Trajectory in the Presense of Obstacles\label{fig:octoplot}} 
+\caption{The figure above shows the same initializations at eight different starting locations and the trajectories followed by the robot to the origin to show that the robot can generate a trajectory from an arbitrary initial condition to the origin while avoiding the obstacle.\label{fig:octoplot}} 
 \end{figure}
 
+\if0
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.63]{vsans1.png} 
@@ -359,14 +379,14 @@ To test the ability of the QP navigation control protocol to prevent collision o
 \end{figure}
  \fi
 
-\subsubsection{Target Trajectory}
-To demonstrate that the QP navigation control protocol enables successful navigation and collision avoidance, the probabilistic roadmap (PRM) planner was used to generate a trajectory through and environment. A path was planned using PRM for the map as shown in Figure~\ref{fig:prm}. The result of following  this trajectory under QP control policy with the barrier functions removed is shown in Figure~\ref{fig:prm_fail}; clearly, without the barrier functions, the robot fails to arrive safely to its final location. Figure~\ref{fig:prm_works} shows the result of applying the QP controller with the barrier functions, and in contrast to the previous case, the robot avoids obstacle and navigates safely.
+\subsubsection{Path Generation}
+To demonstrate that the QP navigation control protocol enables successful navigation and collision avoidance, the probabilistic roadmap (PRM) planner was used to generate a trajectory through and environment. Probabilistic Roadmap Planner (PRM) is a planner that can compute collision-free paths for robots between two points. A path was planned using PRM for the map as shown in Figure~\ref{fig:prm}.  Figure~\ref{fig:prm_works} shows the result of applying the QP controller with the barrier functions. As can be seen in the figure, near coordinate (115,30) the barrier prevents the robot from hitting the wall. 
 
-%\begin{figure}[h!]
-%\centering
-%\includegraphics[scale=0.63]{prm.png} 
-%\caption{Trajectory Generated with PRM\label{fig:prm}} 
-%\end{figure}
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.23]{final_prm.png} 
+\caption{Trajectory Generated with PRM\label{fig:prm}} 
+\end{figure}
 %
 %\begin{figure}[h!]
 %\centering
@@ -374,11 +394,11 @@ To demonstrate that the QP navigation control protocol enables successful naviga
 %\caption{Navigational Failure under QP Controller without Barrier Functions\label{fig:prm_fail}} 
 %\end{figure}
 %
-%\begin{figure}[h!]
-%\centering
-%\includegraphics[scale=0.63]{prm_works.png} 
-%\caption{Safe Navigation under QP Controller with Barrier Functions\label{fig:prm_works}}
-%\end{figure}
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.23]{thick_plot.png} 
+\caption{Safe Navigation under QP Controller with Barrier Functions\label{fig:prm_works}}
+\end{figure}
 
 \subsubsection{Gazebo}
 Using Gazebo, the QP navigation control policy was implemented on a unicycle robot in an environment with obstacles. Figure~\ref{fig:gazebo} shows the robot as it navigates from its starting position to the final location. By demonstrating that the QP controller enabled successful navigation in a simulated 3D environment using the on-board sensors of the unicycle robot, the feasibility of implementing the QP navigation control protocol on a physical system was established. 
