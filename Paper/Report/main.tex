@@ -29,7 +29,7 @@ Given the possibility of having a global metric representation of a domestic env
 The navigation control protocol will first be motivated and derived. After explaining the protocol, MATLAB simulation will be used to verify that the navigation control protocol correctly drives the state of the robot to a target. After demonstrating that the robot can navigate to a target location, a trajectory will be generated for a map using a probabilistic roadmap, and the control law will be used to drive the robot along the trajectory. After thoroughly verifying the navigation control protocol in simulation, the controller will be implemented in the ROS framework and evaluated on the mobile robot Jeeves, shown in Figure \ref{fig:jeeves}, which will verify the navigation control protocol in a real world scenario.
 
 \section{System Description and Dynamics}
-The robotic system considered in this paper and its dynamics are presented. The dynamics of the system, and thereby the control objectives, must be twice considered. First, the control objective of the robot to remain balanced is a primary objective that is achieved by a low-level control protocol outside the scope of this project. Second is navigation directive, which is achieved through the control protocol presented in this paper. The following sections describe the system and detail the dynamics.
+The robotic system considered in this paper and its dynamics are presented. The dynamics are simplified to allow design of a navigation controller with safety constraints. The following sections describe the system and detail the dynamics.
    
 \subsection{System Description}
 \begin{figure}
@@ -39,30 +39,14 @@ The robotic system considered in this paper and its dynamics are presented. The 
     \label{fig:jeeves}
 \end{figure}
 
-\begin{figure}
-    \centering
-    \includegraphics[width = 4cm, scale=0.2]{segway1.jpg}
-    \caption{Proposed modification to the Segway base inspired by the Segway robot at the University of Michigan}
-    \label{fig:mod_jeeves}
-\end{figure}
-
 The robot platform shown in Figure \ref{fig:jeeves} consists of a Segway RMP-200 mobile base, which has been
-modified to hold various sensors. The Seqway RMP 200 has been modified to be statically stable but for the purposes of this project, the casters shall be removed and 8020 adjustments will be made on the side of the robot to prevent it from tipping (inspired by Figure \ref{fig:mod_jeeves}). The sensor suite on the robot consists of a Roboteye RE05 sensor capable of scanning in 3D, a primesense RGB-D camera and a Kinect RGB-D. The Hokuyo LTM-30x is mounted at the base and used for base obstacle avoidance. 
+modified to hold various sensors. The Seqway RMP 200 has been modified to be statically stable. The sensor suite on the robot consists of a Roboteye RE05 sensor capable of scanning in 3D, a primesense RGB-D camera and a Kinect RGB-D. The Hokuyo LTM-30x is mounted at the base and used for base obstacle avoidance. A microstrain IMU is mounted on the robot to estimate the state of the robot.
 
-In the scope of this project, the Hokuyo LTM-30x is used to detect obstacles from a planar scan. The closest laser hit can be considered an obstacle and dynamic obstacles can be modelled in this way. A microstrain IMU is mounted on the robot to estimate the state of the robot.
-
-The robot is controlled using a PS3 controller when in tele-operation mode, which has a manual override and a dead-man switch to kill the robot due to any type of failure. The robot is also permanently connected to a computer that is monitoring the robot and can be used to kill running programs on the robot.
-
-The control law will further be used to test how it affects the dynamics of the system. We will measure the translation and the rotational velocities and the tip angle to verify that the control policy doesn't force the robot to go beyond its boundary conditions and ensures its safety.
+In the scope of this project, the Hokuyo LTM-30x is used to detect obstacles from a planar scan. The closest laser hit can be considered an obstacle and dynamic obstacles can be modelled in this way. The robot is controlled using a PS3 controller when in tele-operation mode, which has a manual override and a dead-man switch to kill the robot due to any type of failure. The onboard computer on the robot is an i7 computer with 16 GB of RAM.
 
 \subsection{Nonlinear Dynamics}
-The dynamics (discussed in \cite{castro2012modeling}) of the Segway RMP base can be modelled as a cart with an inverted pendulum which can be modelled as:
-\begin{equation}
- mL\text{ sin}(\theta)\dot{\theta}^2 + (M+m)\dot{v} - F - mL\text{ cos}(\theta)\ddot{\theta} = 0, 
-\end{equation}
-where $\theta$ is the angle of the pendulum with respect to its vertical position, $v$ is the speed of the base, $F$ is the force on the cart, $M$ is the mass of the cart and $m$ is the mass of the pendulum and $L$ is the length of the massless rod. While these dynamics are important, they are handled by a low-level controller and are outside the scope of this project. 
 
-Of greater relevance to navigation, the robot was assumed to be modelled by unicycle dynamics for the purpose of designing the navigation control protocol proposed by this paper. The unicycle dynamics model is presented in the familiar rectangular form:
+The robot can be modelled by unicycle dynamics for the purpose of designing the navigation control protocol proposed by this paper. The unicycle dynamics model is presented in the familiar rectangular form:
 \begin{equation}
 \left(
 \begin{matrix}
@@ -80,12 +64,13 @@ v \text{ sin}(\theta)\\
 \end{matrix}
 \right),
 \end{equation}
-where $(x,y)$ are the global coordinates of the robot, and $\theta \in (-\pi ,\pi]$ is the angle formed between the heading of the robot and the positive $x$-axis--$v$ and $w$ are the linear and translational velocities respectively. While control of the unicycle robot is possible using rectangular dynamics, a transformation of the dynamics into polar form simplifies the dynamics for formulating the control law, where $r=\sqrt(x^2+y^2)$ is the distance between the goal and the robot, and $\theta$ is unchanged. The polar coordinates are transformed yet again into an egocentric coordinate system centered on the robot to represent the heading of the robot $\delta$; this transformation was inspired by \cite{park2011}. The final form of the dynamics is given by:  
+where $(x,y)$ is the 2D position of the robot, and $\theta \in (-\pi ,\pi]$ is the angle formed between the heading of the robot and the positive $x$-axis; $v$ and $w$ are the translational and angular velocities respectively. Park et al \cite{park2011} showed the possibility of using polar co-ordinates to generate a smooth controller. They also propose that designing a controller in polar co-orodinates leads to more ``human like'' motion. 
+In polar co-ordinates the dynamics can be written in the form of $r$, $\theta$, and $\delta$. Figure \ref{fig:uni} describes these states. The $r$ is the radial distance from the goal, the $\theta$ is the orientation of the target reference frame in the robot frame, $\delta$ is the angle between the heading of the robot and the vector joining the center of the robot and the target location. To simplify the problems, a change of co-ordinates is used to position the target location at the origin. The final form of the dynamics is given by:  
 
 \begin{figure}[h!]
 \begin{center}
 \includegraphics[scale=0.45]{uni.pdf} 
-\caption{Egocentric Polar Unicycle Dynamics\label{fig:uni}} 
+\caption{The polar co-ordinates used to design the controller are shown in the figure above. The $r$ is the radial distance of the robot from the origin, the angle $\phi$ is the heading of the robot in it's own reference frame, $\theta$ is the orientation of the target frame in the robot frame, and $\delta$ is the angle between the heading and the vector joining the robot center and the origin. \label{fig:uni}} 
 \end{center}
 \end{figure}
 
@@ -108,8 +93,6 @@ where $(x,y)$ are the global coordinates of the robot, and $\theta \in (-\pi ,\p
 \dot{\delta}=\frac{v}{r} \text{ sin}(\delta)+\omega
 \end{equation}
 
-Figure~\ref{fig:uni} describes relationships between the coordinate system used by the dynamics above. The angle $\phi$ is the heading of the robot in the global coordinate frame, $\delta$ is the egocentric heading, $\theta$ is the angle that the robot frame makes with the positive $x$-axis in global coordinates, and $r$ is the distance to the target, which is the origin without loss of generality. 
-
 The dynamics of the robot can be represented in affine form ($\dot{x}=f(x)+g(x)u$), where \begin{equation}u=\left(\begin{matrix}
 v\\\omega \end{matrix}\right),\end{equation} and it is obvious that the drift term is zero. 
 
@@ -123,16 +106,20 @@ Control of unicycle robots has been explored. The objective in \cite{park2011} w
 z_b>z_{safe}.
 \end{equation}
 
-\textbf{Soft Constraints:} The objective of the controller is to drive the state of the robot to zero ($\dot{x}=(\dot{r},\dot{\theta},\dot{\delta})^T \to 0$). In the context of the real system, this will mean asymptotically driving the distance from the target position to zero while aligning the heading with zero radians in the global coordinate frame. Furthermore, driving the system to zero exponentially is preferred.
+\textbf{Soft Constraints:} The objective of the controller is to drive the state of the robot to zero i.e:
+\begin{equation} \dot{x}=(\dot{r},\dot{\theta},\dot{\delta})^T \to (0, 0, 0) \end{equation}. 
+In the context of the real system, this will mean asymptotically driving the distance from the target position to zero while aligning the heading with zero radians in the global coordinate frame. Furthermore, driving the system to zero exponentially is preferred.A soft constraint on the obstacle avoidance is also added to ensure that the robot can exit a dangerous situation if it enters a region where it is not yet considered unsafe but is approaching the possibility of a dangerous situation.
 
-Further constraints on the maximum linear and angular velocity inputs can be applied to ensure that the system operates safely in indoor environments. 
-%TODO constraints!
+\textbf{Actuator Constraints:} Constraints on the maximum linear and angular velocity inputs can be applied to restrict the controller to physically achievable actuator effort i.e:
+\begin{equation} c_a <= v <= c_b \end{equation}
+\begin{equation} c_c <= w <= c_d \end{equation}
+where $v$ is the translational velocity, $w$ is the angular velocity, $c_a$ and $c_b$ are the minmum and maximum translational velocity that can be actuated and $c_c$ and $c_d$ are the minimum and maximum angular velocity that are physically feasible.
 
 \section{Control Framework}
 This section details the development of the safe navigation control protocol. In particular, the soft and hard constraints previously presented motivate the use of control Lyapunov functions and barrier functions for achieving safe navigation.
 
 \subsection{Soft Constraints as Control Lyapunov Functions}
-To design the control law, the quintessential quadratic Lyapunov function candidate is first considered:
+To design the control law, the standard quadratic Lyapunov function candidate is first considered:
 \begin{align}
 V&=\frac{1}{2}(r^2+\theta^2)\\
 \dot{V}&=r \dot{r}+\theta \dot{\theta}\\
@@ -141,7 +128,7 @@ V&=\frac{1}{2}(r^2+\theta^2)\\
 Fixing $\delta$ to enforce a virtual steering control as in \cite{park2011}, 
 \begin{equation} 
 \delta = \text{arctan}(-k_1\theta). \end{equation}
-The Lyapunov candidate becomes:
+The derivative of the Lyapunov function becomes:
 \begin{equation}
 \dot{V}=-r v \text{ cos}(\text{arctan}(-k_1\theta)) + \theta v \text{ sin}(\text{arctan}(-k_1\theta)).
 \end{equation} 
@@ -150,25 +137,25 @@ Because $\theta\in (-\pi,\pi]$, $v>0$, and $r\geq 0$ , $\dot{V}<0$ $\forall \the
 
 To drive the state to zero through the steering control, the heading must be driven such that $\delta = \text{arctan}(-k_1\theta).$ An objective $z_1$ is defined: 
 \begin{equation}
-z_1 = \delta - \text{arctan}(-k_1\theta).
+z_1 \equiv \delta - \text{arctan}(-k_1\theta).
 \label{z1}
 \end{equation} The derivative is calculated to yield:
 \begin{equation}
 \dot{z_1}=\left( 1+\frac{k_1}{1+(k_1\theta)^2}\right) \frac{v}{r}\text{ sin}(z_1+\text{ arctan}(-k_1\theta))+\omega.
 \end{equation}
-Through feedback linearization of this objective by choosing the angular velocity \begin{equation}\omega = -\frac{v}{r}\left[ k_2 z_1+\left( 1 + \frac{k_1}{1+(k_1\theta)^2} \right) \text{sin}(z_1+\text{ arctan}(-k_1\theta))\right] ,\end{equation} the objective dynamics are globally exponentially stable with the following form: \begin{equation} \dot{z_1}=-k_2\frac{v}{r}z_1,\end{equation} where $k_1$ and $k_2$ can be chosen to increase of decrease how aggressive the steering control is.
+A specific example of a control law that can achieve this objective is shown through feedback linearization by choosing the angular velocity \begin{equation}\omega = -\frac{v}{r}\left[ k_2 z_1+\left( 1 + \frac{k_1}{1+(k_1\theta)^2} \right) \text{sin}(z_1+\text{ arctan}(-k_1\theta))\right] ,\end{equation} the objective dynamics are globally exponentially stable with the following form: \begin{equation} \dot{z_1}=-k_2\frac{v}{r}z_1,\end{equation} where $k_1$ and $k_2$ can be chosen to increase or decrease how aggressive the steering control is. This is modelled along with other constraints by defining: 
+\begin{equation} V_2 = \frac{1}{2}  z^2 \end{equation}
 
 \begin{figure}[h!]
 \begin{center}
 \includegraphics[scale=0.45]{obs.pdf} 
-\caption{Egocentric Polar Unicycle Dynamics with Obstacle\label{fig:obs}} 
+\caption{The figure above shows the egocentric co-ordinate system of the robot. In addition, the obstacle is visulaized. The angle $\beta$ is the angle the vector joining the center of the robot to the obstacle makes with respect to the robot heading. \label{fig:obs}} 
 \end{center}
 \end{figure}
 
 A second steering controller is designed to drive the state away from the origin and is defined by the following objective: \begin{equation}z_2=\delta-\text{ atan}(k_1\beta),\label{z2}\end{equation} where $\beta$ is the angle formed between the global positive $x$-axis and the vector $z_b$ pointing from the robot to the obstacle. Figure~\ref{fig:obs} shows the egocentric coordinate system with the addition of the obstacle, where $b_x,b_y$ is the global coordinate of the obstacle and $r_b$ is the minimum safe distance.
 
-The derivative of $z_2$ is similarly computed as with $z_1$, and is given by \begin{equation}\dot{z_2}=\left( 1+\frac{k_1}{1+(k_1\beta)^2}\right) \frac{v}{r}\text{ sin}(z_2+\text{ arctan}(k_1\beta))+\omega.\end{equation} Through feedback linearization of the objective, choosing \begin{equation}\omega = -\frac{v}{r}\left[ k_2 z_2+\left( 1 + \frac{k_1}{1+(k_1\beta)^2} \right) \text{sin}(z_2+\text{ arctan}(-k_1\beta))\right]\end{equation} globally exponentially stabilizes the objective with \begin{equation}\dot{z_2}=-k_2\frac{v}{r}z_2.\end{equation} It is noteworthy that in contrast to the steering objective achieved by $z_1$, the objective of $z_2$ is to make the system unstable with respect to driving the state of the robot to zero; this is done intentionally to allow the robot to navigate around obstacles.
-
+The derivative of $z_2$ is similarly computed as with $z_1$, and is given by \begin{equation}\dot{z_2} = \dot{\delta} \end{equation}
 %TODO check the clf stuff
 By choosing the angular velocity input $w$ to drive the heading $\delta=\text{ arctan}(-k_1\theta)$, steering control, which drives the state to zero, is achieved. Similarly, choosing the angular velocity input $w$ to drive the heading $\delta=\text{ arctan}(k_1\beta)$ causes the robot to drive away from zero. Thus, there exists a control input that satisfies the control Lyapunov function $\dot{V}<0$; furthermore, following Definition 3 in \cite{ames2014esclf}, the control Lyapunov function is exponentially stabilizing if it satisfies
 \begin{equation}
