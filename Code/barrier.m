@@ -5,8 +5,9 @@ close all
 
 %% Load the map
 image = imread('../Maps/simulations_floorplan_maze01.pgm');
+image = imresize(image,0.2);
 imageBW = image < 100;
-map = robotics.BinaryOccupancyGrid(imageBW,2)
+map = robotics.BinaryOccupancyGrid(imageBW)
 
 % Display the map
 figure(9);
@@ -30,11 +31,11 @@ prm.Map = mapInflated;
 prm.NumNodes = 1000;
 
 % Distance between connections in visibility graph
-prm.ConnectionDistance = 50;
+prm.ConnectionDistance = 10;
 
 % Find a feasible path on the constructed PRM
-startLocation = [75 75];
-endLocation = [250 250];
+startLocation = [50 30];%[75 75];
+endLocation = [100 100];
 
 path = findpath(prm, startLocation, endLocation)
 
@@ -49,10 +50,22 @@ figure(10);
 show(prm)
 hold on;
 
+% clc
+% clear all
+% close all
+% load pathvars.mat
+% figure(9);
+% show(map)
+% hold on;
+% figure(10);
+% show(prm)
+% hold on;
+
 %% -------Start QP--------
 x=zeros(1,3);
 
 for i=1:(length(path)-1)
+
     
 if (i==1)
     startX  = path(i,1);%3.0;
@@ -63,11 +76,19 @@ if (i==1)
     start_x = startX;
     start_y = startY;
 else  
-    startX  = goalX + X(501 ) %path(i,1);%3.0;
-    startY  = goalY + Y(501)  %path(i,2);%-6.0;
+    startX  = goalX + X(length(X) ) %path(i,1);%3.0;
+    startY  = goalY + Y(length(X))  %path(i,2);%-6.0;
     phi     = delta(length(Theta))- Theta(length(Theta));
+        
+if x(1) > 2
+    
+    goalX   = path(i,1);%-3;
+    goalY   = path(i,2);%-1;
+    %break;
+else
     goalX   = path(i+1,1);%-3;
     goalY   = path(i+1,2);%-1;
+end
     start_x = startX;
     start_y = startY;
 end
@@ -85,7 +106,7 @@ startX  = startX - goalX;
 startY  = startY - goalY;
 
 
-%% Initialize the values
+% Initialize the values
 % Transform from cartesian to polar co-ordinates
 % r         = sqrt(x^2 + y^2);
 % theta     = atan2(y,x) - phi + pi
@@ -101,7 +122,7 @@ x(1)=sqrt(startX^2+startY^2);
 x(3)=wrapToPi(pi-atan2(startY,startX)) + phi;
 x(2)=wrapToPi(-phi+ x(3));
 
-%% Plot the start and the end state
+% Plot the start and the end state
 r=0.5;
 ang=0:0.01:2*pi; 
 xp=r*cos(ang);
@@ -115,16 +136,16 @@ plot(xp,yp,'b',[0 r],[0 0],'b','Linewidth',1.5)
 %axis([-10 14 -10 14])
 hold on
 
-%% Initialize the values and storage variables
+% Initialize the values and storage variables
 dT      = 0.01;
 R       = [x(1)];
 X       = [startX];
 Y       = [startY];
-Theta   = [];
+Theta   = [x(2)];
 k1      = 1;
 k2      = 5;
 Q       = diag([1, 0.1]);
-delta   = [];
+delta   = [x(3)];
 U1      = [];
 U2      = [];
 Slk     = [];
@@ -132,16 +153,20 @@ Slk2    = [];
 head    = [];
 
 k1      = 1;
-k2      = 1;
+k2      = 15;
 
-%% Iterate over to find the optimal control
-for i = 1:500
-%x0=x(1)*sin(x(2));
-%y0=x(1)*cos(x(2));
+% Iterate over to find the optimal control
+for i = 1:1800
+if x(1) < 0.50  %1e-1
+    break;
+end
 
+
+%tic();
 cvx_begin quiet
-        variable u(4);
-        minimize( u.' * u );
+        cvx_solver sedumi
+        variable u(6);
+        minimize( u(1:4).' * u(1:4) + 50 * u(6) + 1 * u(5));
         subject to
             % Lyapunov function used:
             % V    = 0.5 * (r^2 + theta^2)
@@ -149,47 +174,72 @@ cvx_begin quiet
             % Vdot = r*r_dot + theta*theta_dot
             %      = -r*v*cos(arctan(-k1*theta)) + (v/r) * theta *
             %      sin(arctan(-k1 * theta)
+            
+            %-(x(1)) * u(1) * cos(atan(-k1*x(2))) <= ...
+            %    0.5 * u(6) * ((x(1))^2 ) + u(3);
 
             -(x(1)) * u(1) * cos(atan(-k1*x(2))) + (x(2)) * u(1)/x(1) * sin(atan(-k1*x(2))) <= ...
-                -0.5 * 2.0 * ((x(1))^2 + (x(2))^2) + u(3);
-            z = x(3) - atan(-k1 * x(2));
-            ((1 + 1/ (1 + x(2)^2) ) * u(1) / x(1) * sin(z + atan(-k1 * x(2))) + u(2)) == ...
-                - k2 * u(1)/ x(1) * z + u(4);
+                0.5 * u(6) * ((x(1))^2 + (x(2))^2) + u(3);
+            u(6) <= 0.0;
+
+            % Define the obstacle in egocentric view:
+            % hdot = 1/h * ((sin(x(2)) * x(1) - b_y) + cos(x(2)) * (cos(x(2)*x + b_x)) ) 
             
-            u(2) <= 0.2;
-            u(2) >= -0.2;
-            %u(1) <= 1
+            %b_x     = -1.42;
+            %b_y     = -2.16;
+%             me(1) = 
+%             me(2) =
+%             me(3) =
+            me(1)   = nx ;%+ dT * u(1) * cos(nt + u(2)*dT/2);
+            me(2)   = ny;% + dT * u(1) * sin(nt + u(2)*dT/2);
+            me(3)   = nt;% + dT * u(2);
+           [dispW,obs, obsA, closest] = detectObstacle(mapInflated,  4, [me(1) + goalX, me(2) + goalY, me(3)]);
+             %closest 
+             b_x = closest(1) - goalX;
+             b_y = closest(2) - goalY;
+           % if (closest!=
+            h       = sqrt( (-x(1)*cos(x(2)) - b_x) ^2 + (x(1) * sin(x(2)) - b_y) ^2)
+            if (h <=4)
+                hdot    = 1/h * (x(1) - b_y * sin(x(2)) + b_x * cos(x(2))) * -u(1) * cos(x(3)) + ...
+                    -1/h * x(1) * (b_x * sin(x(2)) + b_y * cos(x(2)) ) * u(1)/x(1) * sin(x(3)) ;
+                
+                hdot  <= u(5) * h + u(3);
+                u(5)  <= 0.0;
+                B       = 1 / (h - 1);
+                Bdot    = - hdot / (h - 1)^2;
+                Bdot    <= 1.0/B;
+                z        = x(3) - atan(k1 *(atan2((x(1)*sin(x(2)) - b_y), (-x(1) * cos(x(2)) - b_x)) ));
+                zdot     = u(1)/ x(1) * sin( x(3)) + u(2);
+                z * zdot <= -0.5 * k2 * z^2 + u(4);
+            else
+                z        = x(3) - atan(-k1 * x(2));
+                zdot     = ((1 + k1/ (1 + (-k1*x(2))^2) ) * u(1) / x(1) * sin(z + atan(-k1 * x(2))) +  u(2));
+                
+                z * zdot <= -0.5 * k2 * z^2 + u(4);
+                u(5) == 0;
+            end
+            %u(5) <= 0.0;
             
-            % Barrier function candidate:
-            % Measurement z = sqrt(r^2 + ro^2 - 2 * r * ro * cos(t - to) )
-            % zdot = (1/z) * rdot * (r - cos(t-to)*ro) + (1/z) * tdot * (r * ro * sin(t - to))
-            % Barrier
-            % B(x,z) = 1 / (z - 0.5)
-            % Bdot   = - zdot / (z - 0.5)^2
-            
-%             h    = x(1);
-%             hdot = (1/h) * -1 * u(1) * cos(x(3)) *x(1); 
-%             B    = 1 / (x(1) - 2.0);
-%             Bdot = - hdot / (h - 2.0)^2;
-%             
-            %Bdot <= 1/B;
+            -1.0 <= u(2) <= 1.0;
+            0.0  <= u(1) <= 2.0;
 cvx_end
+%toc();
 
 % Fixed control works
-% u(1)=x(1);
-% u(2)=-u(1)/x(1)*(k2*(x(3)-atan(-k1*x(2)))+1+k1/(1+(k1*x(2))^2)*sin(x(3)));
+% u(1)= x(1);
+% u(2)= -u(1)/x(1) *( ( k2*(x(3)-atan(-k1*x(2))) )  +  ( 1 + k1 / (1+( k1 * x(2) )^2) *sin(x(3)) ) );
 
 
-%% Smoothen the control
+% Smoothen the control
 if size(U1,1) > 1
     u(1) = 0.85 * U1(end) + 0.15 * u(1);
     u(2) = 0.85 * U2(end) + 0.15 * u(2);
 end
 
-%% Propogate with dynamics
-x(1) = x(1) - dT * u(1) * cos(x(3)); % + 0.5 * dT * u(1)/x(1) * sin(x(3)) + u(2));
-x(2) = x(2) + dT * u(1)/x(1) * sin(x(3)); % + 0.5 * dT * u(1)/x(1) * sin(x(3)) + u(2));
-x(3) = x(3) + dT * (u(1)/x(1) * sin(x(3))) + u(2);
+% Propogate with dynamics
+x(1) = x(1) - dT * u(1) * cos(x(3)); % + 0.5 * (u(1)/x(1) * sin(x(3))) + u(2));
+x(2) = x(2) + dT * u(1)/x(1) * sin(x(3)); % + 0.5 * (u(1)/x(1) * sin(x(3))) + u(2));
+x(3) = x(3) + dT * (u(1)/x(1) * sin(x(3)) + u(2))  ;
 x(3) = wrapToPi(x(3));
 x(2) = wrapToPi(x(2));
 
@@ -199,7 +249,7 @@ nt   = nt + dT * u(2);
 
 x
 
-%% Store the variables
+% Store the variables
 R=[R;x(1)];
 Theta=[Theta;x(2)];
 delta=[delta;x(3)];
@@ -211,7 +261,7 @@ Slk = [Slk;u(3)];
 Slk2= [Slk2;u(4)];
 end
 
-%% Generate plots
+% Generate plots
 hold on;
 figure(1); plot(X,Y); title('Trajectory')
 %figure(9); plot(start_x +X,start_y+Y, 'r');
