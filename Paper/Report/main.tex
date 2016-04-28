@@ -5,15 +5,15 @@
 \DeclareMathOperator*{\argmin}{arg\,min}
 \begin{document}
 
-\title{Experimental Evaluation of Control Policies for \\Segway Robot in Dynamic Environments }
-\author{Ian~Buckley, Niharika~Arora, Varun~Murali}
+\title{Evaluation of Safe Control Policies for \\Mobile Robots in Dynamic Environments }
+\author{Varun~Murali, Niharika~Arora, Ian~Buckley}
 \markboth{ECE6552, 26 April 2016}%xdf
 {Shell \MakeLowercase{\textit{et al.}}: Project Proposal}
 \maketitle
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{abstract}
-Successful navigation, which involves moving from one location to another while avoiding collisions with obstacles in the environment, is a fundamental objective for mobile robots. A combination of deliberative and reactive control allows mobile robots to achieve planned navigation while avoiding unexpected obstacles or deviations from the plan. A hybrid approach, inspired by nonlinear control and enabled by barrier functions, is proposed. Using quadratic programming to determine inputs simultaneously satisfying control constraints from control Lyapunov and barrier functions, this paper presents a nonlinear navigation control protocol. Motivation and explanation of the protocol are presented. Verification of the navigation control protocol is performed first in MATLAB simulation, which shows that the control law correctly drives the robot first to a target location and second to a trajectory generated using a probabilistic roadmap algorithm. After verification in simulation, the navigation control protocol is implemented on a real robotic system, demonstrating that the nonlinear navigation control protocol successfully traverses the gap between theory and practice. 
+With the growth of domestic robot industry, it is important to understand the navigation of mobile robots in dynamic environments. Use of mobile robots in the home can greatly improve the quality of life and is a growing field of research. With an increased interaction between humans and robots, and an increasingly shared workspace, it is important to study the safety of the robotic system and the extent of guarantees that can be made to minimize risk of injury. We present a nonlinear control approach to the navigation problem that achieves the objective of reaching pre-defined locations with provable guarantess of safety. Verification of the controller is performed first in MATLAB simulation, which shows that the controller is capable of driving the system to a pre-defined location while mainting all required safety rules defined in it's environment. The system is further investigated on the robot simulator, Gazebo and implemented on a Segway RMP 200 based robot, demonstrating that the nonlinear navigation controller successfully traverses the gap between theory and practice. 
 \end{abstract}
 
 \section{Introduction}
@@ -35,7 +35,7 @@ The robotic system considered in this paper and its dynamics are presented. The 
 \begin{figure}
     \centering
     \includegraphics[width = 4cm, scale=0.2]{jeeves2_0.jpg}
-    \caption{Jeeves - A modified Segway based robot mounted with a Primesense, Microsfot Kinect, Roboteye RE05, Hokuyo LTM-30x laser and the UR5. Currently modified to include the casters for static stability}
+    \caption{Jeeves - A modified Segway based robot mounted with a Primesense, Microsoft Kinect, Roboteye RE05, Hokuyo LTM-30x laser and the UR5. Currently modified to include the casters for static stability}
     \label{fig:jeeves}
 \end{figure}
 
