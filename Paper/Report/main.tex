@@ -106,18 +106,20 @@ Control of unicycle robots has been explored. The objective in \cite{park2011} w
 z_b>z_{safe}.
 \end{equation}
 
-\textbf{Soft Constraints:} The objective of the controller is to drive the state of the robot to zero ($\dot{x}=(\dot{r},\dot{\theta},\dot{\delta})^T \to 0$). In the context of the real system, this will mean asymptotically driving the distance from the target position to zero while aligning the heading with zero radians in the global coordinate frame. Furthermore, driving the system to zero exponentially is preferred.
+\textbf{Soft Constraints:} The objective of the controller is to drive the state of the robot to zero i.e:
+\begin{equation} \dot{x}=(\dot{r},\dot{\theta},\dot{\delta})^T \to (0, 0, 0) \end{equation}. 
+In the context of the real system, this will mean asymptotically driving the distance from the target position to zero while aligning the heading with zero radians in the global coordinate frame. Furthermore, driving the system to zero exponentially is preferred.A soft constraint on the obstacle avoidance is also added to ensure that the robot can exit a dangerous situation if it enters a region where it is not yet considered unsafe but is approaching the possibility of a dangerous situation.
 
-A soft constraint on the obstacle avoidance is also added to ensure that the robot can exit a dangerous situation if it enters a region where it is not yet considered unsafe but is approaching the possibility of a dangerous situation.
-
-Constraints on the maximum linear and angular velocity inputs can be applied to restrict the controller to physically achievable actuator effort.
-%TODO constraints!
+\textbf{Actuator Constraints:} Constraints on the maximum linear and angular velocity inputs can be applied to restrict the controller to physically achievable actuator effort i.e:
+\begin{equation} c_a <= v <= c_b \end{equation}
+\begin{equation} c_c <= w <= c_d \end{equation}
+where $v$ is the translational velocity, $w$ is the angular velocity, $c_a$ and $c_b$ are the minmum and maximum translational velocity that can be actuated and $c_c$ and $c_d$ are the minimum and maximum angular velocity that are physically feasible.
 
 \section{Control Framework}
 This section details the development of the safe navigation control protocol. In particular, the soft and hard constraints previously presented motivate the use of control Lyapunov functions and barrier functions for achieving safe navigation.
 
 \subsection{Soft Constraints as Control Lyapunov Functions}
-To design the control law, the quintessential quadratic Lyapunov function candidate is first considered:
+To design the control law, the standard quadratic Lyapunov function candidate is first considered:
 \begin{align}
 V&=\frac{1}{2}(r^2+\theta^2)\\
 \dot{V}&=r \dot{r}+\theta \dot{\theta}\\
@@ -126,7 +128,7 @@ V&=\frac{1}{2}(r^2+\theta^2)\\
 Fixing $\delta$ to enforce a virtual steering control as in \cite{park2011}, 
 \begin{equation} 
 \delta = \text{arctan}(-k_1\theta). \end{equation}
-The Lyapunov candidate becomes:
+The derivative of the Lyapunov function becomes:
 \begin{equation}
 \dot{V}=-r v \text{ cos}(\text{arctan}(-k_1\theta)) + \theta v \text{ sin}(\text{arctan}(-k_1\theta)).
 \end{equation} 
@@ -135,25 +137,25 @@ Because $\theta\in (-\pi,\pi]$, $v>0$, and $r\geq 0$ , $\dot{V}<0$ $\forall \the
 
 To drive the state to zero through the steering control, the heading must be driven such that $\delta = \text{arctan}(-k_1\theta).$ An objective $z_1$ is defined: 
 \begin{equation}
-z_1 = \delta - \text{arctan}(-k_1\theta).
+z_1 \equiv \delta - \text{arctan}(-k_1\theta).
 \label{z1}
 \end{equation} The derivative is calculated to yield:
 \begin{equation}
 \dot{z_1}=\left( 1+\frac{k_1}{1+(k_1\theta)^2}\right) \frac{v}{r}\text{ sin}(z_1+\text{ arctan}(-k_1\theta))+\omega.
 \end{equation}
-Through feedback linearization of this objective by choosing the angular velocity \begin{equation}\omega = -\frac{v}{r}\left[ k_2 z_1+\left( 1 + \frac{k_1}{1+(k_1\theta)^2} \right) \text{sin}(z_1+\text{ arctan}(-k_1\theta))\right] ,\end{equation} the objective dynamics are globally exponentially stable with the following form: \begin{equation} \dot{z_1}=-k_2\frac{v}{r}z_1,\end{equation} where $k_1$ and $k_2$ can be chosen to increase of decrease how aggressive the steering control is.
+A specific example of a control law that can achieve this objective is shown through feedback linearization by choosing the angular velocity \begin{equation}\omega = -\frac{v}{r}\left[ k_2 z_1+\left( 1 + \frac{k_1}{1+(k_1\theta)^2} \right) \text{sin}(z_1+\text{ arctan}(-k_1\theta))\right] ,\end{equation} the objective dynamics are globally exponentially stable with the following form: \begin{equation} \dot{z_1}=-k_2\frac{v}{r}z_1,\end{equation} where $k_1$ and $k_2$ can be chosen to increase or decrease how aggressive the steering control is. This is modelled along with other constraints by defining: 
+\begin{equation} V_2 = \frac{1}{2}  z^2 \end{equation}
 
 \begin{figure}[h!]
 \begin{center}
 \includegraphics[scale=0.45]{obs.pdf} 
-\caption{Egocentric Polar Unicycle Dynamics with Obstacle\label{fig:obs}} 
+\caption{The figure above shows the egocentric co-ordinate system of the robot. In addition, the obstacle is visulaized. The angle $\beta$ is the angle the vector joining the center of the robot to the obstacle makes with respect to the robot heading. \label{fig:obs}} 
 \end{center}
 \end{figure}
 
 A second steering controller is designed to drive the state away from the origin and is defined by the following objective: \begin{equation}z_2=\delta-\text{ atan}(k_1\beta),\label{z2}\end{equation} where $\beta$ is the angle formed between the global positive $x$-axis and the vector $z_b$ pointing from the robot to the obstacle. Figure~\ref{fig:obs} shows the egocentric coordinate system with the addition of the obstacle, where $b_x,b_y$ is the global coordinate of the obstacle and $r_b$ is the minimum safe distance.
 
-The derivative of $z_2$ is similarly computed as with $z_1$, and is given by \begin{equation}\dot{z_2}=\left( 1+\frac{k_1}{1+(k_1\beta)^2}\right) \frac{v}{r}\text{ sin}(z_2+\text{ arctan}(k_1\beta))+\omega.\end{equation} Through feedback linearization of the objective, choosing \begin{equation}\omega = -\frac{v}{r}\left[ k_2 z_2+\left( 1 + \frac{k_1}{1+(k_1\beta)^2} \right) \text{sin}(z_2+\text{ arctan}(-k_1\beta))\right]\end{equation} globally exponentially stabilizes the objective with \begin{equation}\dot{z_2}=-k_2\frac{v}{r}z_2.\end{equation} It is noteworthy that in contrast to the steering objective achieved by $z_1$, the objective of $z_2$ is to make the system unstable with respect to driving the state of the robot to zero; this is done intentionally to allow the robot to navigate around obstacles.
-
+The derivative of $z_2$ is similarly computed as with $z_1$, and is given by \begin{equation}\dot{z_2} = \dot{\delta} \end{equation}
 %TODO check the clf stuff
 By choosing the angular velocity input $w$ to drive the heading $\delta=\text{ arctan}(-k_1\theta)$, steering control, which drives the state to zero, is achieved. Similarly, choosing the angular velocity input $w$ to drive the heading $\delta=\text{ arctan}(k_1\beta)$ causes the robot to drive away from zero. Thus, there exists a control input that satisfies the control Lyapunov function $\dot{V}<0$; furthermore, following Definition 3 in \cite{ames2014esclf}, the control Lyapunov function is exponentially stabilizing if it satisfies
 \begin{equation}

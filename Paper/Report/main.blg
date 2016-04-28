@@ -1,4 +1,4 @@
-This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+This is BibTeX, Version 0.99d (TeX Live 2015)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: main.aux
 The style file: IEEEtran.bst
@@ -12,48 +12,46 @@ Database file #2: bibi.bib
 -- IEEEtran.bst version 1.12 (2007/01/11) by Michael Shell.
 -- http://www.michaelshell.org/tex/ieeetran/bibtex/
 -- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
-Warning--empty journal in castro2012modeling
 
 Done.
-You've used 8 entries,
+You've used 7 entries,
             4024 wiz_defined-function locations,
-            1224 strings with 15923 characters,
-and the built_in function-call counts, 6415 in all, are:
-= -- 482
-> -- 143
+            1219 strings with 15791 characters,
+and the built_in function-call counts, 6108 in all, are:
+= -- 459
+> -- 139
 < -- 56
-+ -- 82
-- -- 22
-* -- 308
-:= -- 911
-add.period$ -- 21
-call.type$ -- 8
-change.case$ -- 8
++ -- 80
+- -- 21
+* -- 297
+:= -- 851
+add.period$ -- 19
+call.type$ -- 7
+change.case$ -- 7
 chr.to.int$ -- 147
-cite$ -- 9
-duplicate$ -- 450
-empty$ -- 572
-format.name$ -- 28
-if$ -- 1494
+cite$ -- 7
+duplicate$ -- 420
+empty$ -- 541
+format.name$ -- 27
+if$ -- 1430
 int.to.chr$ -- 0
-int.to.str$ -- 8
-missing$ -- 73
-newline$ -- 47
-num.names$ -- 8
-pop$ -- 189
+int.to.str$ -- 7
+missing$ -- 68
+newline$ -- 44
+num.names$ -- 7
+pop$ -- 174
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 489
+skip$ -- 465
 stack$ -- 0
-substring$ -- 351
-swap$ -- 353
+substring$ -- 350
+swap$ -- 340
 text.length$ -- 7
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 8
-warning$ -- 1
-while$ -- 31
-width$ -- 9
-write$ -- 92
-(There was 1 warning)
+type$ -- 7
+warning$ -- 0
+while$ -- 30
+width$ -- 8
+write$ -- 85
