@@ -1,8 +1,9 @@
-\documentclass[journal]{IEEEtran}
+\documentclass[journal]{IEEEconf}
 \usepackage{graphicx}
 \usepackage{tikz}
 \usepackage{mathtools, amsfonts, breqn, subcaption}
 \usepackage{tabu}
+\usepackage{hyperref}
 \DeclareMathOperator*{\argmin}{arg\,min}
 \begin{document}
 
@@ -70,7 +71,7 @@ In polar co-ordinates the dynamics can be written in the form of $r$, $\theta$, 
 
 \begin{figure}[t!]
 \begin{center}
-\includegraphics[scale=0.45]{uni.pdf} 
+\includegraphics[scale=0.35]{uni.pdf} 
 \caption{The polar co-ordinates used to design the controller are shown in the figure above. The $r$ is the radial distance of the robot from the origin, the angle $\phi$ is the heading of the robot in it's own reference frame, $\theta$ is the orientation of the target frame in the robot frame, and $\delta$ is the angle between the heading and the vector joining the robot center and the origin. \label{fig:uni}} 
 \end{center}
 \end{figure}
@@ -108,7 +109,7 @@ z_b>z_{safe}.
 \end{equation}
 
 \textbf{Soft Constraints:} The objective of the controller is to drive the state of the robot to zero i.e:
-\begin{equation} \dot{x}=(\dot{r},\dot{\theta},\dot{\delta})^T \to (0, 0, 0)^T \end{equation}.
+\begin{equation} \dot{x}=(\dot{r},\dot{\theta},\dot{\delta})^T \to (0, 0, 0)^T. \end{equation}
 In the context of the real system, this will mean asymptotically driving the distance from the target position to zero while aligning the heading with zero radians in the global coordinate frame. Furthermore, driving the system to zero exponentially is preferred.A soft constraint on the obstacle avoidance is also added to ensure that the robot can exit a dangerous situation if it enters a region where it is not yet considered unsafe but is approaching the possibility of a dangerous situation.
 
 \textbf{Actuator Constraints:} Constraints on the maximum linear and angular velocity inputs can be applied to restrict the controller to physically achievable actuator effort i.e:
@@ -149,7 +150,7 @@ A specific example of a control law that can achieve this objective is shown thr
 
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[scale=0.45]{obs.pdf} 
+\includegraphics[scale=0.35]{obs.pdf} 
 \caption{The figure above shows the egocentric co-ordinate system of the robot. In addition, the obstacle is visulaized. The angle $\beta$ is the angle the vector joining the center of the robot to the obstacle makes with respect to the $x$-axis of the global reference frame. \label{fig:obs}} 
 \end{center}
 \end{figure}
@@ -289,9 +290,26 @@ F^T=\left[ \begin{matrix}
 \label{table:1}
 \end{table}
 
+\begin{figure*}[t!]
+\centering
+\begin{subfigure}[t]{0.32\textwidth}
+\includegraphics[scale=0.15]{possible_trajectory.png} 
+\caption{Trajectory of the robot  \label{fig:r}} 
+\end{subfigure}
+\begin{subfigure}[t]{0.32\textwidth}
+\includegraphics[scale=0.15]{U1.png} 
+\caption{The linear velocity of the robot \label{fig:theta}} 
+\end{subfigure}
+\begin{subfigure}[t]{0.32\textwidth}
+\includegraphics[scale=0.15]{U2.png} 
+\caption{The angular velocity of the robot \label{fig:delta}} 
+\end{subfigure}
+\caption{The above figures show the trajectory, linear velocity and angular velocity of the robot while avoiding the obstacle.\label{fig:state}}
+\end{figure*}
+
 The last two elements in the diagonal of $H$ were chosen to be zero to ensure that the negative quadratic cost of the slack variables $\alpha_1$ and $\alpha_2$ is as large as possible. Conversely, the last two elements of $F^T$ were chosen to ensure that $\alpha_1$ and $\alpha_2$ were negative to minimize the cost.
 
-The control Lyapunov functions $V_1$ and $V_2$ are the Lyapunov functions correspond to the objectives of driving the state to zero and enforcing the steering control respectively; the equations are given by 
+The control Lyapunov functions $V_1$ and $V_2$ are the Lyapunov functions corresponding to the objectives of driving the state to zero and enforcing the steering control respectively; the equations are given by 
 \begin{equation}
 V_1=\frac{1}{2}(r^2+\theta^2)
 \end{equation} and
@@ -301,24 +319,42 @@ V_2=\frac{1}{2}z_*^2.
 $z_*$ in $V_2$ represents the different steering objectives $z_1$ and $z_2$ in \eqref{z1} and \eqref{z2}. Because there are two steering objectives, two QP control laws are required: one which drives the state towards the target while avoiding obstacles, and the other that drives the state in such a way that the robot steers away from obstacles. Toggling between steering objectives is dependent on the obstacle measurement. If the measurement of the distance between the robot and the obstacle was less than the minimum safe distance, then the steering objective $z_2$ is used. Otherwise, $z_1$ is used, and $\alpha_1=0$ is additionally enforced. $h(x)$ and $B$ in the QP controller are given in equations \eqref{zbf} and \eqref{bf}. 
 
 \section{Results}
+
+
 %TODO double check my claims
 To test the ability of the QP controller to drive the robot to a target position while simultaneously avoiding obstacles, both simulation and physical experiments were conducted. Simulation results were generated in both MATLAB and Gazebo, and physical results were generated using the robotic platform Jeeves. 
 
 \subsection{Simulation Results}
-Two distinct MATLAB simulations were used to validate and test the QP navigation controller. In the first simulation, the controller demonstrates successful navigation of the robot to the target position with and without the presence of obstacles; plots of the state are shown. In the second simulation, a probabilistic roadmap was used to generate a target trajectory through a map, and the QP navigation controller was applied to drive the robot to the target trajectory while simultaneously avoiding obstacles. 
+Two distinct MATLAB simulations were used to validate and test the QP navigation controller. In the first simulation, the controller demonstrates successful navigation of the robot to the target position with and without the presence of obstacles. In the second simulation, a probabilistic roadmap was used to generate a target trajectory through a map, and the QP navigation controller was applied to drive the robot to the target trajectory while simultaneously avoiding obstacles. 
 
 %TODO add gazebo
 Gazebo simulation of a unicycle robot navigating via the QP controller was used to demonstrate the feasibility of the controller in practice.
-\subsubsection{Target Position}
-Figure~\ref{fig:octoplotsans} shows the output of the first simulation. The navigation objective was to drive the robot from the starting position and heading to zero at the origin. The robot was initialized from eight starting locations, shown in red, with random egocentric headings. The blue lines show the trajectory of the robot, and as expected, the QP controller successfully accomplishes the navigation objective.
+\subsubsection{Point to point trajectory}
+Figure~\ref{fig:octoplotsans} shows the output of the first simulation. The navigation objective was to drive the robot from the starting position. The robot was initialized from eight starting locations, shown in red, with random egocentric headings. The blue lines show the trajectory of the robot, and as expected, the QP controller successfully accomplishes the navigation objective.
 
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.4]{octoPlotCrisisSQR.png} 
+\includegraphics[scale=0.3]{octoPlotCrisisSQR.png} 
 \caption{The figure above shows initializations at eight different random starting locations and the trajectories followed by the robot to the origin to show that the robot can generate a trajectory from an arbitrary initial condition to the origin \label{fig:octoplotsans}} 
 \end{figure}
 
-To further evaluate the QP controller and substantiate its success, the state is plotted. Figures~\ref{fig:state} shows that the distance to the target position, the angle $\theta$, and the egocentric heading are successfully zeroed under the QP navigation control protocol.
+To test the ability of the QP navigation control protocol to prevent collision of the robot with obstacles, robots were again initialized from eight starting positions with random headings, but an obstacle was placed in each robot's path. As Figure~\ref{fig:octoplot} demonstrates, the QP navigation controller simultaneously prevented collision while driving the robot to the desired state.
+As can be seen from Figures~\ref{fig:state}, the robot can successfully avoid the obstacle. When the robot is near an obstacle, it's linear velocity decreases and the angular velocity increases till the robot changes it's heading and then there is an increase in the linear velocity which drives it to the goal point.
+
+To numerically validate the relaxed control Lypanuov function in the QP, the value of the Lyapunov function and its derivative were plotted as the robot navigated. For the situation in which obstacles are absent, Figure~\ref{fig:lyapunovsans} shows the Lyapunov function and its derivative. The derivative is strictly less than zero until the state is driven to zero. The Lyapunov function is strictly positive until the robot reaches its final destination, but it is not strictly decreasing; this is an artifact resulting from the slack variable, which allow the QP to satisfy all of the constraints. Figure~\ref{fig:lyapunov} shows that the Lyapunov function and its derivative still behave correctly in the presence of obstacles.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.2]{lyapunovsans.png} 
+\caption{Lyapunov Function without Obstacles\label{fig:lyapunovsans}} 
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.2]{lyapunov.png} 
+\caption{Lyapunov Function with Obstacles\label{fig:lyapunov}} 
+\end{figure}
+
 
 \if0
 \begin{figure*}[t!]
@@ -339,29 +375,10 @@ To further evaluate the QP controller and substantiate its success, the state is
 \end{figure*}
 \fi
 
-\begin{figure*}[t!]
-\centering
-\begin{subfigure}[t]{0.32\textwidth}
-\includegraphics[scale=0.15]{possible_trajectory.png} 
-\caption{Trajectory of the robot  \label{fig:r}} 
-\end{subfigure}
-\begin{subfigure}[t]{0.32\textwidth}
-\includegraphics[scale=0.15]{U1.png} 
-\caption{The linear velocity of the robot \label{fig:theta}} 
-\end{subfigure}
-\begin{subfigure}[t]{0.32\textwidth}
-\includegraphics[scale=0.15]{U2.png} 
-\caption{The angular velocity of the robot \label{fig:delta}} 
-\end{subfigure}
-\caption{The above figures show the trajectory, linear velocity and angular velocity of the robot while avoiding the obstacle.\label{fig:state}}
-\end{figure*}
-
-To test the ability of the QP navigation control protocol to prevent collision of the robot with obstacles, robots were again initialized from eight starting positions with random headings, but an obstacle was placed in each robot's path. As Figure~\ref{fig:octoplot} demonstrates, the QP navigation controller simultaneously prevented collision while driving the robot to the desired state.
-
 
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.4]{octoPlotProofEditSqur.png} 
+\includegraphics[scale=0.3]{octoPlotProofEditSqur.png} 
 \caption{The figure above shows the same initializations at eight different starting locations and the trajectories followed by the robot to the origin to show that the robot can generate a trajectory from an arbitrary initial condition to the origin while avoiding the obstacle.\label{fig:octoplot}} 
 \end{figure}
 
@@ -380,11 +397,11 @@ To test the ability of the QP navigation control protocol to prevent collision o
  \fi
 
 \subsubsection{Path Generation}
-To demonstrate that the QP navigation control protocol enables successful navigation and collision avoidance, the probabilistic roadmap (PRM) planner was used to generate a trajectory through and environment. Probabilistic Roadmap Planner (PRM) is a planner that can compute collision-free paths for robots between two points. A path was planned using PRM for the map as shown in Figure~\ref{fig:prm}.  Figure~\ref{fig:prm_works} shows the result of applying the QP controller with the barrier functions. As can be seen in the figure, near coordinate (115,30) the barrier prevents the robot from hitting the wall. 
+To demonstrate that the QP navigation control protocol enables successful navigation and collision avoidance, the probabilistic roadmap (PRM) planner was used to generate a trajectory through and environment. Probabilistic Roadmap Planner (PRM) is a planner that can compute collision-free paths for robots between two points. A path was planned using PRM for the map as shown in Figure~\ref{fig:prm}.  Figure~\ref{fig:prm_works} shows the result of applying the QP controller with the barrier functions. As can be seen in the Figure \ref{fig:prm_works}, near coordinate (115,30) the barrier prevents the robot from hitting the wall. 
 
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.23]{final_prm.png} 
+\includegraphics[scale=0.18]{final_prm.png} 
 \caption{Trajectory Generated with PRM\label{fig:prm}} 
 \end{figure}
 %
@@ -396,27 +413,34 @@ To demonstrate that the QP navigation control protocol enables successful naviga
 %
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.23]{thick_plot.png} 
+\includegraphics[scale=0.18]{thick_plot.png} 
 \caption{Safe Navigation under QP Controller with Barrier Functions\label{fig:prm_works}}
 \end{figure}
 
 \subsubsection{Gazebo}
-Using Gazebo, the QP navigation control policy was implemented on a unicycle robot in an environment with obstacles. Figure~\ref{fig:gazebo} shows the robot as it navigates from its starting position to the final location. By demonstrating that the QP controller enabled successful navigation in a simulated 3D environment using the on-board sensors of the unicycle robot, the feasibility of implementing the QP navigation control protocol on a physical system was established. 
-
+Using Gazebo, the QP navigation control policy was implemented on a unicycle robot in an environment with obstacles. Figure~\ref{fig:gazebo} shows the robot as it navigates from its starting position to the final location. By demonstrating that the QP controller enabled successful navigation in a simulated 3D environment using the on-board sensors of the unicycle robot, the feasibility of implementing the QP navigation control protocol on a physical system was established.
+A video showing the results for one experimental run can be found at \url{https://youtu.be/Fsyf8p27W7c}\href{https://youtu.be/Fsyf8p27W7c}.
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.45]{Gazebo_exp.png} 
+\includegraphics[scale=0.3]{Gazebo_exp.png} 
 \caption{Gazebo Simulation Navigation\label{fig:gazebo}}
 \end{figure}
 
 \subsection{Experimental Results}
+
+Real robot experiments were performed on the segway robot ``jeeves''. The controller was implementd in the ROS framework. The hokuyo laser scans are subscribed to and the appropriate processing is performed. The robot is commanded to drive to a set point and the optimal $u$ is computed at every time step. The dynamics is propogated forward using the odometry. To add the obstacle, a human moved into the operation range of the obstacleas can be seen in Figure \ref{fig:jeeves_exp} and ensured that the robot did not break any safety constraints. A video showing one experimental run can be seen at \url {https://youtu.be/uhTiYyZxtfc}.
+
+The video shows that the robot maintains its safe distance from the human and tries to avoid the human, when the human walks out of the radius of influence the robot is free to move at greater speeds again.
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.20]{jeeves_exp.png} 
-\caption{Gazebo Simulation Navigation\label{fig:gazebo}}
+\includegraphics[scale=0.13]{jeeves_exp.png} 
+\caption{Real robot experiment with the segway RMP robot. The robot is stopped at a safe distance from the human obstacle. \label{fig:jeeves_exp}}
 \end{figure}
 
 \section{Conclusion}
+We show that the nonlinear controller is generatlizable to multiple robots and is provably safe. The theoretical analysis shows that the controller stabilizes the system while obeying the ``safety'' rules. The exaperimental analysis shows that the system can be implemented on a real world system and the results are consistent with the claims. The developed system is almost self-contained and does not require many parameter adjustments. 
+For future work, we propose more complex modelling of the obstacles to better capture the nature of the obstacle. For example, the safety barrier around a human is different from that around a wall. It is more ``socially'' acceptable to drive close to a wall but not as acceptable to be that close to a human.
+
 
 \bibliographystyle{IEEEtran}
 \bibliography{IEEEabrv,bibi}
