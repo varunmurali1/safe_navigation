@@ -1,0 +1,1615 @@
+#LyX file created by tex2lyx 2.0.8.1
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass IEEEtran
+\begin_preamble
+
+\usepackage{times}
+
+% numbers option provides compact numerical references in the text. 
+\usepackage{multicol}
+
+\pdfinfo{
+   /Author (Homer Simpson)
+   /Title  (Robots: Our new overlords)
+   /CreationDate (D:20101201120000)
+   /Subject (Robots)
+   /Keywords (Robots;Overlords)
+}
+
+
+\end_preamble
+\options conference
+\use_default_options false
+\language english
+\language_package none
+\inputencoding auto
+\fontencoding default
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\paperfontsize default
+\spacing single
+\use_hyperref 1
+\pdf_bookmarks 1
+\pdf_bookmarksnumbered 0
+\pdf_bookmarksopen 0
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks 0
+\pdf_pdfborder 0
+\pdf_colorlinks 0
+\pdf_backref section
+\pdf_pdfusetitle 0
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 0
+\use_mathdots 0
+\cite_engine natbib_numerical
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% paper title
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Title
+
+Template paper for the 
+\begin_inset Newline newline
+\end_inset
+
+Robotics: Science and Systems Conference
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% You will get a Paper-ID when submitting a pdf file to the conference system
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Author
+
+Author Names Omitted for Anonymous Review. Paper-ID [add your ID here]
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%
+\backslash
+author{
+\backslash
+authorblockN{Michael Shell}
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%
+\backslash
+authorblockA{School of Electrical and
+\backslash
+
+\backslash
+Computer Engineering
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%Georgia Institute of Technology
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%Atlanta, Georgia 30332--0250
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%Email: mshell@ece.gatech.edu}
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%
+\backslash
+and
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%
+\backslash
+authorblockN{Homer Simpson}
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%
+\backslash
+authorblockA{Twentieth Century Fox
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%Springfield, USA
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%Email: homer@thesimpsons.com}
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%
+\backslash
+and
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%
+\backslash
+authorblockN{James Kirk
+\backslash
+
+\backslash
+ and Montgomery Scott}
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%
+\backslash
+authorblockA{Starfleet Academy
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%San Francisco, California 96678-2391
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%Telephone: (800) 555--1212
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%Fax: (888) 555--1212}}
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% avoiding spaces at the end of the author lines is not a problem with
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% conference papers because we don't use 
+\backslash
+thanks or 
+\backslash
+IEEEmembership
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% for over three affiliations, or if they all won't fit within the width
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% of the page, use this alternative format:
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% 
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%
+\backslash
+author{
+\backslash
+authorblockN{Michael Shell
+\backslash
+authorrefmark{1},
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%Homer Simpson
+\backslash
+authorrefmark{2},
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%James Kirk
+\backslash
+authorrefmark{3}, 
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%Montgomery Scott
+\backslash
+authorrefmark{3} and
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%Eldon Tyrell
+\backslash
+authorrefmark{4}}
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%
+\backslash
+authorblockA{
+\backslash
+authorrefmark{1}School of Electrical and Computer Engineering
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%Georgia Institute of Technology,
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%Atlanta, Georgia 30332--0250
+\backslash
+
+\backslash
+ Email: mshell@ece.gatech.edu}
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%
+\backslash
+authorblockA{
+\backslash
+authorrefmark{2}Twentieth Century Fox, Springfield, USA
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%Email: homer@thesimpsons.com}
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%
+\backslash
+authorblockA{
+\backslash
+authorrefmark{3}Starfleet Academy, San Francisco, California 96678-2391
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%Telephone: (800) 555--1212, Fax: (888) 555--1212}
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%
+\backslash
+authorblockA{
+\backslash
+authorrefmark{4}Tyrell Inc., 123 Replicant Street, Los Angeles, California 90210--4321}}
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+
+The abstract goes here. 
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+IEEEpeerreviewmaketitle
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+
+Introduction
+\end_layout
+
+\begin_layout Standard
+
+This demo file is intended to serve as a 
+\begin_inset Quotes eld
+\end_inset
+
+starter file" for the Robotics: Science and Systems conference papers produced under LaTeX
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+using IEEEtran.cls version 1.7a and later.
+\end_layout
+
+\begin_layout Section
+
+Section
+\end_layout
+
+\begin_layout Standard
+
+Section text here.
+\end_layout
+
+\begin_layout Subsection
+
+Subsection Heading Here
+\end_layout
+
+\begin_layout Standard
+
+Subsection text here.
+\end_layout
+
+\begin_layout Subsubsection
+
+Subsubsection Heading Here
+\end_layout
+
+\begin_layout Standard
+
+Subsubsection text here.
+\end_layout
+
+\begin_layout Section
+
+RSS citations
+\end_layout
+
+\begin_layout Standard
+
+Please make sure to include 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+verb!natbib.sty!
+\end_layout
+
+\end_inset
+
+ and to use the 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+verb!plainnat.bst!
+\end_layout
+
+\end_inset
+
+ bibliography style. 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+verb!natbib!
+\end_layout
+
+\end_inset
+
+ provides additional citation commands, most usefully 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+verb!
+\backslash
+citet!
+\end_layout
+
+\end_inset
+
+. For example, rather than the awkward construction
+\end_layout
+
+\begin_layout Standard
+
+
+\size small
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+begin{verbatim}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand citet
+after ""
+before ""
+key "kalman1960new"
+
+\end_inset
+
+ demonstrated... 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+end{verbatim}
+\end_layout
+
+\end_inset
+
+ 
+\size default
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+rendered as 
+\begin_inset Quotes eld
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand citet
+after ""
+before ""
+key "kalman1960new"
+
+\end_inset
+
+ demonstrated...,
+\begin_inset Quotes erd
+\end_inset
+
+ or the inconvenient
+\end_layout
+
+\begin_layout Standard
+
+
+\size small
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+begin{verbatim}
+\end_layout
+
+\end_inset
+
+ Kalman 
+\begin_inset CommandInset citation
+LatexCommand citet
+after ""
+before ""
+key "kalman1960new"
+
+\end_inset
+
+ demonstrated... 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+end{verbatim}
+\end_layout
+
+\end_inset
+
+ 
+\size default
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+rendered as 
+\begin_inset Quotes eld
+\end_inset
+
+Kalman 
+\begin_inset CommandInset citation
+LatexCommand citet
+after ""
+before ""
+key "kalman1960new"
+
+\end_inset
+
+ demonstrated...
+\begin_inset Quotes erd
+\end_inset
+
+, one can write
+\end_layout
+
+\begin_layout Standard
+
+
+\size small
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+begin{verbatim}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand citet
+after ""
+before ""
+key "kalman1960new"
+
+\end_inset
+
+ demonstrated... 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+end{verbatim}
+\end_layout
+
+\end_inset
+
+ 
+\size default
+ which renders as 
+\begin_inset Quotes eld
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand citet
+after ""
+before ""
+key "kalman1960new"
+
+\end_inset
+
+ demonstrated...
+\begin_inset Quotes erd
+\end_inset
+
+ and is both easy to write and much easier to read.
+\end_layout
+
+\begin_layout Subsection
+
+RSS Hyperlinks
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+This year, we would like to use the ability of PDF viewers to interpret hyperlinks, specifically to allow each reference in the bibliography to be a link to an online version of the reference. As an example, if you were to cite 
+\begin_inset Quotes eld
+\end_inset
+
+Passive Dynamic Walking
+\begin_inset Quotes erd
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand citet
+after ""
+before ""
+key "McGeer01041990"
+
+\end_inset
+
+, the entry in the bibtex would read:
+\end_layout
+
+\begin_layout Standard
+
+
+\size small
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+begin{verbatim}
+\end_layout
+
+\end_inset
+
+ @article
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\end_inset
+
+McGeer01041990, author = 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\end_inset
+
+McGeer, Tad
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+, title = 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "Passive Dynamic Walking"
+target "http://ijr.sagepub.com/content/9/2/62.abstract"
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+, volume = 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\end_inset
+
+9
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+, number = 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\end_inset
+
+2
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+, pages = 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\end_inset
+
+62-82
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+, year = 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\end_inset
+
+1990
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+, doi = 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\end_inset
+
+10.1177/027836499000900206
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+, URL = 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\end_inset
+
+http://ijr.sagepub.com/content/9/2/62.abstract
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+, eprint = 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\end_inset
+
+http://ijr.sagepub.com/content/9/2/62.full.pdf+html
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+, journal = 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\end_inset
+
+The International Journal of Robotics Research
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+end{verbatim}
+\end_layout
+
+\end_inset
+
+ 
+\size default
+ and the entry in the compiled PDF would look like:
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+
+\begin_inset FormulaMacro
+\def\tmplabel #1{[#1]}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+
+tmplabel
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\end_inset
+
+1
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+ Tad McGeer. 
+\begin_inset CommandInset href
+LatexCommand href
+name "Passive Dynamic Walking"
+target "http://ijr.sagepub.com/content/9/2/62.abstract"
+
+\end_inset
+
+. 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+em
+\end_layout
+
+\end_inset
+
+ The International Journal of Robotics Research
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+, 9(2):62--82, 1990. 
+\end_layout
+
+\begin_layout Standard
+
+where the title of the article is a link that takes you to the article on IJRR's website.
+\end_layout
+
+\begin_layout Standard
+
+Linking cited articles will not always be possible, especially for older articles. There are also often several versions of papers online: authors are free to decide what to use as the link destination yet we strongly encourage to link to archival or publisher sites (such as IEEE Xplore or Sage Journals). We encourage all authors to use this feature to the extent possible.
+\end_layout
+
+\begin_layout Section
+
+Conclusion
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:conclusion"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+The conclusion goes here.
+\end_layout
+
+\begin_layout Section*
+
+Acknowledgments
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%% Use plainnat to work nicely with natbib. 
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+ 
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "references"
+options "plainnat"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

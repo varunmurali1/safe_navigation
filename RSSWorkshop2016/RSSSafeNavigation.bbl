@@ -1,0 +1,36 @@
+\begin{thebibliography}{4}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Ames et~al.(2014{\natexlab{a}})Ames, Galloway, Sreenath, and
+  Grizzle]{ames2014esclf}
+Aaron~D. Ames, Kevin Galloway, Koushil Sreenath, and Jessy~W. Grizzle.
+\newblock Rapidly exponentially stabilizing control lyapunov functions and
+  hybrid zero dynamics.
+\newblock In \emph{IEEE Transactions on Automatic Control (Volume:59 , Issue: 4
+  )}, pages 876--891. IEEE, 2014{\natexlab{a}}.
+
+\bibitem[Ames et~al.(2014{\natexlab{b}})Ames, Grizzles, and Tabuada]{amesACC}
+Aaron~D. Ames, Jessy~W. Grizzles, and Paulo Tabuada.
+\newblock Control barrier function based quadratic programs with application to
+  adaptive cruise control.
+\newblock In \emph{53rd IEEE Conference on Decision and Control}, pages
+  6271--6278. IEEE, 2014{\natexlab{b}}.
+
+\bibitem[Park and Kuipers(2011)]{park2011}
+Jong~Jin Park and Benjamin Kuipers.
+\newblock A smooth control law for graceful motion of differential wheeled
+  mobile robots in 2d environment.
+\newblock In \emph{Robotics and Automation (ICRA), 2011 IEEE International
+  Conference on}, pages 4896--4902. IEEE, 2011.
+
+\bibitem[Xu et~al.(2015)Xu, Tabuada, Grizzle, and Ames]{ames2015robust}
+Xiangru Xu, Paulo Tabuada, Jessy~W. Grizzle, and Aaron~D. Ames.
+\newblock Robustness of control barrier functions for safety critical control.
+\newblock In \emph{Analysis and Design of Hybrid Systems(Volume 48)}, pages
+  54--61, 2015.
+
+\end{thebibliography}
