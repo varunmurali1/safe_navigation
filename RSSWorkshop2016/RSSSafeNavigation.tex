@@ -353,7 +353,7 @@ F^T=\left[ \begin{matrix}
 \label{table:1}
 \end{table}
 
-\begin{figure*}[t!]
+\if0 \begin{figure*}[t!]
 \centering
 \begin{subfigure}[t]{0.32\textwidth}
 \includegraphics[scale=0.15]{possible_trajectory.png} 
@@ -368,7 +368,7 @@ F^T=\left[ \begin{matrix}
 \caption{The angular velocity of the robot \label{fig:delta}} 
 \end{subfigure}
 \caption{The above figures show the trajectory, linear velocity and angular velocity of the robot while avoiding the obstacle.\label{fig:state}}
-\end{figure*}
+\end{figure*} \fi
 
 The last two elements in the diagonal of $H$ were chosen to be zero to ensure that the negative quadratic cost of the slack variables $\alpha_1$ and $\alpha_2$ is as large as possible. Conversely, the last two elements of $F^T$ were chosen to ensure that $\alpha_1$ and $\alpha_2$ were negative to minimize the cost.
 
@@ -383,14 +383,14 @@ $z_*$ in $V_2$ represents the different steering objectives $z_1$ and $z_2$ in \
 
 \section{Experimental Results}
 
-Real robot experiments were performed on the segway robot ``jeeves''. The controller was implementd in the ROS framework. The hokuyo laser scans are subscribed to and the appropriate processing is performed. The robot is commanded to drive to a set point and the optimal $u$ is computed at every time step. The dynamics is propogated forward using the odometry. To add the obstacle, a human moved into the operation range of the obstacleas can be seen in Figure \ref{fig:jeeves_exp} and ensured that the robot did not break any safety constraints. A video showing one experimental run can be seen at \url {https://youtu.be/uhTiYyZxtfc}.
+Real robot experiments were performed on the segway robot ``jeeves''. The controller was implementd in the ROS framework. The hokuyo laser scans are subscribed to and the appropriate processing is performed. The robot is commanded to drive to a set point and the optimal $u$ is computed at every time step. The dynamics is propogated forward using the odometry. To add the obstacle, a human moved into the operation range of the obstacle \if0 can be seen in Figure \ref{fig:jeeves_exp} \fi and ensured that the robot did not break any safety constraints. A video showing one experimental run can be seen at \url {https://youtu.be/uhTiYyZxtfc}.
 
 The video shows that the robot maintains its safe distance from the human and tries to avoid the human, when the human walks out of the radius of influence the robot is free to move at greater speeds again.
-\begin{figure}[h!]
+\if0 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.13]{jeeves_exp.png} 
 \caption{Real robot experiment with the segway RMP robot. The robot is stopped at a safe distance from the human obstacle. \label{fig:jeeves_exp}}
-\end{figure}
+\end{figure} \fi
 
 \section{Conclusion}
 We show that the nonlinear controller is generatlizable to multiple robots and is provably safe. The theoretical analysis shows that the controller stabilizes the system while obeying the ``safety'' rules. The exaperimental analysis shows that the system can be implemented on a real world system and the results are consistent with the claims. The developed system is almost self-contained and does not require many parameter adjustments. 
