@@ -81,7 +81,7 @@ Safety is an important concern for mobile robots working in collaborative enviro
 After formulating the navigation control strategy, MATLAB simulation is used to verify that the navigation control strategy correctly drives the state of the robot to a target. After demonstrating that the robot successfully navigates to a target location, a trajectory is generated for a map using a probabilistic roadmap, and the navigation control strategy is used to drive the robot along the trajectory. After thoroughly substantiating the efficacy of the navigation control strategy in simulation, the controller is implemented in the ROS framework and evaluated on a Segway RMP 200 based mobile robot, verifying the navigation control strategy in a real world scenario.
 
 \section{Approach}
-Control Lyapunov functions and control barrier functions are formulated to individually accomplish the objectives of navigation and obstacle avoidance. The control Lyapunov and barrier functions are soft and hard constrained in a Quadratic Programming based controller to achieve safe navigation. Figure~\ref{fig:obs} shows the egocentric coordinate system of the robot and describes the variables used in the polar form of the unicycle dynamics modelling the robot, given by: 
+Control Lyapunov functions and control barrier functions are formulated to individually accomplish the objectives of navigation and obstacle avoidance. As in \cite{amesACC} and \cite{ames2014esclf}, the control Lyapunov and barrier functions are soft and hard constrained in a Quadratic Programming based controller to achieve safe navigation. Figure~\ref{fig:obs} shows the egocentric coordinate system of the robot and describes the variables used in the polar form of the unicycle dynamics modelling the robot, given by: 
 \begin{equation}
 \left(
 \begin{matrix}
@@ -95,23 +95,23 @@ Control Lyapunov functions and control barrier functions are formulated to indiv
 - v \text{ cos}(\delta)\\
 \frac{v}{r} \text{ sin}(\delta)\\
 \end{matrix}
-\right).
+\right)
 \end{equation}
 \begin{equation}
-\dot{\delta}=\frac{v}{r} \text{ sin}(\delta)+\omega
+\dot{\delta}=\frac{v}{r} \text{ sin}(\delta)+\omega.
 \end{equation}
 \begin{figure}[t]
 \begin{center}
 \includegraphics[scale=0.35]{obs.pdf} 
-\caption{The egocentric co-ordinate system of the robot is shown above. $r$ is the radial distance of the robot from the origin, $\phi$ is the heading of the robot in the target frame, $\theta$ is the orientation of the target frame in the robot frame, and $\delta$ is  the egocentric heading. $\beta$ is the angle between the global $x$-axis and the vector joining the center of the robot to the obstacle. \label{fig:obs}} 
+\caption{The egocentric co-ordinate system of the robot is shown above. $r$ is the radial distance of the robot from the origin, $\phi$ is the heading of the robot in the target frame, $\theta$ is the orientation of the target frame in the robot frame, and $\delta$ is  the egocentric heading. $z_b$ is the vector joining the center of the robot to the obstacle,  $r_b$ is the minimum safe distance from the obstacle, and $\beta$ is the angle between the global $x$-axis and $z_b$. \label{fig:obs}} 
 \end{center}
 \end{figure}
 
 \subsection{Control Lyapunov Functions}
-To design the control law, the standard quadratic Lyapunov function candidate is first considered:
+To design the navigation control law, two control Lyapunov functions are formulated. The standard quadratic Lyapunov function candidate is first considered:
 \begin{align}
-V&=\frac{1}{2}(r^2+\theta^2)\\
-\dot{V}&=r \dot{r}+\theta \dot{\theta}\\
+V_1&=\frac{1}{2}(r^2+\theta^2)\label{v1}\\
+\dot{V_1}&=r \dot{r}+\theta \dot{\theta}\\
 &=-r v \text{ cos}(\delta) + \theta v \text{ sin}(\delta)
 \end{align}
 Fixing $\delta$ to enforce a virtual steering control as in \cite{park2011}, 
@@ -119,11 +119,11 @@ Fixing $\delta$ to enforce a virtual steering control as in \cite{park2011},
 \delta = \text{arctan}(-k_1\theta). \end{equation}
 The derivative of the Lyapunov function becomes:
 \begin{equation}
-\dot{V}=-r v \text{ cos}(\text{arctan}(-k_1\theta)) + \theta v \text{ sin}(\text{arctan}(-k_1\theta)).
+\dot{V_1}=-r v \text{ cos}(\text{arctan}(-k_1\theta)) + \theta v \text{ sin}(\text{arctan}(-k_1\theta)).
 \end{equation} 
 
-%Furthermore, by the definition of the steering control, $\delta\to 0$ as $\theta \to 0$, so the virtual steering control not only drives the robot to the final position, but aligns the heading of the robot with the positive $x$-axis of the global coordinate frame by the time it arrives at the final position.
-Because $\theta\in (-\pi,\pi]$, $v>0$, and $r\geq 0$ , $\dot{V}<0$ $\forall \theta$, $r\neq0$; thus, the steering control asymptotically drives $r,\theta\to 0$. By choosing $v=k_3 r$ in some neighborhood of $r=0$ for positive constant $k_3,$ the singularity at $r=0$ is removed and the system is globally asymptotically stable.  Furthermore, the virtual steering control simultaneously drives the robot to the final position while aligning its heading with the positive global $x$-axis. 
+Because $\theta\in (-\pi,\pi]$, $v>0$, and $r\geq 0$ , $\dot{V}<0$ $\forall \theta$, $r\neq0$; thus, the steering control asymptotically drives $r,\theta\to 0$. By choosing $v=k_3 r$ in some neighborhood of $r=0$ for positive constant $k_3,$ the singularity at $r=0$ is removed and the system is globally asymptotically stable.  
+%Furthermore, the virtual steering control simultaneously drives the robot to the final position while aligning its heading with the positive global $x$-axis. 
 
 To drive the state to zero through the steering control, the heading must be driven such that $\delta = \text{arctan}(-k_1\theta).$ An objective $z_1$ is defined: 
 \begin{equation}
@@ -140,29 +140,29 @@ Feedback linearization can be used to achieve this objective by choosing the ang
 \left. \vphantom{\frac{v}{r}} \text{sin}(z_1+\text{ arctan}(-k_1\theta))\right],
 \end{split}
 \end{equation}
-the objective dynamics are globally exponentially stable with the following form: \begin{equation} \dot{z_1}=-k_2\frac{v}{r}z_1,\end{equation} where $k_1$ and $k_2$ can be chosen to increase or decrease how aggressive the steering control is. This is modelled along with other constraints by defining: 
-\begin{equation} V_2 = \frac{1}{2}  z^2. \end{equation}
+the objective dynamics are globally exponentially stable with the following form: \begin{equation} \dot{z_1}=-k_2\frac{v}{r}z_1,\end{equation} where $k_1$ and $k_2$ can be chosen to increase or decrease how aggressive the steering control is.
 
 A second steering controller is designed to drive the state away from the origin and is defined by the following objective: \begin{equation}z_2=\delta-\text{ atan}(k_1\beta).\label{z2}\end{equation}
 
-The derivative of $z_2$ is similarly computed as with $z_1$, and is given by \begin{equation}\dot{z_2} = \dot{\delta} \end{equation}
-%TODO check the clf stuff
-By choosing the angular velocity input $w$ to drive the heading $\delta=\text{ arctan}(-k_1\theta)$, steering control, which drives the state to zero, is achieved. Similarly, choosing the angular velocity input $w$ to drive the heading $\delta=\text{ arctan}(k_1\beta)$ causes the robot to drive away from zero. Thus, there exists a control input that satisfies the control Lyapunov function $\dot{V}<0$; furthermore, following Definition 3 in \cite{ames2014esclf}, the control Lyapunov function is exponentially stabilizing if it satisfies
+The derivative of $z_2$ is similarly computed as with $z_1$, and is given by $\dot{z_2} = \dot{\delta}.$ The steering objectives are modelled along with other constraints by defining: 
+\begin{equation} V_2 = \frac{1}{2}  z_*^2, \label{v2}\end{equation}
+where $z_*$ represents the objectives $z_1$ and $z_2$ in \eqref{z1} and \eqref{z2}.
+
+Feedback linearization can be used to show that steering control is achieved; thus, there exist control inputs that satisfy the control Lyapunov function $\dot{V_2}<0$; furthermore, following Definition 3 in \cite{ames2014esclf}, the control Lyapunov function is exponentially stabilizing if it satisfies
 \begin{equation}
 \inf_{u\in U}\left[ \dot{V}+\gamma V \right] \leq 0
 \label{eq:esclf}
 \end{equation}
-for some constant $\gamma >0$, so choosing the correct inputs $u$ will achieve the desired exponential stabilization. According to \cite{amesACC}, by picking a soft constraint relaxation variable $\lambda$, the condition for exponential stabilization shown in \eqref{eq:esclf} is relaxed and can be enforced simultaneously along with a single hard constraint. Because control of the robotic system requires either $\dot{z_1}=-k_2\frac{v}{r}z_1$ or $\dot{z_2}=-k_2\frac{v}{r}z_2$ and $\dot{V}<0$, two soft constrained expressions must be satisfied at a time to achieve exponential stabilization of the state to zero.
+for some constant $\gamma >0$, so choosing the correct inputs $u$ will achieve the desired exponential stabilization. 
 
-\subsection{Barrier Functions}
-%TODO invariance of C, proof that u satisfy BF
-As in \cite{amesACC} and \cite{ames2014esclf}, control barrier functions are a logical way of enforcing safety constraints in navigation from a nonlinear control perspective. 
+%According to \cite{amesACC}, by picking a soft constraint relaxation variable $\lambda$, the condition for exponential stabilization shown in \eqref{eq:esclf} is relaxed and can be enforced simultaneously along with a single hard constraint. Because control of the robotic system requires either $\dot{z_1}=-k_2\frac{v}{r}z_1$ or $\dot{z_2}=-k_2\frac{v}{r}z_2$ and $\dot{V}<0$, two soft constrained expressions must be satisfied at a time to achieve exponential stabilization of the state to zero.
 
-A zeroing barrier function is used to drive the robot away from obstacles if it leaves the safe set (e.g. the robot gets within an unsafe threshold distance of the obstacle). The safe set $C$ is described by the following expressions:
+\subsection{Control Barrier Functions}
+Two control barrier functions are formulated to keep the robot in the safe set $C$ defined by:
 \begin{align}
-C &= {x \in \mathbb{R}^3 | z_b\geq z_{safe}}\\
-\partial C &= {x \in \mathbb{R}^3 | z_b=z_{safe}}\\
-\text{Int}(C) &= {x \in \mathbb{R}^3 | z_b > z_{safe}}
+C &= \left\lbrace \in \mathbb{R}^3 | z_b\geq r_b\right\rbrace\\
+\partial C &= \left\lbrace x \in \mathbb{R}^3 | z_b=r_b\right\rbrace\\
+\text{Int}(C) &= \left\lbrace x \in \mathbb{R}^3 | z_b > r_b\right\rbrace.
 \end{align}
 
 As presented in \cite{ames2015robust}, a barrier function is a zeroing barrier function $h(x)$ if $\dot{h}(x)\leq \gamma h(x).$ For the purpose of avoiding obstacles in the event that the robot leaves the safe set, a zeroing barrier function was chosen with the following form:
@@ -178,11 +178,12 @@ The derivative of $h(x)$ is given by the following expression:
 \label{zbf}
 \end{equation}
 
-A barrier function was chosen to prevent the robot from leaving the safe set. According to Definition 2 in \cite{amesACC}, the barrier function $B$ is a control barrier function if 
+A second barrier function was chosen to prevent the robot from leaving the safe set. According to Definition 2 in \cite{amesACC}, the barrier function $B$ is a control barrier function if 
 \begin{equation}
 \inf_{u\in U}\left[ \dot{B}+\frac{\gamma}{B} \right] \leq 0.
 \label{eq:cbf}
-\end{equation} Thus, by satisfying the equation $\dot{B}\leq 1/B$, the barrier function will prevent the robot from leaving the safe set. The barrier function was chosen to be
+\end{equation}
+Thus, by satisfying the equation $\dot{B}\leq 1/B$, the barrier function will prevent the robot from leaving the safe set. The barrier function was chosen to be
 \begin{equation}
 B=\frac{1}{h(x)-z_{safe}},
 \label{bf}
@@ -221,7 +222,6 @@ c_c\leq \omega & \leq c_d\\
 \end{align}
 
 In \eqref{QP}, the sparse matrix $H\in \mathbb{R}^{6\times 6}$ has 1 in the first four elements of the diagonal, and the last two elements of the sparse vector $F^T\in \mathbb{R}^{1\times 6}$ are 10 and 1.
- 
 \if0
 \begin{tabu} to 0.5\textwidth { | X[c] |  X[c] | }
  \hline
@@ -240,7 +240,6 @@ In \eqref{QP}, the sparse matrix $H\in \mathbb{R}^{6\times 6}$ has 1 in the firs
 \caption{Table to test captions and labels}
 \end{tabu}
 \fi
-
 \if0
 \begin{table}
 \centering
@@ -281,14 +280,7 @@ In \eqref{QP}, the sparse matrix $H\in \mathbb{R}^{6\times 6}$ has 1 in the firs
 %\end{figure*}
 The last two elements in the diagonal of $H$ were chosen to be zero to ensure that the negative quadratic cost of the slack variables $\alpha_1$ and $\alpha_2$ is as large as possible. Conversely, the last two elements of $F^T$ were chosen to ensure that $\alpha_1$ and $\alpha_2$ were negative to minimize the cost.
 
-The control Lyapunov functions $V_1$ and $V_2$ are the Lyapunov functions corresponding to the objectives of driving the state to zero and enforcing the steering control respectively; the equations are given by 
-\begin{equation}
-V_1=\frac{1}{2}(r^2+\theta^2)
-\end{equation} and
-\begin{equation}
-V_2=\frac{1}{2}z_*^2.
-\end{equation}
-$z_*$ in $V_2$ represents the different steering objectives $z_1$ and $z_2$ in \eqref{z1} and \eqref{z2}. Because there are two steering objectives, two QP control laws are required: one which drives the state towards the target while avoiding obstacles, and the other that drives the state in such a way that the robot steers away from obstacles. Toggling between steering objectives is dependent on the obstacle measurement. If the measurement of the distance between the robot and the obstacle was less than the minimum safe distance, then the steering objective $z_2$ is used. Otherwise, $z_1$ is used, and $\alpha_1=0$ is additionally enforced. $h(x)$ and $B$ in the QP controller are given in equations \eqref{zbf} and \eqref{bf}. 
+The control Lyapunov functions $V_1$ and $V_2$ are the Lyapunov functions corresponding to the objectives of driving the state to zero and enforcing the steering control respectively; the equations are given by \eqref{v1} and \eqref{v2}. Because there are two steering objectives, $z_1$ in \eqref{z1} and $z_2$ in \eqref{z2}, for $V_2$, two QP control laws are required: one which drives the state towards the target while avoiding obstacles, and the other that drives the state in such a way that the robot steers away from obstacles. Toggling between steering objectives is dependent on the obstacle measurement. If the measurement of the distance between the robot and the obstacle was less than the minimum safe distance, then the steering objective $z_2$ is used. Otherwise, $z_1$ is used, and $\alpha_1=0$ is additionally enforced. $h(x)$ and $B$ in the QP controller are given in equations \eqref{zbf} and \eqref{bf}. 
 
 \section{Results}
 MATLAB simulation was used to verify that the navigation control strategy using the QP controller enabled the robot to navigate to the desired position while avoiding obstacles. Figure~\ref{fig:octoplot} shows that the navigation control strategy is capable of driving the robot to the final position while avoiding obstacles from a variety of starting locations. Figure~\ref{fig:prm_works} shows that the navigation control strategy enables safe navigation between target waypoints generated through a probabilistic roadmap.
